@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.imageview.ShapeableImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:src="@drawable/finish_4"
+    android:scaleType="fitXY"
+    android:id="@+id/root"
+    app:shapeAppearanceOverlay="@style/rounded_image_bg"
+    xmlns:android="http://schemas.android.com/apk/res/android" />

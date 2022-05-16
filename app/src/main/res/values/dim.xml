@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="small_text_size">14sp</dimen>
+    <dimen name="small_icon_size">24dp</dimen>
+    <dimen name="size_item_setting">70dp</dimen>
+    <dimen name="marginStartAndEnd">24dp</dimen>
+    <dimen name="marginTop">24dp</dimen>
+
+<!--    setting dim-->
+    <dimen name="layoutWidth">35dp</dimen>
+    <dimen name="CardRaduis">17.5dp</dimen>
+    <dimen name="iconSize">23dp</dimen>
+    <dimen name="layoutMarginTop">35dp</dimen>
+    <dimen name="layoutMarginStart">60dp</dimen>
+    <dimen name="languageTextSize">14sp</dimen>
+    <dimen name="lineMarginHorizontal">45dp</dimen>
+    <dimen name="lineMarginTop">15dp</dimen>
+    <dimen name="titlesSize">16sp</dimen>
+    <dimen name="languagesTextViewMaxHeight">40dp</dimen>
+
+<!--overview dimention-->
+    <!-- general -->
+    <dimen name="titlesSize2">21sp</dimen>
+    <dimen name="subTitlesSize">18sp</dimen>
+    <dimen name="normalTextSize">16sp</dimen>
+    <dimen name="defaultTextSize">14sp</dimen>
+    <!-- items size -->
+    <dimen name="itemHeight">70dp</dimen>
+    <dimen name="itemWidth">90dp</dimen>
+    <dimen name="iconSize2">40dp</dimen>
+    <dimen name="iconMarginTop">5dp</dimen>
+    <dimen name="titleMaxHeight">18dp</dimen>
+    <dimen name="itemMarginEnd">6.66dp</dimen>
+    <!-- Gallery -->
+    <dimen name="picSize">80dp</dimen>
+    <dimen name="picMarginEnd">20dp</dimen>
+    <!--  restaurant -->
+    <dimen name="retsMarginTop">5dp</dimen>
+    <!-- hotel -->
+    <dimen name="hotelMarginTop">8dp</dimen>
+    <!-- frag reviews -->
+    <dimen name="starSize">30dp</dimen>
+    <!-- reviews -->
+    <dimen name="starSize2">15dp</dimen>
+
+
+<!--    edit profile-->
+    <dimen name="titleSize">22sp</dimen>
+    <dimen name="imageSize">110dp</dimen>
+    <dimen name="marginStart">20dp</dimen>
+    <dimen name="marginVertical">12dp</dimen>
+</resources>

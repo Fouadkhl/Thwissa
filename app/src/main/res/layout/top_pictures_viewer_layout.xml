@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_viewpager"
+    android:padding="10dp"
+    >
+
+    <RelativeLayout
+        android:layout_marginVertical="10dp"
+        android:id="@+id/relative_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_pictures_layout_background"
+        android:layout_marginBottom="5dp">
+
+        <com.example.thwissa.fragment.entertainment.RoundedImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/_4"
+            android:layout_marginEnd="10dp"
+            />
+
+        <TextView
+            android:id="@+id/name_textView"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_toEndOf="@+id/profile_picture"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:text="ali omar"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_below="@+id/name_textView"
+            android:layout_toEndOf="@+id/profile_picture"
+            android:textStyle="bold"
+            android:textSize="12sp"
+            android:text="media"/>
+
+    </RelativeLayout>
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/top_picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relative_layout1"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/images_1"
+
+        app:shapeAppearanceOverlay="@style/circle2" />
+
+</RelativeLayout>

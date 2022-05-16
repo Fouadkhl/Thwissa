@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/profile_photo_and_text"
+                layout="@layout/profile_image_and_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp" />
+
+            <TextView
+                android:id="@+id/tv_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/profile_photo_and_text"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:drawableLeft="@drawable/ic_email"
+                android:drawablePadding="8dp"
+                android:text="www.mohammedali0310@gmail.com"
+                android:textSize="16dp" />
+
+            <include
+                android:id="@+id/my_trip"
+                layout="@layout/item_profile"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_setting"
+                android:layout_below="@id/tv_email"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                android:padding="4dp"
+                app:text="@{@string/trips}" />
+
+            <!--        app:photo="@{@drawable/ic_person_icon}"-->
+
+            <include
+                android:id="@+id/settings"
+                layout="@layout/item_profile"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_setting"
+                android:layout_below="@id/my_trip"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                app:text="@{@string/settings}" />
+            <!--        app:colorback="@{@color/colorback2}"-->
+            <!--        app:photo="@{@drawable/ic_baseline_settings_24}"-->
+
+            <include
+                android:id="@+id/favorite"
+                layout="@layout/item_profile"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_setting"
+                android:layout_below="@id/settings"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                app:text="@{@string/others}" />
+            <!--        app:colorback="@{@color/colorback3}"-->
+            <!--        app:photo="@{@drawable/ic_baseline_bookmark_24}"-->
+
+
+            <include
+                android:id="@+id/contact_us"
+                layout="@layout/item_profile"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_setting"
+                android:layout_below="@id/favorite"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                app:text="@{@string/contact}" />
+            <!--        app:colorback="@{@color/colorback4}"-->
+            <!--        app:photo="@{@drawable/ic_baseline_phone_forwarded_24}"-->
+
+            <include
+                android:id="@+id/feed_back"
+                layout="@layout/item_profile"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_setting"
+                android:layout_below="@id/contact_us"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                app:text="@{@string/feedback}" />
+            <!--        app:colorback="@{@color/colorback5}"-->
+            <!--        app:photo="@{@drawable/ic_baseline_feedback_24}"-->
+
+            <include
+                android:id="@+id/log_out"
+                layout="@layout/item_profile"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_item_setting"
+                android:layout_below="@id/feed_back"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="24dp"
+                app:text="@{@string/logout}" />
+        </LinearLayout>
+    </ScrollView>
+</layout>

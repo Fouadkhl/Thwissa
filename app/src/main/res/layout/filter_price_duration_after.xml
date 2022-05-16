@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/price"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        />
+    <com.google.android.material.slider.RangeSlider
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:labelBehavior="withinBounds"
+        android:valueFrom="0"
+        app:trackColorActive="@color/blue_logo"
+        app:thumbRadius="8dp"
+        app:haloColor="@color/blueTransparent"
+        app:tickColor="@color/blue_logo"
+        app:thumbColor="@color/blue_logo"
+        app:thumbStrokeColor="@color/blue_logo"
+        app:trackColorInactive="@color/grey"
+        android:valueTo="10000"
+        app:values="@array/initial_slider_values"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/duration"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:textStyle="bold"
+        />
+
+    <com.google.android.material.slider.RangeSlider
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:labelBehavior="withinBounds"
+        android:valueFrom="0"
+        android:valueTo="10000"
+        app:thumbRadius="8dp"
+        app:haloColor="@color/blueTransparent"
+        app:tickColor="@color/blue_logo"
+        app:thumbColor="@color/blue_logo"
+        app:trackColorActive="@color/blue_logo"
+        app:thumbStrokeColor="@color/blue_logo"
+        app:trackColorInactive="@color/grey"
+        app:values="@array/initial_slider_values"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/after"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/black"
+        />
+    <Spinner
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_spinner"
+        android:entries="@array/periode"
+        />
+</LinearLayout>

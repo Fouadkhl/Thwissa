@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/tv_attributes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/category"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:textSize="20dp"/>
+
+
+    <CheckBox
+        android:id="@+id/checkbox_agency"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_attributes"
+        android:layout_marginStart="5dp"
+        android:checked="true"
+        android:text="@string/entertainment"
+        android:textSize="16dp" />
+
+    <CheckBox
+        android:id="@+id/checkbox_region"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/checkbox_agency"
+        android:layout_marginStart="5dp"
+        android:text="@string/touristic"
+        android:textSize="16dp" />
+    <CheckBox
+        android:id="@+id/checkbox_trip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/historic"
+        android:textSize="16dp"
+        android:layout_below="@id/checkbox_region"
+        android:layout_marginStart="5dp"
+        />
+</RelativeLayout>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1B1A17"
+    tools:context="com.example.shape.fragment.storyfragment.StoryFragment">
+
+    <!-- STORY PICTURE   -->
+    <ImageView
+        android:id="@+id/story_pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:src="@drawable/_3" />
+
+
+    <!-- PREVIOUS & NEXT STORY  -->
+    <LinearLayout
+        android:id="@+id/story_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/previous_story"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <View
+            android:id="@+id/next_story"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <!-- PROGRESS BAR -->
+    <LinearLayout
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+        <!-- EXAMPLE HERE:
+        <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/my_rounded_shape" >
+                    <View
+                        android:id="@+id/progress"
+                        android:layout_width="60dp"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"/>
+                </androidx.cardview.widget.CardView>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/my_rounded_shape" />
+        -->
+    </LinearLayout>
+
+    <!-- USER PROFILE FRAME & PICTURE-->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/profile_pic_frame"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="28dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="40dp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_gravity="center"
+            app:cardCornerRadius="100dp">
+            <ImageView
+                android:id="@+id/profile_pic"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/_4" />
+        </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- USER NAME -->
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/progress_bar"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_toEndOf="@id/profile_pic_frame"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        tools:text="Youcef Belkhiri" />
+
+
+    <!-- WILAYA NAME -->
+    <TextView
+        android:id="@+id/wilaya"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_name"
+        android:layout_marginStart="10dp"
+        android:layout_toEndOf="@id/profile_pic_frame"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        tools:text="Algiers" />
+    <!-- | -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_name"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="2dp"
+        android:layout_toEndOf="@id/wilaya"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="|"
+        android:textColor="@color/white" />
+
+    <!-- DATE -->
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_name"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="6dp"
+        android:layout_toEndOf="@+id/wilaya"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:textColor="#EEEEEE"
+        android:textSize="12sp"
+        tools:text="14/03/2022" />
+
+
+    <!--BUTTONS -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="20dp"
+        android:orientation="vertical">
+
+        <!--    PAUSE & RESUME BUTTON-->
+        <ImageView
+            android:id="@+id/pause_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_pause_24" />
+
+        <!-- LIKE BUTTON -->
+        <ImageView
+            android:id="@+id/like_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="?android:attr/selectableItemBackground"
+
+            android:src="@drawable/ic_baseline_thumb_up_alt_24" />
+
+        <TextView
+            android:id="@+id/likes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:text="15" />
+
+        <!-- DISLIKE BUTTON -->
+        <ImageView
+            android:id="@+id/dislike_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_thumb_down_alt_24" />
+
+        <TextView
+            android:id="@+id/dislikes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            tools:text="2" />
+
+        <!-- SHARE BUTTON -->
+        <ImageView
+            android:id="@+id/share_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_share_24" />
+
+        <TextView
+            android:id="@+id/share_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:text="Share"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+
+
+        <!-- REPORT BUTTON -->
+        <ImageView
+            android:id="@+id/report_button"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:background="?android:attr/selectableItemBackground"
+            android:src="@drawable/ic_baseline_report_problem_24" />
+
+        <TextView
+            android:id="@+id/report_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:shadowColor="@color/black"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:text="Report"
+            android:textColor="@color/white"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="24dp"
+            android:layout_weight="0.45"
+            android:text="sign up"
+            android:textColor="@color/text_color"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="36dp"
+            android:layout_height="3dp"
+            android:layout_below="@id/sign_in"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/blue_logo" />
+
+
+        <FrameLayout
+            android:id="@+id/fl_add_image"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_below="@id/sign_in"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="24dp"
+            android:elevation="2dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_below="@id/sign_in"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/_4"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/round" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:background="@color/transparent"
+                android:elevation="2dp"
+                android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_add_image"
+            android:drawableStart="@drawable/ic_person_icon"
+            android:hint="Name"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <EditText
+            android:id="@+id/et_email"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_name"
+            android:drawableStart="@drawable/ic_email"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="14dp" />
+
+        <EditText
+            android:id="@+id/et_password"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_email"
+            android:drawableStart="@drawable/ic_password"
+            android:hint="Password"
+            android:inputType="textPassword"
+            android:padding="14dp" />
+
+        <EditText
+            android:id="@+id/et_confirm_password"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_password"
+            android:drawableStart="@drawable/ic_password"
+            android:hint="Confirm password"
+            android:inputType="textPassword"
+            android:padding="14dp" />
+
+        <EditText
+            android:id="@+id/et_location"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_confirm_password"
+            android:drawableStart="@drawable/ic_baseline_add_location_alt_24"
+            android:padding="14dp"
+            android:hint="Location" />
+
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_location"
+            android:layout_gravity="start"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rbtn_male"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="24dp"
+                android:layout_weight="1"
+                android:text="Male" />
+
+            <RadioButton
+                android:id="@+id/rbtn_female"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_weight="1"
+                android:text="Female    " />
+        </RadioGroup>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_sign_up"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/radio_group"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/background_sign_in"
+            android:padding="4dp"
+            android:text="Sign up"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btn_sign_up"
+            android:layout_marginBottom="24dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_signup_with_google"
+                style="@style/edit_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_gray"
+                android:drawableStart="@drawable/icons8_google"
+                android:drawablePadding="0dp"
+                android:elevation="0dp"
+                android:hint="google"
+                android:textColorHint="#007DA5" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signup_facebook"
+                style="@style/edit_text_style"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/background_gray"
+                android:drawableStart="@drawable/icons8_facebook"
+                android:drawablePadding="0dp"
+                android:elevation="0dp"
+                android:hint="google"
+                android:textColorHint="#007DA5" />
+
+        </LinearLayout>
+
+    w</RelativeLayout>
+
+</ScrollView>

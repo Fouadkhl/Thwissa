@@ -1,0 +1,26 @@
+<RelativeLayout android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="15dp">
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/Image"
+        android:src="@drawable/ic_baseline_chat_bubble_24"
+        android:scaleType="centerCrop" />
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/cancelButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="-40dp"
+        android:layout_toEndOf="@id/Image"
+        android:elevation="0dp"
+        android:src="@drawable/ic_icons8_effacer"
+        android:theme="@style/cancelButtonTheme"
+        android:visibility="visible"
+        app:elevation="0dp"
+        app:fabCustomSize="40dp"
+        />
+</RelativeLayout>

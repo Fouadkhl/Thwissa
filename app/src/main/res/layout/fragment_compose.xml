@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.shape.fragment.newsfragment.fragments.ComposeFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/replyProfileBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="7dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/replyCancelPic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:elevation="0dp"
+                android:src="@drawable/ic_icons8_effacer"
+                android:theme="@style/cancelButtonTheme"
+                app:elevation="0dp"
+                app:fabCustomSize="40dp" />
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/shareButton"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="23dp"
+                android:layout_toStartOf="@id/replyAddPic"
+                android:paddingVertical="10dp"
+                android:text="@string/share"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#585858"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:ignore="ContentDescription"
+                android:theme="@style/replyFragTheme"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/replyAddPic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_baseline_add_a_photo_24"
+                app:fabCustomSize="40dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/DestinationBar"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/replyProfileBar"
+            android:layout_marginHorizontal="20dp">
+
+            <ImageView
+                android:id="@+id/compose_location_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_location_on_24_2" />
+
+            <EditText
+                android:id="@+id/EditDestination"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_toEndOf="@id/compose_location_icon"
+                android:hint="@string/destination" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/dateBar"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp">
+            <ImageView
+                android:id="@+id/compose_date_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_calendar_today_24" />
+
+            <EditText
+                android:id="@+id/EditDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_toEndOf="@id/compose_date_icon"
+                android:focusable="false"
+                android:hint="@string/date"
+                android:inputType="date" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/periodBar"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/replyProfileBar" android:layout_marginHorizontal="20dp">
+            <ImageView
+                android:id="@+id/compose_period_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_access_time_filled_24" />
+            <EditText
+                android:id="@+id/EditPeriod"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_toEndOf="@id/compose_period_icon"
+                android:hint="@string/period"
+                android:inputType="number"/>
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/EditPeriod"
+                android:entries="@array/times" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/priceBar"
+            android:layout_width="370dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp">
+            <ImageView
+                android:id="@+id/compose_price_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_baseline_coin_24"/>
+
+            <EditText
+                android:id="@+id/EditPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_toEndOf="@id/compose_price_icon"
+                android:hint="@string/price"
+                android:inputType="number" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp">
+            <ImageView
+                android:id="@+id/compose_description_icon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_description_24"
+                android:layout_marginVertical="10dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/description"
+                android:layout_marginStart="20dp"
+                android:layout_toEndOf="@id/compose_description_icon"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginVertical="10dp"
+                android:id="@+id/price"/>
+
+            <EditText
+                android:id="@+id/descriptionEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/price"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@null"
+                android:hint="@string/type_something"
+                android:minHeight="50dp"
+                android:textColor="@color/black"
+                android:textSize="17sp" />
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:id="@+id/ImagesRecycleView"/>
+    </LinearLayout>
+</FrameLayout>

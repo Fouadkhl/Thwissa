@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:theme="@style/replyFragTheme"
+    tools:context="com.example.shape.fragment.newsfragment.fragments.ReplyFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/replyProfileBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="7dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/replyCancelPic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:elevation="0dp"
+                android:src="@drawable/ic_icons8_effacer"
+                android:theme="@style/cancelButtonTheme"
+                app:elevation="0dp"
+                app:fabCustomSize="40dp" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/replyButton"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="23dp"
+                android:layout_toStartOf="@id/replyAddPic"
+                android:paddingVertical="10dp"
+                android:text="@string/reply"
+                android:textAlignment="center"
+                android:textAllCaps="false"
+                android:textColor="#585858"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:ignore="ContentDescription" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/replyAddPic"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_baseline_add_a_photo_24"
+                android:theme="@style/Theme.Shape"
+                app:fabCustomSize="40dp" />
+        </RelativeLayout>
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:shapeAppearanceOverlay="@style/circle"
+            android:src="@drawable/profile_b"
+            android:scaleType="centerCrop"
+            android:layout_below="@id/replyProfileBar"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/reply_profile_pic"
+            android:layout_marginEnd="15dp"/>
+
+        <EditText
+            android:id="@+id/replyContentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/replyProfileBar"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@null"
+            android:hint="@string/type_something"
+            android:minHeight="70dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="20dp"
+            android:textColor="@color/black"
+            android:textSize="17sp" />
+
+        <RelativeLayout
+            android:visibility="gone"
+            android:id="@+id/container"
+            android:layout_below="@id/replyContentEditText"
+            android:layout_width="match_parent"
+            android:layout_height="200dp">
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/cancelButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="-50dp"
+                android:layout_toEndOf="@id/choosedImage"
+                android:elevation="0dp"
+                android:src="@drawable/ic_icons8_effacer"
+                android:theme="@style/cancelButtonTheme"
+                app:elevation="0dp"
+                app:fabCustomSize="40dp"
+                />
+
+            <ImageView
+                android:id="@+id/choosedImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>

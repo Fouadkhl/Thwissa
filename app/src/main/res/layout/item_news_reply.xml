@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/filtrebg"
+    android:layout_marginVertical="10dp"
+    android:id="@+id/postParent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginVertical="7dp"
+        >
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/reply_profile_pic"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="15dp"
+            android:src="@drawable/profile_b"
+            app:shapeAppearanceOverlay="@style/circle" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/reply_profile_pic"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="3dp"
+                android:text="abdel razak"
+                android:textColor="@color/textColor"
+                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_location_on_24_2"
+                android:layout_below="@+id/user_name"
+                android:id="@+id/location_icon"/>
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@id/user_name"
+                android:layout_toEndOf="@id/location_icon"
+                android:text="Bouira"
+                android:textColor="@color/textColor"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/postTime"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/user_name"
+                android:text="5h ago"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/content"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginVertical="7dp"
+        android:id="@+id/replyPic"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp">
+
+        <ImageView
+            android:id="@+id/up_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/up_arrow_not_clicked" />
+
+        <TextView
+            android:id="@+id/diff"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/up_button"
+            android:padding="6dp"
+            android:text="5"
+            android:textAlignment="center"
+            android:textColor="@color/textColor"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/down_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/diff"
+            android:src="@drawable/down_arrow_not_clicked" />
+    </RelativeLayout>
+</LinearLayout>

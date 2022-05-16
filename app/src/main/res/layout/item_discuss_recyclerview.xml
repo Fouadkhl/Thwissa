@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="50dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--   USER PROFILE  -->
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp">
+            <!-- USER PROFILE FRAME & PICTURE-->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/profile_pic_frame"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="15dp"
+                app:cardBackgroundColor="@color/teal_200"
+                app:cardCornerRadius="40dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="40dp">
+
+                    <ImageView
+                        android:id="@+id/profile_pic"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        tools:src="@drawable/profile_b" />
+                </androidx.cardview.widget.CardView>
+            </androidx.cardview.widget.CardView>
+
+            <!-- USER NAME -->
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/profile_pic_frame"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/profile_pic_frame"
+                android:textColor="#0D2B51"
+                android:textSize="16sp"
+                tools:text="Youcef Belkhiri" />
+
+            <!-- WILAYA NAME -->
+            <ImageView
+                android:id="@+id/location_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user_name"
+                android:layout_alignStart="@id/user_name"
+                android:src="@drawable/ic_baseline_add_location_alt_24" />
+
+            <TextView
+                android:id="@+id/wilaya"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/user_name"
+                android:layout_toEndOf="@id/location_icon"
+                android:textColor="#0D2B51"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="Algiers" />
+
+            <!--        SAVE TO FAVORITE ICON -->
+            <ImageView
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@id/user_name"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/ic_baseline_bookmark_24" />
+        </RelativeLayout>
+
+
+        <!--        DISCUSS TEXT -->
+        <TextView
+            android:id="@+id/discuss_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="We want to organize a trip this weekend, if you want to go dont hesitate to join us " />
+
+        <!--        DISCUSS IMAGE -->
+        <ImageView
+            android:id="@+id/discuss_image"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_marginTop="10dp"
+            tools:src="@drawable/profile_b" />
+
+        <!--        BUTTONS BAR-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="2dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/dislike_button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/background"
+                android:layout_marginEnd="15dp"
+                android:textColor="#59C7EF"
+                app:icon="@drawable/ic_baseline_thumb_down_alt_24"
+                app:iconTint="#59C7EF"
+                tools:text="5" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/like_button"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:textColor="#59C7EF"
+                app:backgroundTint="@color/background"
+                app:icon="@drawable/ic_baseline_thumb_up_alt_24"
+                app:iconTint="#59C7EF"
+                tools:text="20" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/reply_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#59C7EF"
+                android:textScaleX="0.8"
+                android:textSize="15sp"
+                app:backgroundTint="@color/background"
+                app:icon="@drawable/ic_baseline_chat_bubble_24"
+                app:iconTint="#59C7EF"
+                tools:text="15 replies" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

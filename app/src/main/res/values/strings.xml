@@ -1,0 +1,264 @@
+<resources>
+    <string name="app_name">thwissa</string>
+    <string name="search_question">Where do you want to go?</string>
+    <string name="desert_area">Desert area</string>
+    <string name="recommended_places">Recommended places</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tab_item_1">near to you</string>
+    <string name="tab_item_2">top sites</string>
+    <string name="near_to_you">near to you</string>
+    <string name="topSites">top sites</string>
+    <string name="register_as">register as </string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up"><u>Sign up </u></string>
+    <string name="forget_password"><u>forget password</u></string>
+    <string name="verification">in order to ensure that the agency is accredited the following document must be entered</string>
+    <string name="items"><ul><li>certificate of specialization</li><li>certification of professionals</li> </ul></string>
+    <string name="item1_red"><![CDATA[<b><font color=#FF0000>certificate of specialization</font></b>]]></string>
+    <string name="item2_red"><![CDATA[<b><font color=#FF0000>certificate of specialization</font></b>]]></string>
+
+    <string name="item1"><ul><li><font color='red'>certificate of specialization</font></li></ul></string>
+    <string name="item2"><ul><li><font color='red'>certification of professionals </font></li></ul></string>
+    <string name="trips">Edit profile</string>
+    <string name="settings">settings</string>
+    <string name="contact">contact us</string>
+    <string name="feedback">feedback</string>
+    <string name="description">description</string>
+
+
+<!--    entertainment strings-->
+    <string name="top_pictures_this_week">Top pictures this week</string>
+    <string name="quiz">Quiz</string>
+    <string name="question_1">Where Do Mansoura situate ?</string>
+    <string name="option_1">mostaganem</string>
+    <string name="option_2">medea</string>
+    <string name="option_3">Tlemcene</string>
+    <string name="more_informations">more informations</string>
+    <string name="decide_where_you_want_to_go">Decide Where you want to go</string>
+    <string name="randomText">
+<![CDATA[ Maybe you already know where to go, or maybe you need inspiration. Let me help you.\n\n First, find the reason why you want to travel.\n\n Do you want to escape ks,lksznx kl,dzlx,kxdznlez&m x\n sl jwzsjn wxbxz bhd\n ]]>
+</string>
+    <string name="popout_text">there are no more questions for the moment wait for new ones or press restart</string>
+    <string name="restart">restart</string>
+
+<!--    string news-->
+
+    <string name="where_do_you_want_to_go">where do you want to go ?</string>
+    <string name="top_rated_trips">Top rated trips</string>
+    <string name="other_trips">Other trips</string>
+    <string name="compose">Compose</string>
+    <string name="share">share</string>
+    <string name="type_something">Type something ...</string>
+    <string name="location">location</string>
+    <string name="reply">reply</string>
+    <string name="report">report</string>
+    <string name="follow">follow</string>
+    <string name="bookmark">bookmark</string>
+    <string name="edit">edit</string>
+    <string name="delete">delete</string>
+    <string name="destination">Destination</string>
+    <string name="period">Period</string>
+    <string name="price">Price</string>
+    <string name="date">date</string>
+    <string name="day">day</string>
+    <string-array name="weather_states">
+        <item>Sunny</item>
+        <item>Cloudy</item>
+        <item>Rainy</item>
+    </string-array>
+    <string-array name="days">
+        <item>sunday</item>
+        <item>Monday</item>
+        <item>tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>saturday</item>
+    </string-array>
+    <string-array name="months">
+        <item>january</item>
+        <item>February</item>
+        <item>march</item>
+        <item>April</item>
+        <item>May</item>
+        <item>jun</item>
+        <item>july</item>
+        <item>august</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <string-array name="times">
+        <item>Hours</item>
+        <item>days</item>
+        <item>weeks</item>
+        <item>months</item>
+    </string-array>
+
+<!--from onboarding-->
+    <string name="planing_n_your_trip">Planning\nYour Trip</string>
+    <string name="enjoy_with_US">enjoy with\nUS</string>
+    <string name="discover_the_world">discover\nthe world</string>
+    <string name="take_your_next_step">take your\nnext step</string>
+    <string name="skip">skip</string>
+    <string name="finish">Finish</string>
+    <string name="logout">log out</string>
+    <string name="enterPasswordDescription">enter the email password associated with your accrount and confirm the sent conde</string>
+
+<!--    for setting-->
+    <string name="night_mode">Night Mode</string>
+    <string name="language">Language</string>
+    <string name="rate">Rate</string>
+    <string name="support">Support</string>
+    <string name="privacy">Privacy</string>
+    <string name="arabic">Arabic</string>
+    <string name="french">French</string>
+    <string name="english">English</string>
+    <string name="help">Help</string>
+
+<!--    overview-->
+    <string name="beautiful_city">beautiful city</string>
+    <string name="_4_1_1024_reviews">4.1(1024 reviews)</string>
+    <string name="overview">overview</string>
+    <string name="longText">Algiers is situated on the west side of a bay of the Mediterranean Sea. The modern part of the city is built on the level ground by the seashore; the old part, the ancient city …</string>
+    <string name="articles">Articles</string>
+    <string name="reviews">Reviews</string>
+    <string name="hotels">hotels</string>
+    <string name="others">Others</string>
+    <string name="medium_price">Medium price :</string>
+    <string name="_2000da">2000DA</string>
+    <string name="safety">Safety :</string>
+    <string name="_150_points">150 points</string>
+    <string name="recommendation">Recommendation :</string>
+    <string name="rec_str1">if you did not visit front</string>
+    <string name="rec_str2">de mere you can\'t say that you\'ve visited Oran.</string>
+    <string name="gallery">Gallery</string>
+    <string name="map">map</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="_128_reviews">128 reviews</string>
+    <string name="batna">batna</string>
+    <string name="article">Article</string>
+    <string name="history">History</string>
+    <string name="culture">Culture</string>
+
+<!--    edit profile-->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="date_of_birth">Date Of Birth</string>
+    <string name="password">Password</string>
+    <string name="save_changes">save changes</string>
+    <string name="text_validation_success">text validation success</string>
+    <string name="text_validation_error_empty_field">text validation error empty field</string>
+    <string name="text_validation_error_email">text validation error email</string>
+    <string name="text_validation_error_password">text validation error password</string>
+    <string name="change_password">change password</string>
+    <string name="change_e_mail">change e-mail</string>
+    <string name="old_e_mail">Old e-mail</string>
+    <string name="new_e_mail">new e-mail</string>
+    <string name="old_password">old password</string>
+    <string name="new_password">new password</string>
+    <string name="confirm_new_password">confirm new password</string>
+
+    <!--  errors messages  -->
+    <string name="destinationFieldEmpty">you have to fill the destination field</string>
+    <string name="dateFieldEmpty">you have to fill the date field</string>
+    <string name="periodFieldEmpty">you have to fill the period field</string>
+    <string name="priceFieldEmpty">you have to fill the price field</string>
+    <string name="noImages">required at least one image</string>
+    <string name="wrongDate">you can not share an expired trip</string>
+    <string name="save">save</string>
+
+
+<!--    willaya-->
+    <string-array name="willaya">
+        <item>Adrar</item>
+        <item>Chlef</item>
+        <item>Laghouat</item>
+        <item>Batna</item>
+        <item>Bejaia</item>
+        <item>Biskra</item>
+        <item>Bechar</item>
+        <item>Blida</item>
+        <item>Bouira</item>
+        <item>Tamanrasset</item>
+        <item>Tebessa</item>
+        <item>Tlemcen</item>
+        <item>Tiaret</item>
+        <item>Tizi Ouzou</item>
+        <item>Algiers</item>
+        <item>Djelfa</item>
+        <item>Jijel</item>
+        <item>Setif</item>
+        <item>Saida</item>
+        <item>Skikda</item>
+        <item>Sidi Bel Abbes</item>
+        <item>Annaba</item>
+        <item>Guelma</item>
+        <item>Constantine</item>
+        <item>Medea</item>
+        <item>Mostaganem</item>
+        <item>MSila</item>
+        <item>Mascara</item>
+        <item>Ouargla</item>
+        <item>Oran</item>
+        <item>El Bayadh</item>
+        <item>Illizi</item>
+        <item>Bordj Bou Arreridj</item>
+        <item>Boumerdes</item>
+        <item>El Tarf</item>
+        <item>Tindouf</item>
+        <item>Tissemsilt</item>
+        <item>El Oued</item>
+        <item>Khenchela</item>
+        <item>Souk Ahras</item>
+        <item>Tipaza</item>
+        <item>Mila</item>
+        <item>Ain Defla </item>
+        <item>Naama </item>
+        <item>Ain Temouchent</item>
+        <item>Ghardaia</item>
+        <item>Relizane</item>
+        <item>El MGhair</item>
+        <item>El Menia</item>
+        <item>Ouled Djellal </item>
+        <item>Bordj Baji Mokhtar</item>
+        <item>Beni Abbès</item>
+        <item>Timimoun</item>
+        <item>Touggourt </item>
+        <item>Djanet</item>
+        <item>In Salah</item>
+        <item>In Guezzam</item>
+    </string-array>
+
+    <string-array name="periode">
+        <item>1 day</item>
+        <item>1 week</item>
+        <item>2 week</item>
+        <item>3 week</item>
+        <item>1 month</item>
+        <item>2 month</item>
+        <item>3 month</item>
+    </string-array>
+
+    <string name="attr_agency">Agency</string>
+    <string name="attribute">Attribute</string>
+    <string name="rating">Rating</string>
+    <string name="category">Category</string>
+    <string name="entertainment">Entertainement</string>
+    <string name="touristic">Touristic</string>
+    <string name="historic">Historic</string>
+    <string name="Regions">Regions</string>
+    <string name="hill">Hills</string>
+    <string name="desert">Desert</string>
+    <string name="coastalarea">Coastal area</string>
+    <string name="filter">Filter</string>
+    <string name="attr_place">Place</string>
+    <string name="attr_trip">Trip</string>
+    <string name="duration">Duration</string>
+    <string name="after">After</string>
+
+</resources>

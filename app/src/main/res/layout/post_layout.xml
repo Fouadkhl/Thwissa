@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/filtrebg"
+    android:layout_marginVertical="10dp"
+    android:id="@+id/postParent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginVertical="7dp"
+        >
+        <com.google.android.material.imageview.ShapeableImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            app:shapeAppearanceOverlay="@style/circle"
+            android:src="@drawable/profile_b"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:id="@+id/reply_profile_pic"
+            android:layout_marginEnd="15dp"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/reply_profile_pic"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="abdel razak"
+                android:textColor="@color/textColor"
+                android:textStyle="bold"
+                android:layout_marginStart="3dp"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_baseline_location_on_24_2"
+                android:layout_below="@+id/user_name"
+                android:id="@+id/location_icon"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:text="Bouira"
+                android:textStyle="bold"
+                android:textColor="@color/textColor"
+                android:layout_below="@id/user_name"
+                android:layout_toEndOf="@id/location_icon"
+                android:id="@+id/location"/>
+
+            <TextView
+                android:id="@+id/postTime"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_toEndOf="@id/user_name"
+                android:layout_marginStart="10dp"
+                android:text="5h ago"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/bookMark"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_baseline_bookmark_24" />
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/content"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="15sp"
+        android:textColor="@color/black"
+        />
+    <androidx.viewpager2.widget.ViewPager2
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginVertical="7dp"
+        android:id="@+id/postPicViewPager"/>
+    <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+        android:id="@+id/dots_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:dotsColor="@color/selected_dot"
+        app:dotsSize="7dp"
+        app:dotsSpacing="5dp"
+        app:progressMode="true"
+        app:selectedDotColor="@color/selected_dot" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="10dp">
+
+        <ImageView
+            android:id="@+id/up_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/up_arrow_not_clicked" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:text="5"
+            android:layout_toEndOf="@id/up_button"
+            android:padding="6dp"
+            android:textColor="@color/textColor"
+            android:textAlignment="center"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:id="@+id/diff"
+            />
+
+        <ImageView
+            android:id="@+id/down_button"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_toEndOf="@id/diff"
+            android:src="@drawable/down_arrow_not_clicked" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="20 replies"
+            android:paddingVertical="5dp"
+            android:textStyle="bold"
+            android:layout_alignParentEnd="true"
+            android:id="@+id/reply_num"/>
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/reply_icon"
+            android:layout_toStartOf="@+id/reply_num"
+            android:id="@+id/reply_icon"/>
+    </RelativeLayout>
+</LinearLayout>

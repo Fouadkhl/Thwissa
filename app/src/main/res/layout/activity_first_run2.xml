@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.onboarding.FirstRunActivity">
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/view_pager"/>
+
+    <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dots_indicator"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        app:dotsColor="@color/grey"
+        app:selectedDotColor="@color/teal_200"
+        app:dotsSize="10dp"
+        app:dotsSpacing="8dp"
+        app:progressMode="true"/>
+
+
+    <Button
+        android:layout_width="100dp"
+        android:id="@+id/skip_button"
+        android:layout_alignParentEnd="true"
+        android:layout_height="50dp"
+        android:text="@string/skip"
+        android:textSize="18sp"
+        android:textColor="@color/teal_200"
+        android:background="@color/transparent"/>
+
+
+
+</RelativeLayout>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+
+    <color name="blueTransparent">#4D2196F3</color>
+
+
+<!--    main colors-->
+    <color name="primary_color">#42C1FC</color>
+    <color name="secondary_color">#0D2B51</color>
+    <color name="background_color">#F9FBFF</color>
+    <color name="textcolor">#6C7079</color>
+    <color name="star_color">#F38722</color>
+<!--    end of main colors-->
+
+
+<!--    colors for profile and setting background icons-->
+    <color name="colorback1">#F2F2F2</color>
+    <color name="colorback2">#1AA32CCD</color>
+    <color name="colorback3">#F2F2F2</color>
+    <color name="colorback4">#1A71EE8D</color>
+    <color name="colorback5">#47EEAD71</color>
+    <color name="colorback6">#28F84D4D</color>
+
+
+    <color name="blue_white">#EAF5F9</color>
+    <color name="story_outline">#2EF2CF</color>
+    <color name="gray_text_color">#505050</color>
+    <color name="gray_bottom_nav">#999999</color>
+    <color name="log_out_color">#FFF5F5</color>
+    <color name="red">#FB0000</color>
+    <color name="orange">#FF9800</color>
+    <color name="transparent">#00000000</color>
+<!--    <color name="background">#FCFEFF</color>-->
+    <color name="background">#F5F8FF</color>
+    <color name="text_color">#0D2B51</color>
+    <color name="blue_logo">#009BDE</color>
+    <color name="background_icon">#B3AAD2F3</color>
+
+<!--    entertainment colors-->
+    <color name="profile_color">#2DB6CD</color>
+    <color name="top_pictures_layout_background">#F1F1F1</color>
+<!--    selected dot is deleted-->
+    <color name="text_color2">#807D7D</color>
+    <color name="text_color3">#CC23375E</color>
+    <color name="selected_answer_color">#CC1446A6</color>
+    <color name="arrow_clicked_bg">#91CAD3</color>
+    <color name="arrow_background">#C0DFE4</color>
+
+<!--    news colors-->
+    <color name="titleColor">#0D2B51</color>
+    <color name="grey">#EAF2F8</color>
+    <color name="floatingbuttonColor">#EFEFEF</color>
+    <color name="textColor">#494949</color>
+    <color name="windowColor">#918484</color>
+    <color name="selected_dot">#CCCCCC</color>
+
+<!--    onboarding colors-->
+    <color name="buttontext">#50C2C9</color>
+<!--    indicator color-->
+    <color name="inactive">#C4C4C4</color>
+    <color name="active">#50C2C9</color>
+
+
+<!--    for setting-->
+    <color name="textColor2">#0D2B51</color>
+    <!-- icons backgrounds -->
+    <color name="backgroundColor">#F9FBFF</color>
+    <color name="language_bg">#FAF2E9</color>
+    <color name="privacy_bg">#F8F1F2</color>
+    <color name="support_bg">#E1ECFB</color>
+    <!-- line color -->
+    <color name="line_color">#FF42C1FC</color>
+    <color name="line_color2">#EAF5F9</color>
+
+<!--  for overview-->
+    <color name="shadow">#70000000</color>
+    <color name="colorPrimary">#106BCC</color>
+    <color name="secondaryColor">#0D2B51</color>
+    <color name="normalTextColor">#9CA3AC</color>
+    <color name="starColor">#F38722</color>
+    <color name="backgroundColor2">#F9FBFF</color>
+
+<!--    edit profile-->
+    <color name="lineColor">#E5E5E5</color>
+
+</resources>

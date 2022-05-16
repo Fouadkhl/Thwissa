@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/homeFragment"
+        android:title="home"
+        android:icon="@drawable/ic_baseline_home_24"
+        />
+
+    <item android:id="@+id/newsFragment"
+        android:title="news"
+        android:icon="@drawable/ic_article"
+        />
+
+
+    <item android:id="@+id/discussFragment"
+        android:title="discuss"
+        android:icon="@drawable/ic_baseline_question_answer_24"
+        />
+
+    <item android:id="@+id/entertainmentFragment"
+        android:title="Entertainment"
+        android:icon="@drawable/ic_outline_local_fire_department_24"
+        />
+
+    <item android:id="@+id/profileFragment"
+        android:title="profile"
+        android:icon="@drawable/ic_person_icon"
+        />
+</menu>

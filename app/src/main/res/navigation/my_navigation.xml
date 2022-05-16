@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+ <navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.thwissa.fragment.homefragment.HomeFragment"
+        android:label="fragment_home2"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_storyFragment"
+            app:destination="@id/storyFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_wilayasFragment"
+            app:destination="@id/wilayasFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_overview"
+            app:destination="@id/overview" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.thwissa.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfile"
+            app:destination="@id/editProfile" />
+    </fragment>
+    <fragment
+        android:id="@+id/newsFragment"
+        android:name="com.example.thwissa.fragment.newsfragment.fragments.NewsFragment"
+        android:label="fragment_news"
+        tools:layout="@layout/fragment_news" >
+        <action
+            android:id="@+id/action_newsFragment_to_composeFragment"
+            app:destination="@id/composeFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_replyFragment"
+            app:destination="@id/replyFragment" />
+        <action
+            android:id="@+id/action_newsFragment_to_postClickedFragment"
+            app:destination="@id/postClickedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/entertainmentFragment"
+        android:name="com.example.thwissa.fragment.entertainment.EntertainmentFragment"
+        android:label="fragment_entertainment"
+        tools:layout="@layout/fragment_entertainment" />
+    <fragment
+        android:id="@+id/discussFragment"
+        android:name="com.example.thwissa.fragment.discuss.DiscussFragment"
+        android:label="fragment_discuss"
+        tools:layout="@layout/fragment_discuss" />
+    <fragment
+        android:id="@+id/storyFragment"
+        android:name="com.example.thwissa.fragment.storyfragment.StoryFragment"
+        android:label="StoryFragment"
+        tools:layout="@layout/fragment_story"/>
+    <fragment
+        android:id="@+id/composeFragment"
+        android:name="com.example.thwissa.fragment.newsfragment.fragments.ComposeFragment"
+        android:label="fragment_compose"
+        tools:layout="@layout/fragment_compose" >
+        <action
+            android:id="@+id/action_composeFragment_to_postClickedFragment"
+            app:destination="@id/postClickedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/replyFragment"
+        android:name="com.example.thwissa.fragment.newsfragment.fragments.ReplyFragment"
+        android:label="fragment_reply_"
+        tools:layout="@layout/fragment_reply_" />
+    <fragment
+        android:id="@+id/postClickedFragment"
+        android:name="com.example.thwissa.fragment.newsfragment.fragments.PostClickedFragment"
+        android:label="fragment_post_clicked"
+        tools:layout="@layout/fragment_post_clicked" >
+        <action
+            android:id="@+id/action_postClickedFragment_to_composeFragment"
+            app:destination="@id/composeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/placesFragment"
+        android:name="com.example.thwissa.fragment.homefragment.willaya.PlacesFragment"
+        android:label="PlacesFragment" >
+        <action
+            android:id="@+id/action_placesFragment_to_overview"
+            app:destination="@id/overview" />
+    </fragment>
+    <fragment
+        android:id="@+id/wilayasFragment"
+        android:name="com.example.thwissa.fragment.homefragment.willaya.WilayasFragment"
+        android:label="WilayasFragment" >
+        <action
+            android:id="@+id/action_wilayasFragment_to_placesFragment"
+            app:destination="@id/placesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.thwissa.fragment.Profile.setting.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_emailFragment"
+            app:destination="@id/emailFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_passwordFragment"
+            app:destination="@id/passwordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/articleFragment"
+        android:name="com.example.thwissa.fragment.homefragment.overview.fragments.ArticleFragment"
+        android:label="fragment_article"
+        tools:layout="@layout/fragment_article" >
+        <action
+            android:id="@+id/action_articleFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.thwissa.fragment.homefragment.overview.fragments.MapFragment"
+        android:label="fragment_map"
+        tools:layout="@layout/fragment_map" />
+    <fragment
+        android:id="@+id/overview"
+        android:name="com.example.thwissa.fragment.homefragment.overview.fragments.Overview"
+        android:label="Overview" >
+        <action
+            android:id="@+id/action_overview_to_mapFragment2"
+            app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_overview_to_hotelsFragment2"
+            app:destination="@id/hotelsFragment" />
+        <action
+            android:id="@+id/action_overview_to_articleFragment2"
+            app:destination="@id/articleFragment" />
+        <action
+            android:id="@+id/action_overview_to_reviewsFragment2"
+            app:destination="@id/reviewsFragment" />
+        <action
+            android:id="@+id/action_overview_to_restaurantsFragment"
+            app:destination="@id/restaurantsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hotelsFragment"
+        android:name="com.example.thwissa.fragment.homefragment.overview.fragments.HotelsFragment"
+        android:label="HotelsFragment" />
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="com.example.thwissa.fragment.homefragment.overview.fragments.ReviewsFragment"
+        android:label="fragment_reviews"
+        tools:layout="@layout/fragment_reviews" />
+    <fragment
+        android:id="@+id/restaurantsFragment"
+        android:name="com.example.thwissa.fragment.homefragment.overview.fragments.RestaurantsFragment"
+        android:label="fragment_restaurents_hotels"
+        tools:layout="@layout/fragment_restaurents_hotels" />
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.example.thwissa.fragment.Profile.EditProfile"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/emailFragment"
+        android:name="com.example.thwissa.fragment.Profile.setting.privacy.EmailFragment"
+        android:label="fragment_edit_email"
+        tools:layout="@layout/fragment_edit_email" >
+        <action
+            android:id="@+id/action_emailFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordFragment"
+        android:name="com.example.thwissa.fragment.Profile.setting.privacy.PasswordFragment"
+        android:label="fragment_edit_password"
+        tools:layout="@layout/fragment_edit_password" >
+        <action
+            android:id="@+id/action_passwordFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+</navigation>

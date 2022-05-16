@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_search"
+   >
+
+    <data>
+        <variable
+            name="text"
+            type="String" />
+
+        <variable
+            name="colorBack"
+            type="int" />
+
+        <variable
+            name="photo"
+            type="android.graphics.drawable.Drawable" />
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_shapable_item_setting"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@{colorBack}"
+            android:src="@{photo}"
+            app:contentPadding="10dp"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded" />
+
+        <TextView
+            android:id="@+id/my_trip"
+            style="@style/profile_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp"
+            android:layout_toRightOf="@id/iv_shapable_item_setting"
+            android:text="@{text}" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/iv_next_my_trip"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/background_search"
+            android:src="@drawable/ic_navigate_next" />
+    </RelativeLayout>
+
+</layout>
