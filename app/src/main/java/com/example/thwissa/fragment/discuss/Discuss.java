@@ -10,6 +10,11 @@ public class Discuss {
     private int dislikes = 0;
     private int repliesNumber = 0;
 
+    // TEMPORARY (CHANGE THEM LATER )
+    boolean liked = false;
+    boolean disliked = false;
+    boolean saved = false;
+
     /** CONSTRUCTOR */
     public Discuss(User user, String wilaya, String discussTexte, int discussImageResource, int likes, int dislikes, int repliesNumber) {
         this.user = user;
@@ -24,12 +29,10 @@ public class Discuss {
         this.user = user;
         this.wilaya = wilaya;
         this.discussTexte = discussTexte;
-        this.discussImageResource = discussImageResource;
         this.likes = likes;
         this.dislikes = dislikes;
         this.repliesNumber = repliesNumber;
     }
-
     // FOR NEW-ADDED DISCUSS
     public Discuss(User user, String wilaya, String discussTexte, int discussImageResource) {
         this.user = user;
@@ -42,7 +45,6 @@ public class Discuss {
         this.wilaya = wilaya;
         this.discussTexte = discussTexte;
     }
-
 
 
     /** METHODS */

@@ -164,4 +164,32 @@
     <style name="slidingBarStyle" parent="Widget.MaterialComponents.Slider" >
         <item name="background" >@color/blue_logo</item>
     </style>
+
+
+
+
+    <!--    YUSUF TEXT STYLES -->
+    <!--    BOLD -->
+    <style name="text_moy2">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+    <!--  NON BOLD -->
+    <style name="text_story" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:fontFamily">@font/nunito_bold</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="text_moy">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="fontFamily">@font/nunito_bold</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>

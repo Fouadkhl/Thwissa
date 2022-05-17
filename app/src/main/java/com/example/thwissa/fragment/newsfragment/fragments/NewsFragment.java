@@ -1,9 +1,12 @@
 package com.example.thwissa.fragment.newsfragment.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,17 +21,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.thwissa.R;
 import com.example.thwissa.fragment.newsfragment.adapters.MeteoViewPagerAdapter;
 import com.example.thwissa.fragment.newsfragment.adapters.PostsAdapter;
 import com.example.thwissa.fragment.newsfragment.adapters.RV_Adapter;
+import com.example.thwissa.fragment.newsfragment.classes.Meteo;
 import com.example.thwissa.fragment.newsfragment.classes.Trip;
 import com.example.thwissa.fragment.newsfragment.classes.mPost;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnItemClickedListener;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnReplyButtonClicked;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -38,7 +54,7 @@ import java.util.TimerTask;
 public class NewsFragment extends Fragment {
 
     private Timer timer;
-    private ViewPager2 viewPager2;
+    private ViewPager2 viewPager2;    // meteo view pager
     private MeteoViewPagerAdapter meteoViewPagerAdapter;
     private ArrayList<Trip> data = new ArrayList<>();
     private ArrayList<mPost> data1 = new ArrayList<>();
@@ -50,6 +66,7 @@ public class NewsFragment extends Fragment {
     private SearchView searchView;
     private TextView hint;
     private RecyclerView topRatedTripsRecycleView;
+
 
     public NewsFragment() {
         // Required empty public constructor
@@ -157,9 +174,15 @@ public class NewsFragment extends Fragment {
     }
 
     private void initMeteoViewPager() {
-        meteoViewPagerAdapter = new MeteoViewPagerAdapter(getContext());
+        // SET METEOS LIST
+        ArrayList<Meteo> meteos = new ArrayList<>(Arrays.asList(new Meteo("Algiers"), new Meteo("Oran"), new Meteo("Setif")));
+        for (Meteo meteo : meteos) {
+            getWilayaWeather(meteo, getContext());
+        }
+        meteoViewPagerAdapter = new MeteoViewPagerAdapter(getContext(), meteos);
         viewPager2.setAdapter(meteoViewPagerAdapter);
-        viewPager2.setUserInputEnabled(false);
+        //viewPager2.setUserInputEnabled(false);
+
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
@@ -224,5 +247,41 @@ public class NewsFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+
+
+    private void getWilayaWeather(Meteo meteo, Context context){
+        /** Get Url using wilaya name */
+        // OPEN WEATHER MAP API
+        final String url = "https://api.openweathermap.org/data/2.5/weather";
+        final String appId = "f21603913cc37defa5563046a448ce36";
+        String tempUrl = url + "?q=" + meteo.wilayaName + "&appid=" + appId;
+        /** Create Request Using the Url*/
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, tempUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonResponse = new JSONObject(response);
+                    JSONArray jsonArray = jsonResponse.getJSONArray("weather");
+                    // Temp
+                    JSONObject jsonobjectMain = jsonResponse.getJSONObject("main");
+                    meteo.temp = (int) Math.round(jsonobjectMain.getDouble("temp")-273.15);
+                    // Description (weather state)
+                    JSONObject jsonObjectWeather = jsonArray.getJSONObject(0);
+                    meteo.weatherState= jsonObjectWeather.getString("description");
+                    // ICON
+                    String iconId = jsonObjectWeather.getString("icon");
+                    meteo.weatherStateIconUrl = "https://openweathermap.org/img/w/" + iconId + ".png";
+                } catch(JSONException e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {}                   // ERROR
+        });
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        requestQueue.add(stringRequest);
     }
 }
