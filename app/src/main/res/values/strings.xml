@@ -27,7 +27,7 @@
     <string name="description">description</string>
 
 
-<!--    entertainment strings-->
+    <!--    entertainment strings-->
     <string name="top_pictures_this_week">Top pictures this week</string>
     <string name="quiz">Quiz</string>
     <string name="question_1">Where Do Mansoura situate ?</string>
@@ -42,7 +42,7 @@
     <string name="popout_text">there are no more questions for the moment wait for new ones or press restart</string>
     <string name="restart">restart</string>
 
-<!--    string news-->
+    <!--    string news-->
 
     <string name="where_do_you_want_to_go">where do you want to go ?</string>
     <string name="top_rated_trips">Top rated trips</string>
@@ -97,7 +97,7 @@
         <item>months</item>
     </string-array>
 
-<!--from onboarding-->
+    <!--from onboarding-->
     <string name="planing_n_your_trip">Planning\nYour Trip</string>
     <string name="enjoy_with_US">enjoy with\nUS</string>
     <string name="discover_the_world">discover\nthe world</string>
@@ -107,7 +107,7 @@
     <string name="logout">log out</string>
     <string name="enterPasswordDescription">enter the email password associated with your accrount and confirm the sent conde</string>
 
-<!--    for setting-->
+    <!--    for setting-->
     <string name="night_mode">Night Mode</string>
     <string name="language">Language</string>
     <string name="rate">Rate</string>
@@ -118,7 +118,7 @@
     <string name="english">English</string>
     <string name="help">Help</string>
 
-<!--    overview-->
+    <!--    overview-->
     <string name="beautiful_city">beautiful city</string>
     <string name="_4_1_1024_reviews">4.1(1024 reviews)</string>
     <string name="overview">overview</string>
@@ -143,7 +143,7 @@
     <string name="history">History</string>
     <string name="culture">Culture</string>
 
-<!--    edit profile-->
+    <!--    edit profile-->
     <string name="edit_profile">Edit Profile</string>
     <string name="username">Username</string>
     <string name="email">Email</string>
@@ -173,7 +173,7 @@
     <string name="save">save</string>
 
 
-<!--    willaya-->
+    <!--    willaya-->
     <string-array name="willaya">
         <item>Adrar</item>
         <item>Chlef</item>

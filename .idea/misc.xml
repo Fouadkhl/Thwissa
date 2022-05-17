@@ -5,13 +5,21 @@
       <map>
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/agency_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/discuss_button.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_discuss.xml" value="0.1636603607567092" />
         <entry key="app/src/main/res/layout/fragment_entertainment.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_news.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_overview.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/log_in_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/profile_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/register_screen.xml" value="0.15052083333333333" />
         <entry key="app/src/main/res/layout/top_pictures_viewer_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/tourist_sign_up.xml" value="0.19375" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.19375" />
         <entry key="app/src/main/res/menu/widgets.xml" value="0.19375" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
+        <entry key="app/src/main/res/xml/network.xml" value="0.19375" />
       </map>
     </option>
   </component>

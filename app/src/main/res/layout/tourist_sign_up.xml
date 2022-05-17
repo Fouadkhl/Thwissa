@@ -151,6 +151,7 @@
             android:background="@drawable/background_sign_in"
             android:padding="4dp"
             android:text="Sign up"
+            android:stateListAnimator="@null"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="18sp" />
@@ -170,6 +171,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/background_gray"
                 android:drawableStart="@drawable/icons8_google"
+                android:stateListAnimator="@null"
                 android:drawablePadding="0dp"
                 android:elevation="0dp"
                 android:hint="google"
@@ -182,6 +184,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="0dp"
                 android:layout_weight="1"
+                android:stateListAnimator="@null"
                 android:background="@drawable/background_gray"
                 android:drawableStart="@drawable/icons8_facebook"
                 android:drawablePadding="0dp"

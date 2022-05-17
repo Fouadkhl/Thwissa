@@ -3,12 +3,14 @@ package com.example.thwissa.repository.userLocalStore
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.thwissa.dataclasses.UserRes
+import java.util.*
 
 
 const val SHARED_PREFERENCES = "userDetails"
 class SPUserData {
 
-    val mySharedPrefenreces : SharedPreferences
+
+    private val mySharedPrefenreces : SharedPreferences
 
     constructor(context: Context) {
         this.mySharedPrefenreces = context.getSharedPreferences(SHARED_PREFERENCES , 0)
@@ -26,6 +28,7 @@ class SPUserData {
             putString("userid", user.id)
             putString("userLocation", user.location)
             putString("userPicture", user.picture)
+            putString("userRole", user.role )
         }
         spEditor.commit()
     }
@@ -41,7 +44,8 @@ class SPUserData {
         val userid = mySharedPrefenreces.getString("userid" , "")
         val userLocation = mySharedPrefenreces.getString("userLocation" , "")
         val userPicture = mySharedPrefenreces.getString("userPicture" , "")
-        return UserRes(name!! , email!!, userid!! , userLocation!! , userPicture!!)
+        val userRole = mySharedPrefenreces.getString("userRole" , "")
+        return UserRes(userid!! , name!! , email!!, userLocation!!,0 , userPicture!! ,"","" , userRole!!)
     }
 
     /**

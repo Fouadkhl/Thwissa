@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.thwissa.LogService
+import com.example.thwissa.R
 import com.example.thwissa.databinding.LogInScreenBinding
 import com.example.thwissa.dataclasses.UserRes
 import com.example.thwissa.fragment.auth.validation.BaseValidator
@@ -18,7 +20,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class LoginFragment : Fragment() {
+class   LoginFragment : Fragment() {
 
     private lateinit var binding  : LogInScreenBinding
 
@@ -27,8 +29,17 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // get data to login user
 
+        binding= LogInScreenBinding.inflate(inflater, container, false)
+
+
+        binding.tvSignUp.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+        }
+
+
+
+        // get data to login user
         binding.btnSignIn.setOnClickListener{
             val userinfo_map = HashMap<String , String>()
              userinfo_map.put("email" , binding.etEmail.text.toString())
@@ -51,8 +62,6 @@ class LoginFragment : Fragment() {
                  }
              })
         }
-
-        binding= LogInScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
 

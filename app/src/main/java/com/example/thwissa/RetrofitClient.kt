@@ -7,13 +7,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-private const val BASE_URL ="https://localhost:3000/"
+// TODO: change tthis
+
+private const val BASE_URL ="http://10.0.2.2:5000"
 
 interface RetrofitInterface {
     @POST("/login")
     fun executeLogIn(@Body userinfoMap:HashMap<String,String>) : Call<UserRes>
     @POST("/signupUser")
-    fun executeSignUp(@Body userinfoMap:HashMap<String,Any>) : Call<Boolean>
+    fun executeSignUp(@Body userinfoMap:HashMap<String,Any>) : Call<UserRes>
 }
 
 /** set up retrofit */

@@ -26,6 +26,7 @@ import com.example.thwissa.fragment.newsfragment.classes.Trip;
 import com.example.thwissa.fragment.newsfragment.classes.mPost;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnItemClickedListener;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnReplyButtonClicked;
+import com.example.thwissa.repository.userLocalStore.SPUserData;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
 import java.util.ArrayList;
@@ -181,12 +182,18 @@ public class NewsFragment extends Fragment {
         }
     }
     public void initComposeButton(){
+        SPUserData spuserdata = new SPUserData(requireContext());
         composeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putString("source", "compose");
-                navController.navigate(R.id.action_newsFragment_to_composeFragment, bundle);
+
+                if(spuserdata.getUserLoggedIn()){
+                    Bundle bundle = new Bundle();
+                    bundle.putString("source", "compose");
+                    navController.navigate(R.id.action_newsFragment_to_composeFragment, bundle);
+                }else{
+                    navController.navigate(R.id.action_newsFragment_to_registrationTypeFragment);
+                }
             }
         });
     }
