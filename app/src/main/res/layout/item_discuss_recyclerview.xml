@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="50dp"
+    android:layout_marginBottom="30dp"
     app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="10dp">
+    app:cardCornerRadius="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,22 +17,20 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="3dp">
+            android:layout_marginHorizontal="4dp"
+            android:layout_marginTop="15dp">
             <!-- USER PROFILE FRAME & PICTURE-->
             <androidx.cardview.widget.CardView
                 android:id="@+id/profile_pic_frame"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_marginTop="15dp"
-                app:cardBackgroundColor="@color/teal_200"
+                app:cardBackgroundColor="@color/background_color"
                 app:cardCornerRadius="40dp">
-
                 <androidx.cardview.widget.CardView
                     android:layout_width="56dp"
                     android:layout_height="56dp"
                     android:layout_gravity="center"
                     app:cardCornerRadius="40dp">
-
                     <ImageView
                         android:id="@+id/profile_pic"
                         android:layout_width="match_parent"
@@ -45,15 +43,14 @@
             <!-- USER NAME -->
             <TextView
                 android:id="@+id/user_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_moy2"
                 android:layout_alignTop="@id/profile_pic_frame"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_toEndOf="@id/profile_pic_frame"
-                android:textColor="#0D2B51"
-                android:textSize="16sp"
-                tools:text="Youcef Belkhiri" />
+                android:textColor="@color/secondary_color"
+                android:textSize="15sp"
+                tools:text="Yusuf Belkhiri" />
 
             <!-- WILAYA NAME -->
             <ImageView
@@ -66,32 +63,33 @@
 
             <TextView
                 android:id="@+id/wilaya"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_moy2"
                 android:layout_below="@+id/user_name"
                 android:layout_toEndOf="@id/location_icon"
-                android:textColor="#0D2B51"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                android:textColor="@color/secondary_color"
+                android:textSize="16sp"
                 tools:text="Algiers" />
 
             <!--        SAVE TO FAVORITE ICON -->
-            <ImageView
+            <ImageButton
                 android:id="@+id/save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@id/user_name"
                 android:layout_alignParentEnd="true"
-                android:src="@drawable/ic_baseline_bookmark_24" />
+                android:layout_marginEnd="5dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_baseline_bookmark_border_24" />
         </RelativeLayout>
 
 
         <!--        DISCUSS TEXT -->
         <TextView
             android:id="@+id/discuss_text"
+            style="@style/text_moy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="15dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             android:textColor="@color/black"
             android:textSize="16sp"
@@ -101,52 +99,155 @@
         <ImageView
             android:id="@+id/discuss_image"
             android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="15dp"
+            android:adjustViewBounds="true"
+            android:maxHeight="400dp"
             tools:src="@drawable/profile_b" />
 
         <!--        BUTTONS BAR-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginHorizontal="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="2dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="12dp"
             android:orientation="horizontal">
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/dislike_button"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                app:backgroundTint="@color/background"
-                android:layout_marginEnd="15dp"
-                android:textColor="#59C7EF"
-                app:icon="@drawable/ic_baseline_thumb_down_alt_24"
-                app:iconTint="#59C7EF"
-                tools:text="5" />
-
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            <!-- LIKE BUTTON -->
+            <androidx.cardview.widget.CardView
                 android:id="@+id/like_button"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="15dp"
-                android:textColor="#59C7EF"
-                app:backgroundTint="@color/background"
-                app:icon="@drawable/ic_baseline_thumb_up_alt_24"
-                app:iconTint="#59C7EF"
-                tools:text="20" />
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="#F2F2F2"
+                app:cardCornerRadius="7dp" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/up_arrow_not_clicked" />
+                <TextView
+                    android:id="@+id/nbr_likes"
+                    style="@style/text_moy"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:gravity="center_vertical"
+                    android:text="20"
+                    android:textColor="@color/blue_logo" />
 
-            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/reply_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#59C7EF"
-                android:textScaleX="0.8"
-                android:textSize="15sp"
-                app:backgroundTint="@color/background"
-                app:icon="@drawable/ic_baseline_chat_bubble_24"
-                app:iconTint="#59C7EF"
-                tools:text="15 replies" />
+                <include layout="@layout/discuss_button" />
+            </androidx.cardview.widget.CardView>
+
+
+            <!--            DISLIKE BUTTON -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/dislike_button"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="10dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="#F2F2F2"
+                app:cardCornerRadius="7dp" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/down_arrow_not_clicked" />
+                <TextView
+                    android:id="@+id/nbr_dislikes"
+                    style="@style/text_moy"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:gravity="center_vertical"
+                    android:text="17"
+                    android:textColor="@color/blue_logo" />
+
+                <include layout="@layout/discuss_button" />
+            </androidx.cardview.widget.CardView>
+
+            <!--            REPLY BUTTON -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/replies_button"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_weight="1.5"
+                android:clickable="true"
+                android:focusable="true"
+                app:cardBackgroundColor="#F2F2F2"
+                app:cardCornerRadius="7dp" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:src="@drawable/reply_icon" />
+                <TextView
+                    android:id="@+id/nbr_replies"
+                    style="@style/text_moy"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="50dp"
+                    android:gravity="center_vertical"
+                    android:text="20"
+                    android:textColor="@color/blue_logo" />
+                <TextView
+                    style="@style/text_moy"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="80dp"
+                    android:gravity="center_vertical"
+                    android:text="Replies"
+                    android:textColor="@color/blue_logo" />
+
+                <include layout="@layout/discuss_button" />
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
+
+
+        <!-- REPLY BAR -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="12dp"
+            app:cardBackgroundColor="@color/background_color"
+            app:cardCornerRadius="30dp" >
+            <ImageButton
+                android:id="@+id/gallery_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_add_photo"/>
+            <EditText
+                android:id="@+id/reply_input"
+                style="@style/text_moy"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginHorizontal="55dp"
+                android:backgroundTint="@color/gray_bottom_nav"
+                android:hint="Reply"
+                android:inputType="textMultiLine"
+                android:maxLines="5"
+                android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890\n "
+                android:textColor="@color/black"
+                android:textColorHint="@color/gray_bottom_nav"
+                android:textSize="15sp"/>
+            <ImageButton
+                android:id="@+id/send_reply_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginHorizontal="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                app:srcCompat="@drawable/ic_send"/>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

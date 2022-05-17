@@ -2,20 +2,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent"
     android:background="@color/teal_200">
 
     <TextView
+        android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="friday 8 mars"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="70dp"
+        tools:text="friday 8 mars"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:textStyle="bold"
-        android:id="@+id/date"
-        android:layout_marginTop="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginBottom="70dp"/>
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/temp"
@@ -24,21 +25,22 @@
         android:layout_below="@id/date"
         android:layout_marginStart="30dp"
         android:layout_marginEnd="40dp"
-        android:text="28°"
+        tools:text="28°"
         android:textColor="@color/white"
         android:textSize="45sp"
         android:textStyle="bold" />
+
     <TextView
+        android:id="@+id/wilaya"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/wilaya"
-        android:text="algeria"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
         android:layout_below="@id/date"
+        android:layout_marginTop="20dp"
         android:layout_toEndOf="@id/temp"
-        android:layout_marginTop="20dp"/>
+        tools:text="algeria"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -47,24 +49,25 @@
         android:layout_toStartOf="@+id/wilaya"
         android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"/>
+
     <ImageView
+        android:id="@+id/weatherStateIcon"
         android:layout_width="75dp"
         android:layout_height="75dp"
-        android:id="@+id/weatherStateIcon"
-        android:src="@drawable/ic_icons8_soleil"
         android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginTop="20dp" />
+        tools:src="@drawable/ic_icons8_soleil" />
+
     <TextView
+        android:id="@+id/weatherState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/weatherState"
-        android:textColor="@color/white"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        android:text="sunny"
         android:layout_below="@+id/weatherStateIcon"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="25dp"
-        />
+        tools:text="sunny"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 </RelativeLayout>

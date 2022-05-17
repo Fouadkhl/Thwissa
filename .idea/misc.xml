@@ -3,6 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/compose_discuss_dialog.xml" value="0.22" />
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/fragment_compose.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/fragment_discuss.xml" value="0.12789559543230017" />
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/fragment_news.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/fragment_reviews.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/item_discuss_recyclerview.xml" value="0.22" />
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/meteo_view_pager_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/view_pager_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/wilaya_recycler_view_item.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/agency_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/discuss_button.xml" value="0.19375" />

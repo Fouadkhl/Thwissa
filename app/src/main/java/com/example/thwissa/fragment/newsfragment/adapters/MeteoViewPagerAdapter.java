@@ -1,36 +1,44 @@
 package com.example.thwissa.fragment.newsfragment.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.thwissa.R;
 import com.example.thwissa.fragment.newsfragment.classes.Meteo;
+import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class MeteoViewPagerAdapter extends RecyclerView.Adapter<MeteoViewPagerAdapter.ViewPagerViewHolder> {
 
     Context context;
-    public MeteoViewPagerAdapter(Context context){
-        this.context = context;
-    }
+    private ArrayList<Meteo> meteos = new ArrayList<>();
 
-    private Meteo[] meteos = {
-            new Meteo(
-                    R.drawable._3 , 28,"algeria",Meteo.Sunny
-            ),
-            new Meteo(
-                    R.drawable._3 , 10,"mostaganem",Meteo.Cloudy
-            )
-    };
+    public MeteoViewPagerAdapter(Context context, ArrayList<Meteo> meteos){
+        this.context = context;
+        this.meteos = meteos;
+    }
 
     @NonNull
     @Override
@@ -43,9 +51,9 @@ public class MeteoViewPagerAdapter extends RecyclerView.Adapter<MeteoViewPagerAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewPagerViewHolder holder, int position) {
+        //date
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
-        int index = meteos[position].getWeatherState();
 
         String day = context.getResources().getStringArray(R.array.days)[
                     cal.get(Calendar.DAY_OF_WEEK)-1
@@ -53,24 +61,20 @@ public class MeteoViewPagerAdapter extends RecyclerView.Adapter<MeteoViewPagerAd
         String month = context.getResources().getStringArray(R.array.months)[
                     cal.get(Calendar.MONTH)
                 ];
-        String weatherState =  context.getResources().getStringArray(R.array.weather_states)[
-                    index
-                ];
-        //date
         TextView textView = holder.itemView.findViewById(R.id.date);
         textView.setText(day + " " + cal.get(Calendar.DAY_OF_MONTH) +" "+ month);
-        //backgroundImage
-        ImageView imageView = holder.itemView.findViewById(R.id.weatherStateIcon);
-        imageView.setImageResource(R.drawable.ic_icons8_soleil);
-        //temp
-        TextView textView1 = holder.itemView.findViewById(R.id.temp);
-        textView1.setText(meteos[position].temp+"°");
         //wilaya
         TextView textView2 = holder.itemView.findViewById(R.id.wilaya);
-        textView2.setText(meteos[position].wilayaName);
+        textView2.setText(meteos.get(position).wilayaName);
+        //temp
+        TextView textView1 = holder.itemView.findViewById(R.id.temp);
+        textView1.setText(meteos.get(position).temp + "°");
         //weather state
         TextView textView3 = holder.itemView.findViewById(R.id.weatherState);
-        textView3.setText(weatherState);
+        textView3.setText(meteos.get(position).weatherState);
+        //weather state icon
+        ImageView imageView = holder.itemView.findViewById(R.id.weatherStateIcon);
+        Picasso.with(context).load(meteos.get(position).weatherStateIconUrl).into(imageView);
         //parent background
         RelativeLayout relativeLayout = holder.itemView.findViewById(R.id.parent);
         relativeLayout.setBackground(context.getDrawable(R.drawable.finish_4));
@@ -78,7 +82,7 @@ public class MeteoViewPagerAdapter extends RecyclerView.Adapter<MeteoViewPagerAd
 
     @Override
     public int getItemCount() {
-        return meteos.length;
+        return meteos.size();
     }
 
 
