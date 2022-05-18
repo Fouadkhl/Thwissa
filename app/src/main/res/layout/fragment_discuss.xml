@@ -1,47 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.example.thwissa.fragment.storyfragment.StoryFragment">
+    android:background="@color/background_color"
+    tools:context=".fragment.discuss.DiscussFragment">
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="24dp"
-            layout="@layout/item_search_view" />
-
+        android:layout_height="match_parent" >
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="24dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
             android:orientation="vertical">
             <!-- SEARCH BAR -->
-
-            <TextView
-                android:layout_width="wrap_content"
+            <include
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginVertical="24dp"
+                layout="@layout/item_search_view" />
+            <!--CATEGORIES BAR: Touristic, Entertainment, Commercial, Historic -->
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/top_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background_color"
+                app:tabSelectedTextColor="@color/blue_logo"
+                app:tabTextColor="@color/secondary_color">
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Discuss"/>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Notifications"/>
+            </com.google.android.material.tabs.TabLayout>
+            <TextView
+                style="@style/text_big"
+                android:layout_marginStart="4dp"
                 android:layout_marginTop="15dp"
-                android:text="Threads: "
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="Threads "
+                android:textColor="@color/secondary_color"  />
 
             <!--        DISCUSS RECYCLER VIEW-->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/discuss_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_discuss_recyclerview" />
         </LinearLayout>
-    </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
+
+    <!--    COMPOSE BUTTON-->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/compose_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="#F2F2F2"
+        android:text="Compose"
+        android:textAllCaps="false"
+        app:icon="@drawable/ic_baseline_edit_24" />
+
+</RelativeLayout>

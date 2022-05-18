@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 // TODO: change tthis
 
-private const val BASE_URL ="http://10.0.2.2:5000"
+private const val BASE_URL ="http://192.168.43.248:5000"
 
 interface RetrofitInterface {
     @POST("/login")

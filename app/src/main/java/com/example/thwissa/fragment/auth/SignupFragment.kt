@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.thwissa.LogService
+import com.example.thwissa.R
 import com.example.thwissa.databinding.TouristSignUpBinding
 import com.example.thwissa.dataclasses.UserRes
 import com.example.thwissa.fragment.auth.validation.BaseValidator
@@ -96,9 +98,9 @@ class SignupFragment : Fragment() {
             userinfo.put("email", binding.etEmail.text.toString())
             userinfo.put("password", binding.etPassword.text.toString())
             userinfo.put("location", binding.etLocation.text.toString())
-            var gender = binding.radioGroup.checkedRadioButtonId // 0 for male and 1 for female
-            userinfo.put("gender", gender.toString())
-            userinfo.put("confirmPassword", binding.etConfirmPassword.text.toString())
+//            var gender = binding.radioGroup.checkedRadioButtonId // 0 for male and 1 for female
+//            userinfo.put("gender", gender.toString())
+            userinfo.put("confirmepassword", binding.etConfirmPassword.text.toString())
 
             val spUserData = SPUserData(requireContext())
             LogService.retrofitService.executeSignUp(userinfo)
@@ -118,6 +120,8 @@ class SignupFragment : Fragment() {
                             // TODO: save data in external storage and set the user loggedin
                             spUserData.setUserLoggedIn(true)
                             spUserData.StoreUserData(res!!)
+                            //redirect the to his profile
+                            findNavController().navigate(R.id.action_signupFragment_to_profileFragment)
 
                         }else{
                             Toast.makeText(

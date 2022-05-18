@@ -1,15 +1,27 @@
 package com.example.thwissa.dataclasses
 
+import com.google.gson.annotations.SerializedName
 import java.util.*
 
 data class UserRes(
-    val id : String ,
-    val name: String ,
+    @SerializedName("email")
     val email: String,
-    val location : String ,
-    val PhoneNumber : Int ,
-    val picture : String ,
-    val gender : String ,
-    val birthdate : String ,
-    val role : String
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("location")
+    val location: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("role")
+    val role: String
+
+//    val id : String ,
+//    val name: String ,
+//    val email: String,
+//    val location : String ,
+//    val PhoneNumber : Int ,
+//    val picture : String ,
+//    val sex : String ,
+//    val birthdayDate : String ,
+//    val role : String
 )

@@ -193,7 +193,11 @@
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.example.thwissa.fragment.auth.SignupFragment"
-        android:label="SignupFragment" />
+        android:label="SignupFragment" >
+        <action
+            android:id="@+id/action_signupFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/registrationTypeFragment"
         android:name="com.example.thwissa.fragment.auth.RegistrationTypeFragment"

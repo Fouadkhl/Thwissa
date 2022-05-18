@@ -27,7 +27,7 @@ class SPUserData {
             putString("email", user.email)
             putString("userid", user.id)
             putString("userLocation", user.location)
-            putString("userPicture", user.picture)
+//            putString("userPicture", user.picture)
             putString("userRole", user.role )
         }
         spEditor.commit()
@@ -45,7 +45,7 @@ class SPUserData {
         val userLocation = mySharedPrefenreces.getString("userLocation" , "")
         val userPicture = mySharedPrefenreces.getString("userPicture" , "")
         val userRole = mySharedPrefenreces.getString("userRole" , "")
-        return UserRes(userid!! , name!! , email!!, userLocation!!,0 , userPicture!! ,"","" , userRole!!)
+        return UserRes(userid!! , name!! , email!!, userLocation!!,"user")
     }
 
     /**
