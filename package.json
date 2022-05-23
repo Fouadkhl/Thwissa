@@ -1,0 +1,28 @@
+{
+  "name": "node_js_auth_mongodb",
+  "version": "1.0.0",
+  "description": "This project demo how to login with Nodjs and MongoDB ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "kousaila",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.2",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^4.4.1",
+    "mongoose": "^6.2.7",
+    "multer": "^1.4.4",
+    "nodemailer": "^6.7.5",
+    "validator": "^13.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
