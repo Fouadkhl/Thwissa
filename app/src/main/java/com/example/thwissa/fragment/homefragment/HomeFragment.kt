@@ -15,10 +15,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.mybottomsheet.ModalBottomSheet
 import com.example.thwissa.Adapter.NearToYouRecyclerViewAdapter
 import com.example.thwissa.Adapter.PlacesAdapter
 import com.example.thwissa.Adapter.StoriesAdapter
+import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentHomeBinding
 import com.example.thwissa.dataclasses.WillayaStory
 import kotlinx.coroutines.flow.collectLatest
@@ -29,8 +31,8 @@ class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     private val viewModel: ImageViewModel by viewModels()
-    val homeviewmodel : ModelHomeFragment by viewModels()
-    lateinit var gallery : ArrayList<Uri>
+    val homeviewmodel: ModelHomeFragment by viewModels()
+    lateinit var gallery: ArrayList<Uri>
 //    lateinit var storiesAdapter : StoriesAdapter
 
     override fun onCreateView(
@@ -39,10 +41,9 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         // list that hold the gallery
+
         gallery = ArrayList<Uri>()
         setupui()
-
-
 
         return binding.root
     }
@@ -53,9 +54,12 @@ class HomeFragment : Fragment() {
         //request the read and show the gallery
         requestRead()
         homeviewmodel.canLoad.observe(requireActivity(), Observer {
-            if (it== true) {
+            if (it == true) {
                 val modalBottomSheet = ModalBottomSheet(gallery)
-                modalBottomSheet.show(requireActivity().supportFragmentManager, ModalBottomSheet.TAG)
+                modalBottomSheet.show(
+                    requireActivity().supportFragmentManager,
+                    ModalBottomSheet.TAG
+                )
                 homeviewmodel.setCanNotLoad()
             }
         })
@@ -148,7 +152,12 @@ class HomeFragment : Fragment() {
             data.add(item)
         }
 
-        val storiesAdapter = StoriesAdapter(requireActivity() , data , homeviewmodel)
+        var data2 = homeviewmodel.getWillayaStories()
+
+        val storiesAdapter = StoriesAdapter(data, homeviewmodel, StoriesAdapter.OnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_storyFragment)
+        })
+
         val placesAdapter = PlacesAdapter(data)
         val nearToYouRecyclerViewAdapter = NearToYouRecyclerViewAdapter(data)
 

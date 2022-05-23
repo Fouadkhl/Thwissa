@@ -9,7 +9,7 @@
         android:id="@+id/homeFragment"
         android:name="com.example.thwissa.fragment.homefragment.HomeFragment"
         android:label="fragment_home2"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_storyFragment"
             app:destination="@id/storyFragment" />
@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_overview"
             app:destination="@id/overview" />
+        <action
+            android:id="@+id/action_homeFragment_to_agencyProfileFragment"
+            app:destination="@id/agencyProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -31,6 +34,9 @@
         <action
             android:id="@+id/action_profileFragment_to_editProfile"
             app:destination="@id/editProfile" />
+        <action
+            android:id="@+id/action_profileFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -169,7 +175,7 @@
         tools:layout="@layout/fragment_restaurents_hotels" />
     <fragment
         android:id="@+id/editProfile"
-        android:name="com.example.thwissa.fragment.Profile.EditProfile"
+        android:name="com.example.thwissa.fragment.Profile.setting.EditProfile"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
     <fragment
@@ -192,7 +198,7 @@
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="com.example.thwissa.fragment.auth.SignupFragment"
+        android:name="com.example.thwissa.fragment.auth.userAuth.SignupFragment"
         android:label="SignupFragment" >
         <action
             android:id="@+id/action_signupFragment_to_profileFragment"
@@ -205,13 +211,44 @@
         <action
             android:id="@+id/action_registrationTypeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registrationTypeFragment_to_agencySignupFragment"
+            app:destination="@id/agencySignupFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.thwissa.fragment.auth.LoginFragment"
+        android:name="com.example.thwissa.fragment.auth.userAuth.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/codeValidationFragment"
+        android:name="com.example.thwissa.fragment.auth.agencyAuth.CodeValidationFragment"
+        android:label="CodeValidationFragment" >
+        <action
+            android:id="@+id/action_codeValidationFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/certaficationVerificationFragment"
+        android:name="com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.CertaficationVerificationFragment"
+        android:label="CertaficationVerificationFragment" >
+        <action
+            android:id="@+id/action_certaficationVerificationFragment_to_codeValidationFragment"
+            app:destination="@id/codeValidationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/agencySignupFragment"
+        android:name="com.example.thwissa.fragment.auth.agencyAuth.AgencySignupFragment"
+        android:label="AgencySignupFragment" >
+        <action
+            android:id="@+id/action_agencySignupFragment_to_certaficationVerificationFragment"
+            app:destination="@id/certaficationVerificationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/agencyProfileFragment"
+        android:name="com.example.thwissa.fragment.Profile.agencyProfile.AgencyProfileFragment"
+        android:label="AgencyProfileFragment" />
 </navigation>

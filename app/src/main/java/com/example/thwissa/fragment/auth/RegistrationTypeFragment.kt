@@ -27,6 +27,10 @@ class RegistrationTypeFragment : Fragment() {
         binding.btnTravelerRegister.setOnClickListener {
             findNavController().navigate(R.id.action_registrationTypeFragment_to_loginFragment)
         }
+
+        binding.btnAgencyRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_registrationTypeFragment_to_agencySignupFragment)
+        }
         return binding.root
     }
 }

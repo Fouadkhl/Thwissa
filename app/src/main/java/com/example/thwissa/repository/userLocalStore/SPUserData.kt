@@ -2,6 +2,8 @@ package com.example.thwissa.repository.userLocalStore
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.thwissa.dataclasses.AgencyRes
+import com.example.thwissa.dataclasses.AgencySignUPReq
 import com.example.thwissa.dataclasses.UserRes
 import java.util.*
 
@@ -33,12 +35,24 @@ class SPUserData {
         spEditor.commit()
     }
 
+    /**
+     * store agency data
+     */
+    fun StoreAgencyToGetData(user : AgencyRes) {
+        val spEditor = mySharedPrefenreces.edit()
+        spEditor.apply{
+            putString("agencyName", user.id)
+            putBoolean("isvalidate" , user.isvalidate)
+        }
+        spEditor.commit()
+    }
+
 
     /**
      * @return user from the share preferences
      */
 
-    fun getLogInUser() : UserRes{
+    fun getLoggedInUser() : UserRes{
         val name = mySharedPrefenreces.getString("name" , "")
         val email = mySharedPrefenreces.getString("email" , "")
         val userid = mySharedPrefenreces.getString("userid" , "")

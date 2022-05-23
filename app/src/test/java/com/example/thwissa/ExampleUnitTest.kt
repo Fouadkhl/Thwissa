@@ -1,5 +1,6 @@
 package com.example.thwissa
 
+import org.hamcrest.Matcher
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -9,6 +10,7 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
+@Suppress("DEPRECATION")
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {

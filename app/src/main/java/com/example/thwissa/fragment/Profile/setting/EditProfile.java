@@ -1,4 +1,4 @@
-package com.example.thwissa.fragment.Profile;
+package com.example.thwissa.fragment.Profile.setting;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;

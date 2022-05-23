@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.Profile.agencyProfile.ReviewAgencyProfileFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_moy2"
+        android:layout_margin="18dp"
+        android:text="@string/adding_review"
+        />
+
+    <RatingBar
+        android:id="@+id/rating_bar_agency_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:max="5"
+        android:rating="4"
+        android:scaleX=".7"
+        android:scaleY=".7"
+        android:theme="@style/RatingBar"
+        android:transformPivotX="0dp"
+        android:transformPivotY="0dp" />
+
+
+    <EditText
+        android:id="@+id/et_add_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginTop="18dp"
+        android:hint="review" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/grey"
+        android:layout_margin="18dp"
+        />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chip_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        app:singleLine="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_five"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:chipBackgroundColor="@color/orange"
+            app:chipIcon="@drawable/ic_baseline_star_24"
+            app:chipIconTint="@color/white"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/orange"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_four"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            app:chipBackgroundColor="#FFF"
+            app:chipIcon="@drawable/ic_baseline_star_24"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/orange"
+            app:chipStrokeWidth="1dp" />
+
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_three"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            app:chipBackgroundColor="#FFF"
+            app:chipIcon="@drawable/ic_baseline_star_24"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/orange"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip_two"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            app:chipBackgroundColor="#FFF"
+            app:chipIcon="@drawable/ic_baseline_star_24"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/orange"
+            app:chipStrokeWidth="1dp" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipt_one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="1"
+            android:textColor="@color/orange"
+            android:textSize="18sp"
+            app:chipBackgroundColor="#FFF"
+            app:chipIcon="@drawable/ic_baseline_star_24"
+            app:chipIconVisible="true"
+            app:chipStrokeColor="@color/orange"
+            app:chipStrokeWidth="1dp" />
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_reviews_agency_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="18dp"
+        tools:listitem="@layout/review"
+        />
+</LinearLayout>

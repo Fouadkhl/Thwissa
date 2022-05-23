@@ -13,7 +13,7 @@ data class UserRes(
     @SerializedName("name")
     val name: String,
     @SerializedName("role")
-    val role: String
+    val role: String ,
 
 //    val id : String ,
 //    val name: String ,

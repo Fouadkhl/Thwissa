@@ -5,13 +5,12 @@
 <!--    xmlns:tools="http://schemas.android.com/tools"-->
 <!--    android:layout_width="match_parent"-->
 <!--    android:layout_height="match_parent">-->
-
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
 
     <include
         android:id="@+id/search_bar"
@@ -87,13 +86,12 @@
         android:layout_below="@id/search_bar"
         android:layout_centerVertical="true"
         android:layout_marginTop="16dp"
+        android:layoutAnimation="@anim/layout_animation_sotries"
         android:orientation="horizontal"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_add_story" />
 <!--        </LinearLayout>-->
 <!--    </ScrollView>-->
-
-
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -171,6 +169,7 @@
                 android:layout_below="@id/tv_top_sites"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layoutAnimation="@anim/layout_animation"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/item_hotel" />
 
