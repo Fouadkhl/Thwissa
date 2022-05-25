@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 
@@ -22,6 +24,7 @@ public class TopRatedAdapter extends RecyclerView.Adapter<TopRatedAdapter.MyView
         public ImageView mImageView;    // top rated image
         public TextView mTextView1;    // top rated text
         public TextView mTextView2;    // top rated rate
+        public CardView cardviewparent;
 
         // CONSTRUCTOR
         public MyViewHolder(@NonNull View itemView) {
@@ -29,6 +32,7 @@ public class TopRatedAdapter extends RecyclerView.Adapter<TopRatedAdapter.MyView
             mImageView = (ImageView) itemView.findViewById(R.id.topRated_image);
             mTextView1 = (TextView) itemView.findViewById(R.id.topRated_name);
             mTextView2 = (TextView) itemView.findViewById(R.id.topRated_rate);
+            cardviewparent = (CardView)  itemView.findViewById(R.id.cv_top_rated_item);
         }
     }
 
@@ -50,6 +54,13 @@ public class TopRatedAdapter extends RecyclerView.Adapter<TopRatedAdapter.MyView
         holder.mImageView.setImageResource(mTopRatedList.get(position).getmPlaceImageResource());
         holder.mTextView1.setText(mTopRatedList.get(position).getmPlaceName());
         holder.mTextView2.setText(String.valueOf(mTopRatedList.get(position).getmPlaceRate()));
+
+        holder.cardviewparent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Navigation.findNavController(view).navigate(R.id.action_placesFragment_to_overview);
+            }
+        });
     }
 
     @Override

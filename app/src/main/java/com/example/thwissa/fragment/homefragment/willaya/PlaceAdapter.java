@@ -26,7 +26,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
         public TextView mTextView2;            // place summary
         public LinearLayout mLinearLayout;     // place rate
         public TextView mTextView3;            // place rate text
-        public CardView cardviewparent;            // place rate text
+        public CardView cardviewparent;
 
         // CONSTRUCTOR
         public MyViewHolder(@NonNull View itemView) {
@@ -59,6 +59,7 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
         holder.mImageView.setImageResource(mPlacesList.get(position).getmPlaceImageResource());
         holder.mTextView1.setText(mPlacesList.get(position).getmPlaceName());
         holder.mTextView2.setText(mPlacesList.get(position).getmPlaceSummary());
+
         holder.cardviewparent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

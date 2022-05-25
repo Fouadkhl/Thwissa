@@ -44,6 +44,12 @@ class ProfileFragment : Fragment() {
                 Navigation.findNavController(binding.root)
                     .navigate(R.id.action_profileFragment_to_editProfile)
             }
+            /** FAVORITE NAVIGATION */
+            favorite.ivNextMyTrip.setOnClickListener {
+                Navigation.findNavController(binding.root)
+                    .navigate(R.id.action_profileFragment_to_favoritesFragment)
+            }
+
         }
 
         if (isLoggedInWithGoogle()){

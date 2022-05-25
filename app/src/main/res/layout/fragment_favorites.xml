@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:background="@color/background_color"
     android:orientation="vertical"
-    tools:context=".fragment.Profile.favorites.FavoritesFragment">
+    tools:context="com.example.thwissa.fragment.Profile.Favorites.FavoritesFragment">
 
-<!--    TOOLBAR'S NAVIGATION & BACK BUTTON (from code)-->
+    <!--    TOOLBAR'S NAVIGATION & BACK BUTTON (from code)-->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-<!--TAB LAYOUT (FAVORITES CATEGORIES)-->
+    <!--TAB LAYOUT (FAVORITES CATEGORIES)-->
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,6 +58,6 @@
         android:layout_marginTop="30dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_discuss_recycler_view" />
+        tools:listitem="@layout/item_discuss_recyclerview" />
 
 </LinearLayout>

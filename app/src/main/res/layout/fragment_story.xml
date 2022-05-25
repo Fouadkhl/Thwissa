@@ -43,24 +43,6 @@
         android:layout_height="3dp"
         android:layout_marginTop="15dp"
         android:orientation="horizontal">
-        <!-- EXAMPLE HERE:
-        <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/my_rounded_shape" >
-                    <View
-                        android:id="@+id/progress"
-                        android:layout_width="60dp"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"/>
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/my_rounded_shape" />
-        -->
     </LinearLayout>
 
     <!-- USER PROFILE FRAME & PICTURE-->

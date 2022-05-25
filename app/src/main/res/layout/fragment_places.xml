@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.example.shape.fragment.homefragment.willaya.PlacesFragment">
+    android:background="@color/background_color"
+    tools:context="com.example.thwissa.fragment.homefragment.willaya.PlacesFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -19,13 +19,14 @@
 
             <!--CATEGORIES BAR: Touristic, Entertainment, Commercial, Historic -->
             <com.google.android.material.tabs.TabLayout
-                android:id="@+id/top_bar"
+                android:id="@+id/category_tab_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:background="@color/white"
-                app:tabTextColor="#0D2B51"
+                app:tabMode="scrollable"
                 app:tabSelectedTextColor="#DE3500"
-                android:layout_marginTop="8dp">
+                app:tabTextColor="@color/secondary_color">
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -41,77 +42,95 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Commercial"/>
+                    android:text="Historic"/>
 
             </com.google.android.material.tabs.TabLayout>
 
 
             <!-- TOP RATED -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_big"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="25dp"
-                android:text="Top Rated:"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:text="Top Rated"
+                android:textColor="#0D2B51" />
 
             <!-- HORIZONTAL RECYCLER VIEW -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/topRated_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                tools:listitem="@layout/toprated_recycler_view_item"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/toprated_recycler_view_item">
             </androidx.recyclerview.widget.RecyclerView>
+
 
             <!-- PLACES -->
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/text_big"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
-                android:text="Others:"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:text="Others"
+                android:textColor="#0D2B51" />
 
             <!-- VERTICAL RECYCLER VIEW -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/places_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="14dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
-                tools:listitem="@layout/places_recycler_view_item"
                 android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/places_recycler_view_item">
             </androidx.recyclerview.widget.RecyclerView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-<!--    MAP & PLACES BUTTONS (FIXED ON SCREEN)-->
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp">
-        <Button
-            android:id="@+id/map_button"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
-            android:shadowRadius="50"
-            android:text="map"/>
-        <Button
-            android:id="@+id/places_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:text="places"/>
-    </LinearLayout>
-</RelativeLayout>
+
+
+    <!--    <com.llollox.androidtoggleswitch.widgets.ToggleSwitch-->
+    <!--        android:id="@+id/map_switch_button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginBottom="40dp"-->
+    <!--        app:borderRadius="20dp"-->
+    <!--        app:borderWidth="1dp"-->
+    <!--        app:checkedBackgroundColor="@color/white"-->
+    <!--        app:checkedBorderColor="#1495CD"-->
+    <!--        app:checkedTextColor="@color/primary_blue"-->
+    <!--        app:textToggleLeft="Map"-->
+    <!--        app:textToggleRight="Places"-->
+    <!--        app:toggleHeight="45dp"-->
+    <!--        app:toggleWidth="100dp"-->
+    <!--        app:uncheckedBackgroundColor="@color/primary_blue"-->
+    <!--        app:uncheckedBorderColor="@color/primary_blue"-->
+    <!--        app:uncheckedTextColor="@color/white">-->
+    <!--    </com.llollox.androidtoggleswitch.widgets.ToggleSwitch> -->
+
+    <!--    <com.llollox.androidtoggleswitch.widgets.ToggleSwitch-->
+    <!--        android:id="@+id/map_switch_button"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:layout_marginBottom="40dp"-->
+    <!--        app:borderRadius="20dp"-->
+    <!--        app:borderWidth="1dp"-->
+    <!--        app:checkedBackgroundColor="@color/white"-->
+    <!--        app:checkedBorderColor="#1495CD"-->
+    <!--        app:checkedTextColor="@color/primary_blue"-->
+    <!--        app:textToggleLeft="Map"-->
+    <!--        app:textToggleRight="Places"-->
+    <!--        app:toggleHeight="45dp"-->
+    <!--        app:toggleWidth="100dp"-->
+    <!--        app:uncheckedBackgroundColor="@color/primary_blue"-->
+    <!--        app:uncheckedBorderColor="@color/primary_blue"-->
+    <!--        app:uncheckedTextColor="@color/white"-->
+    <!--        tools:ignore="MissingClass" />-->
+    x</RelativeLayout>

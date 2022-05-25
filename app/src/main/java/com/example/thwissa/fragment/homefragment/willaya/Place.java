@@ -1,7 +1,6 @@
 package com.example.thwissa.fragment.homefragment.willaya;
 
 public class Place {
-
     private int mPlaceImageResource;
     private String mPlaceName;
     private float mPlaceRate;
