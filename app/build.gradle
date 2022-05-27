@@ -59,6 +59,10 @@ dependencies {
 // Retrofit with Moshi Converter
     implementation "com.squareup.retrofit2:converter-gson:2.9.0"
 
+    // ok http for retrofit interception
+    implementation 'com.squareup.okhttp3:okhttp:4.4.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
+
     //tbuonomo
     implementation 'com.tbuonomo:dotsindicator:4.2'
 //    implementation 'com.android.support:design:32.0.0'

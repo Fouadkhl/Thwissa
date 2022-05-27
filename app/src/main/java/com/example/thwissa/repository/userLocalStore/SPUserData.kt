@@ -5,18 +5,23 @@ import android.content.SharedPreferences
 import com.example.thwissa.dataclasses.AgencyRes
 import com.example.thwissa.dataclasses.AgencySignUPReq
 import com.example.thwissa.dataclasses.UserRes
+import com.example.thwissa.utils.Constants.SHARED_PREFERENCES
 import java.util.*
 
 
-const val SHARED_PREFERENCES = "userDetails"
-class SPUserData {
-
+class SPUserData(context: Context) {
 
     private val mySharedPrefenreces : SharedPreferences
 
-    constructor(context: Context) {
+
+    fun getSharedPreferences() = mySharedPrefenreces
+
+
+    init {
         this.mySharedPrefenreces = context.getSharedPreferences(SHARED_PREFERENCES , 0)
     }
+
+
 
     /**
      * @param user the user logged in
@@ -42,7 +47,7 @@ class SPUserData {
         val spEditor = mySharedPrefenreces.edit()
         spEditor.apply{
             putString("agencyName", user.id)
-            putBoolean("isvalidate" , user.isvalidate)
+//            putBoolean("isvalidate" , user.isvalidate)
         }
         spEditor.commit()
     }

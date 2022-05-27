@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/agency_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -35,7 +35,7 @@
         app:layout_constraintEnd_toStartOf="@+id/iv_agency_register"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/agency_name" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_agency_register"

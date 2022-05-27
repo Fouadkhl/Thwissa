@@ -1,4 +1,4 @@
-package com.example.thwissa.fragment.auth.userAuth
+package com.example.thwissa.fragment.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -35,6 +35,10 @@ class LoginFragment : Fragment() {
 
         binding.tvSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+        }
+
+        binding.tvForgetPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_enterEmailResetPassword)
         }
 
 

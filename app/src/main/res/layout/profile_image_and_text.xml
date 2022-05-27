@@ -30,14 +30,14 @@
         android:textColor="@color/text_color"
         android:textStyle="bold"
         android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toTopOf="@+id/tv_placee"
+        app:layout_constraintBottom_toTopOf="@+id/tv_nombre_followers"
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
         app:layout_constraintStart_toStartOf="@+id/iv_profile2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/tv_placee"
+        android:id="@+id/tv_nombre_followers"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="18dp"
@@ -56,9 +56,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:src="@drawable/ic_baseline_add_location_alt_24"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_placee"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_nombre_followers"
         app:layout_constraintStart_toEndOf="@+id/iv_profile"
-        app:layout_constraintTop_toTopOf="@+id/tv_placee"
+        app:layout_constraintTop_toTopOf="@+id/tv_nombre_followers"
         app:layout_constraintVertical_bias="0.0" />
 
 

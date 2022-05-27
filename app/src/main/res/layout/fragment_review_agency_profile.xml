@@ -38,6 +38,15 @@
         android:layout_marginTop="18dp"
         android:hint="review" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_share_rating"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/rate"
+        android:background="@drawable/background_btn_rating"
+        android:textColor="@color/white"
+        android:layout_margin="18dp"
+        />
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

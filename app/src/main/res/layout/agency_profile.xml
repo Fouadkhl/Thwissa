@@ -24,13 +24,13 @@
             android:layout_height="35dp"
             android:layout_marginTop="24dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
-            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintBottom_toTopOf="@+id/agency_name"
             app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/agency_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -42,7 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/book_mark" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/iv_agency_picture"
             android:layout_width="0dp"
             android:layout_height="241dp"
             android:layout_marginTop="12dp"
@@ -50,10 +50,10 @@
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/agency_name" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/follow"
+            android:id="@+id/btn_follow"
             android:layout_width="150dp"
             android:layout_height="42dp"
             android:layout_marginTop="24dp"
@@ -66,7 +66,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_agency_picture" />
 
 
         <TextView
@@ -75,10 +75,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="follower"
-            app:layout_constraintEnd_toEndOf="@+id/tv_placee"
+            app:layout_constraintEnd_toEndOf="@+id/tv_nombre_followers"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_placee"
-            app:layout_constraintTop_toBottomOf="@+id/tv_placee" />
+            app:layout_constraintStart_toStartOf="@+id/tv_nombre_followers"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nombre_followers" />
 
         <TextView
             android:id="@+id/tv_saves"
@@ -88,10 +88,10 @@
             android:text="128"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/rating_number"
+            app:layout_constraintEnd_toStartOf="@+id/tv_rating_number"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/tv_placee"
-            app:layout_constraintTop_toBottomOf="@+id/follow" />
+            app:layout_constraintStart_toEndOf="@+id/tv_nombre_followers"
+            app:layout_constraintTop_toBottomOf="@+id/btn_follow" />
 
         <TextView
             android:id="@+id/tv_save"
@@ -105,7 +105,7 @@
 
 
         <TextView
-            android:id="@+id/rating_number"
+            android:id="@+id/tv_rating_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="4.5"
@@ -117,7 +117,7 @@
             app:layout_constraintStart_toEndOf="@+id/tv_saves" />
 
         <TextView
-            android:id="@+id/tv_placee"
+            android:id="@+id/tv_nombre_followers"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="128"
@@ -129,7 +129,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <RatingBar
-            android:id="@+id/rating"
+            android:id="@+id/rating_bar"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,9 +139,9 @@
             android:rating="4.2"
             android:stepSize="0.1"
             android:theme="@style/RatingBar"
-            app:layout_constraintEnd_toEndOf="@+id/rating_number"
-            app:layout_constraintStart_toStartOf="@+id/rating_number"
-            app:layout_constraintTop_toBottomOf="@+id/rating_number" />
+            app:layout_constraintEnd_toEndOf="@+id/tv_rating_number"
+            app:layout_constraintStart_toStartOf="@+id/tv_rating_number"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rating_number" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline"
@@ -158,7 +158,7 @@
             app:layout_constraintGuide_end="24dp" />
 
         <TextView
-            android:id="@+id/email"
+            android:id="@+id/agency_email"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -171,16 +171,16 @@
 
 
         <TextView
-            android:id="@+id/facebook"
+            android:id="@+id/tv_location_agency"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:drawableLeft="@drawable/ic_email"
+            android:drawableLeft="@drawable/ic_baseline_location_on_24_2"
             android:drawablePadding="6dp"
-            android:text="abdelnour felleh"
+            android:text="@string/location"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/email" />
+            app:layout_constraintTop_toBottomOf="@+id/agency_email" />
 
         <TextView
             android:id="@+id/phone_number"
@@ -192,7 +192,7 @@
             android:text="066783564"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/facebook" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_location_agency" />
 
 
         <TextView

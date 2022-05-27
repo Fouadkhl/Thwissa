@@ -136,7 +136,7 @@ public class PostClickedFragment extends Fragment {
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_layout);
         //init our layout elements
         RelativeLayout report = bottomSheetDialog.findViewById(R.id.report);
-        RelativeLayout follow = bottomSheetDialog.findViewById(R.id.follow);
+        RelativeLayout follow = bottomSheetDialog.findViewById(R.id.btn_follow);
         RelativeLayout bookmark = bottomSheetDialog.findViewById(R.id.bookMark);
         RelativeLayout edit = bottomSheetDialog.findViewById(R.id.edit);
         RelativeLayout delete = bottomSheetDialog.findViewById(R.id.delete);

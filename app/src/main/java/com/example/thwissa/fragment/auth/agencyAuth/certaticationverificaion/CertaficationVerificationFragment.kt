@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -19,6 +20,7 @@ import com.example.thwissa.databinding.VerificationScreenBinding
 import com.example.thwissa.dataclasses.AgencyRes
 import com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.AcceptTermsDialogFragment.Companion.REQUEST_CODE
 import com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.AcceptTermsDialogFragment.Companion.TERACCEPTED_BUNDLE_KEY
+import com.example.thwissa.repository.userLocalStore.SPUserData
 import com.example.thwissa.utils.Constants
 import retrofit2.Call
 import retrofit2.Response
@@ -96,25 +98,29 @@ class CertaficationVerificationFragment : Fragment() {
 //                viewModelCertafication.uploadImageToDatabase(curFile)
                 //go to code verification
                 var map = HashMap<String, Any>()
-
-                arguments?.apply {
-                    val name = getString(Constants.SIGNUP_BUNDLE_NAME)
-                    val email = getString(Constants.SIGNUP_EMAIL)
-                    val password = getString(Constants.SIGNUP_PASSWORD)
-                    val phone = getString(Constants.SIGNUP_PHONE_NUMBER)
-                    val location = getString(Constants.SIGNUP_LOCATION)
-                    map.apply {
-                        put("name", name!!)
-                        put("email", email!!)
-                        put("password", password!!)
-                        put("confirmepassword", password!!)
-                        put("location", location!!)
-                        put("phonenumber", phone!!)
-                    }
-                    primaryAgencySignUp(map)
+                val name = arguments?.getString(Constants.SIGNUP_BUNDLE_NAME)
+                val email = arguments?.getString(Constants.SIGNUP_EMAIL)
+                val password = arguments?.getString(Constants.SIGNUP_PASSWORD)
+                val phone = arguments?.getString(Constants.SIGNUP_PHONE_NUMBER)
+                val location = arguments?.getString(Constants.SIGNUP_LOCATION)
+                map.apply {
+                    put("name", name!!)
+                    put("email", email!!)
+                    put("password", password!!)
+                    put("confirmepassword", password!!)
+                    put("location", location!!)
+                    put("phonenumber", phone!!)
                 }
+                val iduser = primaryAgencySignUp(map)
+                val bundle = bundleOf(
+                    Constants.USER_ID to iduser,
+                    Constants.SIGNUP_EMAIL to email
+                )
+                findNavController().navigate(
+                    R.id.action_certaficationVerificationFragment_to_codeValidationFragment,
+                    bundle
+                )
 
-                findNavController().navigate(R.id.action_certaficationVerificationFragment_to_codeValidationFragment)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -146,13 +152,13 @@ class CertaficationVerificationFragment : Fragment() {
         )
     }
 
-    fun primaryAgencySignUp(agencyInfo: HashMap<String, Any>) {
+    fun primaryAgencySignUp(agencyInfo: HashMap<String, Any>): String? {
+        var id: String? = null
         LogService.retrofitService.executeSignUpAgency(agencyInfo)
             .enqueue(object : retrofit2.Callback<AgencyRes> {
                 override fun onResponse(call: Call<AgencyRes>, response: Response<AgencyRes>) {
                     /**handle the sign up  */
 //                        boolearn / id
-
                     if (response.isSuccessful) {
                         Toast.makeText(
                             context,
@@ -162,6 +168,7 @@ class CertaficationVerificationFragment : Fragment() {
                         Log.i("signupuser", "onFailure:${response.message()} ")
 
                         val res = response.body()
+                        id = res?.id
                         //handle the response
 
                     } else {
@@ -184,5 +191,7 @@ class CertaficationVerificationFragment : Fragment() {
                 }
             }
             )
+        return id
     }
+
 }

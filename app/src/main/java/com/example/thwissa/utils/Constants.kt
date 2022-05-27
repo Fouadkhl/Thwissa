@@ -9,4 +9,12 @@ object Constants {
     const val    SIGNUP_PASSWORD ="password"
     const val    SIGNUP_PHONE_NUMBER ="phonenumber"
     const val SIGNUP_BUNDLE = "11"
+    const val USER_ID = "userid"
+    const val  WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather"
+
+    const val USER_ROLE ="user_role"
+
+    const val EMAIL_RESET_PASSWORD = "resetpassword"
+
+    const val SHARED_PREFERENCES = "userDetails"
 }

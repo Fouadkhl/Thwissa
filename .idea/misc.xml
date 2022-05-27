@@ -30,6 +30,7 @@
         <entry key="app/src/main/res/layout/fragment_agency_sign_up.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_discuss.xml" value="0.1182453909726637" />
+        <entry key="app/src/main/res/layout/fragment_edit_password.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_entertainment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.17844202898550723" />
@@ -43,7 +44,7 @@
         <entry key="app/src/main/res/layout/fragment_story.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_trip_plan_agency_profile.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_profile.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/log_in_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/log_in_screen.xml" value="0.22" />
         <entry key="app/src/main/res/layout/profile_image_and_text.xml" value="0.15670289855072464" />
         <entry key="app/src/main/res/layout/profile_screen.xml" value="0.18" />
         <entry key="app/src/main/res/layout/register_screen.xml" value="0.15052083333333333" />

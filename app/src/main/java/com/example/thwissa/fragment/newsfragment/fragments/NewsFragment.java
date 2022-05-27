@@ -37,6 +37,7 @@ import com.example.thwissa.fragment.newsfragment.classes.mPost;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnItemClickedListener;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnReplyButtonClicked;
 import com.example.thwissa.repository.userLocalStore.SPUserData;
+import com.example.thwissa.utils.Constants;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.squareup.picasso.Picasso;
 
@@ -261,7 +262,7 @@ public class NewsFragment extends Fragment {
     private void getWilayaWeather(Meteo meteo, Context context){
         /** Get Url using wilaya name */
         // OPEN WEATHER MAP API
-        final String url = "https://api.openweathermap.org/data/2.5/weather";
+        final String url = Constants.WEATHER_URL;
         final String appId = "f21603913cc37defa5563046a448ce36";
         String tempUrl = url + "?q=" + meteo.wilayaName + "&appid=" + appId;
         /** Create Request Using the Url*/

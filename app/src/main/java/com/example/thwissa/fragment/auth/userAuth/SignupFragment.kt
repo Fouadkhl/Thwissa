@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.thwissa.LogService
@@ -22,6 +23,8 @@ import com.example.thwissa.fragment.auth.validation.controlValidators.EmailValid
 import com.example.thwissa.fragment.auth.validation.controlValidators.EmptyValidator
 import com.example.thwissa.fragment.auth.validation.controlValidators.PasswordValidator
 import com.example.thwissa.repository.userLocalStore.SPUserData
+import com.example.thwissa.utils.Constants
+import com.example.thwissa.utils.Constants.USER_ROLE
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -37,7 +40,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Response
-import java.util.*
 
 
 @Suppress("DEPRECATION")
@@ -61,7 +63,11 @@ class SignupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // getDataAndSignUpUser()
-        signUpUser()
+
+        binding.btnSignUp.setOnClickListener {
+            signUpUser()
+        }
+
 
         gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build()
@@ -174,58 +180,60 @@ class SignupFragment : Fragment() {
     }
 
     private fun signUpUser() {
-        binding.btnSignUp.setOnClickListener {
-            val userinfo = HashMap<String, Any>()
-            userinfo.put("name", binding.etName.text.toString())
-            userinfo.put("email", binding.etEmail.text.toString())
-            userinfo.put("password", binding.etPassword.text.toString())
-            userinfo.put("location", binding.etLocation.text.toString())
-            userinfo.put("confirmepassword", binding.etConfirmPassword.text.toString())
+        val userinfo = HashMap<String, Any>()
+        userinfo.put("name", binding.etName.text.toString())
+        userinfo.put("email", binding.etEmail.text.toString())
+        userinfo.put("password", binding.etPassword.text.toString())
+        userinfo.put("location", binding.etLocation.text.toString())
+        userinfo.put("confirmepassword", binding.etConfirmPassword.text.toString())
 //            var gender = binding.radioGroup.checkedRadioButtonId // 0 for male and 1 for female
 //            userinfo.put("gender", gender.toString())
-            uploadImageToDatabase()
+        uploadImageToDatabase()
 
-            val spUserData = SPUserData(requireContext())
-            LogService.retrofitService.executeSignUp(userinfo)
-                .enqueue(object : retrofit2.Callback<UserRes> {
-                    override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
-                        /**handle the sign up  */
+        val spUserData = SPUserData(requireContext())
+        LogService.retrofitService.executeSignUp(userinfo)
+            .enqueue(object : retrofit2.Callback<UserRes> {
+                override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
+                    /**handle the sign up  */
 //                        boolearn / id
 
-                        if (response.isSuccessful) {
-                            Toast.makeText(
-                                this@SignupFragment.context,
-                                "sign up successefuly",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
-                            val res = response.body()
-                            // TODO: save data in external storage and set the user loggedin
-                            spUserData.setUserLoggedIn(true)
-                            spUserData.StoreUserData(res!!)
-                            //redirect the to his profile
-                            findNavController().navigate(com.example.thwissa.R.id.action_signupFragment_to_profileFragment)
-
-                        } else {
-                            Toast.makeText(
-                                this@SignupFragment.context,
-                                "error in response ${response.message()}, ${response.code()}",
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-
-                    override fun onFailure(call: Call<UserRes>, t: Throwable) {
+                    if (response.isSuccessful) {
                         Toast.makeText(
                             this@SignupFragment.context,
-                            "sign up fail ${t.message}",
+                            "sign up successefuly",
                             Toast.LENGTH_SHORT
                         ).show()
-                        Log.i("signupuser", "onFailure:${t.message} ")
+
+                        val res = response.body()
+                        // TODO: save data in external storage and set the user loggedin
+                        spUserData.setUserLoggedIn(true)
+                        spUserData.StoreUserData(res!!)
+                        //redirect the to his profile
+                        val bundle = bundleOf(USER_ROLE to  1 ,
+                            Constants.USER_ID to res.id
+                        )
+                        findNavController().navigate(R.id.action_signupFragment_to_codeValidationFragment , bundle)
+
+                    } else {
+                        Toast.makeText(
+                            this@SignupFragment.context,
+                            "error in response ${response.message()}, ${response.code()}",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
-                )
-        }
+
+                override fun onFailure(call: Call<UserRes>, t: Throwable) {
+                    Toast.makeText(
+                        this@SignupFragment.context,
+                        "sign up fail ${t.message}",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    Log.i("signupuser", "onFailure:${t.message} ")
+                }
+            }
+            )
+
     }
 
     private fun uploadImageToDatabase() = CoroutineScope(Dispatchers.IO).launch {
@@ -256,7 +264,6 @@ class SignupFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         callbackManager.onActivityResult(requestCode, resultCode, data)
-        
 
         if (requestCode == 1000 && resultCode != Activity.RESULT_CANCELED) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
@@ -274,9 +281,6 @@ class SignupFragment : Fragment() {
         findNavController().navigate(R.id.action_signupFragment_to_profileFragment)
     }
 }
-
-
-
 
 
 //
