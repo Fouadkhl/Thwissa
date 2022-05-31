@@ -1,5 +1,6 @@
 package com.example.thwissa.fragment.homefragment.willaya;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,31 +14,34 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.thwissa.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class TopRatedAdapter extends RecyclerView.Adapter<TopRatedAdapter.MyViewHolder>{
     private ArrayList<Place> mTopRatedList;
+    private Context context;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         // OUR RECYLER VIEW ITEM ATTRIBUTES
-        public ImageView mImageView;    // top rated image
-        public TextView mTextView1;    // top rated text
-        public TextView mTextView2;    // top rated rate
+        public ImageView topRatedImage;    // top rated image
+        public TextView topRatedName;    // top rated text
+        public TextView topRatedRate;    // top rated rate
         public CardView cardviewparent;
 
         // CONSTRUCTOR
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.topRated_image);
-            mTextView1 = (TextView) itemView.findViewById(R.id.topRated_name);
-            mTextView2 = (TextView) itemView.findViewById(R.id.topRated_rate);
+            topRatedImage = (ImageView) itemView.findViewById(R.id.topRated_image);
+            topRatedName = (TextView) itemView.findViewById(R.id.topRated_name);
+            topRatedRate = (TextView) itemView.findViewById(R.id.topRated_rate);
             cardviewparent = (CardView)  itemView.findViewById(R.id.cv_top_rated_item);
         }
     }
 
     /** CONSTRUCTOR */
-    public TopRatedAdapter(ArrayList<Place> topRatedList) {
+    public TopRatedAdapter(Context context, ArrayList<Place> topRatedList) {
+        this.context = context;
         this.mTopRatedList = topRatedList;
     }
 
@@ -51,9 +55,14 @@ public class TopRatedAdapter extends RecyclerView.Adapter<TopRatedAdapter.MyView
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.mImageView.setImageResource(mTopRatedList.get(position).getmPlaceImageResource());
-        holder.mTextView1.setText(mTopRatedList.get(position).getmPlaceName());
-        holder.mTextView2.setText(String.valueOf(mTopRatedList.get(position).getmPlaceRate()));
+        Place currentTopRated = mTopRatedList.get(position);
+        try {
+            Picasso.with(context).load(currentTopRated.placeImagesUrls.get(0)).into(holder.topRatedImage);
+        }catch (Exception e){
+            holder.topRatedImage.setImageResource(R.drawable.finish_4);
+        }
+        holder.topRatedName.setText(currentTopRated.placeName);
+        holder.topRatedRate.setText(String.valueOf(currentTopRated.placeRate));
 
         holder.cardviewparent.setOnClickListener(new View.OnClickListener() {
             @Override
