@@ -42,7 +42,15 @@
                 <com.google.android.material.tabs.TabItem
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Historic"/>
+                    android:text="Hospitals"/>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Restaurants"/>
+                <com.google.android.material.tabs.TabItem
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Residence"/>
 
             </com.google.android.material.tabs.TabLayout>
 
@@ -73,7 +81,7 @@
                 style="@style/text_big"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="20dp"
-                android:text="Others"
+                android:text="Popular"
                 android:textColor="#0D2B51" />
 
             <!-- VERTICAL RECYCLER VIEW -->

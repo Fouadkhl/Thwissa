@@ -11,6 +11,7 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="300dp" />
+
     <TextView
         android:id="@+id/Title"
         android:layout_width="wrap_content"
@@ -21,7 +22,7 @@
         android:fontFamily="@font/nunito_bold"
         android:text="@string/restaurants"
         android:textColor="@color/secondaryColor"
-        android:textSize="@dimen/titlesSize"
+        android:textSize="20dp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -69,6 +69,7 @@ public class NewsFragment extends Fragment {
     private TextView hint;
     private RecyclerView topRatedTripsRecycleView;
 
+    private ArrayList<Meteo> meteos;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -177,13 +178,10 @@ public class NewsFragment extends Fragment {
 
     private void initMeteoViewPager() {
         // SET METEOS LIST
-        ArrayList<Meteo> meteos = new ArrayList<>(Arrays.asList(new Meteo("Algiers"), new Meteo("Oran"), new Meteo("Setif")));
+        meteos = new ArrayList<>(Arrays.asList(new Meteo("Algiers"), new Meteo("Oran"), new Meteo("Setif")));
         for (Meteo meteo : meteos) {
             getWilayaWeather(meteo, getContext());
         }
-        meteoViewPagerAdapter = new MeteoViewPagerAdapter(getContext(), meteos);
-        viewPager2.setAdapter(meteoViewPagerAdapter);
-        //viewPager2.setUserInputEnabled(false);
 
         timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -284,6 +282,9 @@ public class NewsFragment extends Fragment {
                 } catch(JSONException e){
                     e.printStackTrace();
                 }
+                meteoViewPagerAdapter = new MeteoViewPagerAdapter(getContext(), meteos);
+                viewPager2.setAdapter(meteoViewPagerAdapter);
+                //viewPager2.setUserInputEnabled(false);
             }
         }, new Response.ErrorListener() {
             @Override

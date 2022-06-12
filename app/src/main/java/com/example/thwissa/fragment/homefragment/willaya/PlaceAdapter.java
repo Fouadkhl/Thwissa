@@ -1,10 +1,12 @@
 package com.example.thwissa.fragment.homefragment.willaya;
 
+import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -12,37 +14,42 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thwissa.R;
+import com.example.thwissa.fragment.homefragment.overview.interfaces.OnPlaceClickedListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder>{
     private ArrayList<Place> mPlacesList;
+    private Context context;
 
+    private OnPlaceClickedListener onPlaceClickedListener = new OnPlaceClickedListener() {
+        @Override
+        public void placeClicked(Place place) {}
+    };
     /** VIEW HOLDER INNER CLASS */
     public static class MyViewHolder extends RecyclerView.ViewHolder{
         // OUR RECYLER VIEW ITEM ATTRIBUTES
-        public ImageView mImageView;           // place image
-        public TextView mTextView1;            // place name
-        public TextView mTextView2;            // place summary
-        public LinearLayout mLinearLayout;     // place rate
-        public TextView mTextView3;            // place rate text
-        public CardView cardviewparent;
+        public ImageView placeImage;           // place image
+        public TextView placeName;            // place name
+        public TextView placeSummary;            // place summary
+        public RatingBar placeRatingBar;     // place rating bar
+        public TextView placeRateText;            // place rate text
 
         // CONSTRUCTOR
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            mImageView = (ImageView) itemView.findViewById(R.id.place_image);
-            mTextView1 = (TextView) itemView.findViewById(R.id.place_name);
-            mTextView2 = (TextView) itemView.findViewById(R.id.place_summary);
-            mLinearLayout = (LinearLayout) itemView.findViewById(R.id.place_rate);
-            cardviewparent = (CardView)  itemView.findViewById(R.id.cv_place_item);
-
-            mTextView3 = (TextView) mLinearLayout.getChildAt(0);
+            placeImage = (ImageView) itemView.findViewById(R.id.place_image);
+            placeName = (TextView) itemView.findViewById(R.id.place_name);
+            placeSummary = (TextView) itemView.findViewById(R.id.place_summary);
+            placeRatingBar = (RatingBar) itemView.findViewById(R.id.place_rating_bar);
+            placeRateText = (TextView) itemView.findViewById(R.id.place_rate_text);
         }
     }
 
     /** CONSTRUCTOR */
-    public PlaceAdapter(ArrayList<Place> placesList){
+    public PlaceAdapter(Context context, ArrayList<Place> placesList){
+        this.context = context;
         mPlacesList = placesList;
     }
 
@@ -56,28 +63,36 @@ public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.mImageView.setImageResource(mPlacesList.get(position).getmPlaceImageResource());
-        holder.mTextView1.setText(mPlacesList.get(position).getmPlaceName());
-        holder.mTextView2.setText(mPlacesList.get(position).getmPlaceSummary());
+        Place currentPlace = mPlacesList.get(position);
+        try {
+            Picasso.with(context).load(currentPlace.placeImagesUrls.get(0)).into(holder.placeImage);
+        }catch (Exception e){
+            holder.placeImage.setImageResource(R.drawable.finish_4);
+        }
+        holder.placeName.setText(currentPlace.placeName);
+        String placeSummaryText = "Category: " + currentPlace.placeCategory + "\nAddress: " + currentPlace.placeAddress +
+                "\nPopularity: " + currentPlace.placePopularity +"/10\nDistance From Local State: " +
+                currentPlace.placeDistance + "m\nDescription: " + currentPlace.placeDescription;
+        holder.placeSummary.setText(placeSummaryText);
+        holder.placeRateText.setText(String.valueOf(currentPlace.placeRate));
+        holder.placeRatingBar.setRating((float)currentPlace.placeRate);
 
-        holder.cardviewparent.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Navigation.findNavController(view).navigate(R.id.action_placesFragment_to_overview);
+            public void onClick(View v) {
+                onPlaceClickedListener.placeClicked(currentPlace);
             }
         });
-
-        float rate = mPlacesList.get(position).getmPlaceRate();
-        holder.mTextView3.setText(String.valueOf(rate));            // PLACE RATE TEXT
-
-        for (int i = 1; i <= rate; i++) {                          // PALCE RATE STARS
-            ImageView star = (ImageView) holder.mLinearLayout.getChildAt(i);
-            star.setImageResource(R.drawable.ic_baseline_star_24);
-        }
     }
 
     @Override
     public int getItemCount() {
         return mPlacesList.size();
+    }
+
+
+
+    public void setOnPlaceClickedListener(OnPlaceClickedListener onPlaceClickedListener){
+        this.onPlaceClickedListener = onPlaceClickedListener;
     }
 }

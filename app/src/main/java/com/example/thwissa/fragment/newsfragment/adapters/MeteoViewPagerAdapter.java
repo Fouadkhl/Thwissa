@@ -32,7 +32,7 @@ import java.util.Date;
 
 public class MeteoViewPagerAdapter extends RecyclerView.Adapter<MeteoViewPagerAdapter.ViewPagerViewHolder> {
 
-    Context context;
+    private Context context;
     private ArrayList<Meteo> meteos = new ArrayList<>();
 
     public MeteoViewPagerAdapter(Context context, ArrayList<Meteo> meteos){

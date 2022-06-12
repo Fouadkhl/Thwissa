@@ -10,6 +10,7 @@
         android:orientation="horizontal"
         android:layout_marginStart="@dimen/marginStart">
         <TextView
+            android:id="@+id/place_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/beautiful_city"
@@ -25,6 +26,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginStart="40dp"/>
         <TextView
+            android:id="@+id/rate_reviews_number"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_4_1_1024_reviews"
@@ -43,6 +45,7 @@
         android:textStyle="bold"
         android:layout_marginStart="@dimen/marginStart"/>
     <TextView
+        android:id="@+id/place_description"
         android:textSize="@dimen/defaultTextSize"
         android:layout_marginTop="10dp"
         android:layout_marginStart="5dp"
@@ -171,6 +174,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginHorizontal="@dimen/marginStart">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -181,15 +185,16 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryColor"
                 android:textSize="@dimen/normalTextSize"
-                android:text="@string/medium_price"
+                android:text="Address:"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"/>
             <TextView
+                android:id="@+id/place_address"
                 android:textSize="@dimen/defaultTextSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_2000da"
-                android:layout_marginStart="@dimen/marginStart"
+                android:text="/"
+                android:layout_marginStart="10dp"
                 android:textStyle="bold"
                 android:textColor="@color/normalTextColor"/>
         </LinearLayout>
@@ -203,17 +208,91 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryColor"
                 android:textSize="@dimen/normalTextSize"
-                android:text="@string/safety"
+                android:text="Price:"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"/>
             <TextView
+                android:id="@+id/place_price"
                 android:textSize="@dimen/defaultTextSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_150_points"
-                android:layout_marginStart="@dimen/marginStart"
+                android:text="Cheap"
+                android:layout_marginStart="10dp"
                 android:textStyle="bold"
                 android:textColor="@color/normalTextColor"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondaryColor"
+                android:textSize="@dimen/normalTextSize"
+                android:text="Popularity:"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+            <TextView
+                android:id="@+id/place_popularity"
+                android:textSize="@dimen/defaultTextSize"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:layout_height="wrap_content"
+                android:text="8/10"
+                android:textStyle="bold"
+                android:textColor="@color/normalTextColor"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondaryColor"
+                android:textSize="@dimen/normalTextSize"
+                android:text="Distance From Local State:"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+            <TextView
+                android:id="@+id/place_distance"
+                android:textSize="@dimen/defaultTextSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="500m"
+                android:layout_marginStart="10dp"
+                android:textStyle="bold"
+                android:textColor="@color/normalTextColor"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/secondaryColor"
+                android:textSize="@dimen/normalTextSize"
+                android:text="Phone Number:"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+            <TextView
+                android:id="@+id/place_phone_number"
+                android:textSize="@dimen/defaultTextSize"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:layout_height="wrap_content"
+                android:text="05378912"
+                android:textStyle="bold"
+                android:textColor="@color/normalTextColor"
+                />
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -224,28 +303,23 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/secondaryColor"
                 android:textSize="@dimen/normalTextSize"
-                android:text="@string/recommendation"
+                android:text="Web Site:"
                 android:textStyle="bold"
                 android:layout_marginStart="10dp"/>
             <TextView
+                android:id="@+id/place_web_site"
                 android:textSize="@dimen/defaultTextSize"
-                android:layout_marginStart="5dp"
+                android:layout_marginStart="10dp"
                 android:layout_width="wrap_content"
                 android:maxLines="1"
                 android:layout_height="wrap_content"
-                android:text="@string/rec_str1"
+                android:text="www.esi_sba.dz"
                 android:textStyle="bold"
                 android:textColor="@color/normalTextColor"
                 />
         </LinearLayout>
-        <TextView
-            android:textSize="@dimen/defaultTextSize"
-            android:textColor="@color/normalTextColor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/rec_str2"
-            android:layout_marginStart="10dp"
-            android:textStyle="bold"/>
+
+
     </LinearLayout>
     <TextView
         android:fontFamily="@font/nunito_bold"

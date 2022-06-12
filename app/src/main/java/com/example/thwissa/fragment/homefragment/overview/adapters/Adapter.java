@@ -8,13 +8,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thwissa.R;
+import com.example.thwissa.fragment.homefragment.willaya.Place;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.squareup.picasso.Picasso;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.InnerViewHolder>{
 
     private Context context;
+    private Place place;
     public Adapter(Context context){
         this.context = context;
+    }
+
+    public Adapter(Context context, Place place){
+        this.context = context;
+        this.place = place;
     }
 
     @NonNull
@@ -26,7 +34,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.InnerViewHolder>{
 
     @Override
     public void onBindViewHolder(@NonNull InnerViewHolder holder, int position) {
-        holder.shapeableImageView.setImageResource(R.drawable.finish_4);
+        //holder.shapeableImageView.setImageResource(R.drawable.finish_4);
+        try {
+            Picasso.with(context).load(place.placeImagesUrls.get(position)).into(holder.shapeableImageView);
+        }catch (Exception e){
+            holder.shapeableImageView.setImageResource(R.drawable.finish_4);
+        }
     }
 
     @Override

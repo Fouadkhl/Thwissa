@@ -101,7 +101,7 @@
         android:id="@+id/placesFragment"
         android:name="com.example.thwissa.fragment.homefragment.willaya.PlacesFragment"
         android:label="PlacesFragment" >
-        <action
+         <action
             android:id="@+id/action_placesFragment_to_overview"
             app:destination="@id/overview" />
     </fragment>
@@ -168,9 +168,9 @@
         android:label="HotelsFragment" />
     <fragment
         android:id="@+id/reviewsFragment"
-        android:name="com.example.thwissa.fragment.homefragment.overview.fragments.ReviewsFragment"
+        android:name="com.example.thwissa.fragment.homefragment.overview.fragments.TipsFragment"
         android:label="fragment_reviews"
-        tools:layout="@layout/fragment_reviews" />
+        tools:layout="@layout/fragment_tips" />
     <fragment
         android:id="@+id/restaurantsFragment"
         android:name="com.example.thwissa.fragment.homefragment.overview.fragments.RestaurantsFragment"
