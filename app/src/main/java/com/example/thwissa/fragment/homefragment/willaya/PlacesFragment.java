@@ -1,7 +1,13 @@
 package com.example.thwissa.fragment.homefragment.willaya;
 
+import android.icu.number.NumberFormatter;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,13 +22,17 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.thwissa.R;
 import com.example.thwissa.databinding.FragmentPlacesBinding;
+import com.example.thwissa.fragment.homefragment.overview.interfaces.OnPlaceClickedListener;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,28 +42,26 @@ import java.util.Map;
  */
 public class PlacesFragment extends Fragment {
     private FragmentPlacesBinding binding;
-    private PlaceAdapter mPlacesAdapter;
-    private TopRatedAdapter mTopRatedAdapter;
-
-
-    // Categories: Touristic:12000,16000     Entertainment: 10000,14000,18000       Commercial: 11000,17000         Food: 13000       Hotels: 19000        Health:15000
-    // 14 FIELDS: fsq_id,name,location,categories,distance,description,tel,website,rating,stats,popularity,price,photos,tips
+    //private PlaceAdapter mPlacesAdapter;
+    //private TopRatedAdapter mTopRatedAdapter;
     private HashMap<String, ArrayList<Place>> totalPlaces;
-    private final String url = "https://api.foursquare.com/v3/places/search";
-    private final String appId = "fsq3+HescpVWi499F8Qtda+huTh/ANyfkuVk3imyuhX9lbM=";
-    // Search Parameters
-    private final String fields = "fsq_id%2Cname%2Clocation%2Ccategories%2Cdistance%2Cdescription%2Ctel%2Cwebsite%2Crating%2Cstats%2Cpopularity%2Cprice%2Cphotos%2Ctips";
-    private final int placesNumberLimit = 50;   // max number of places;
-    private String sort = "RATING";
-
+    private HashMap<String, ArrayList<Place>> totalTopRatedPlaces;
     private String currentCategory = "12000,16000";   // by default: touristic category
+
+    // 14 FIELDS: fsq_id,name,location,categories,distance,description,tel,website,rating,stats,popularity,price,photos,tips,geocodes
+    private final String appId = "fsq3+HescpVWi499F8Qtda+huTh/ANyfkuVk3imyuhX9lbM=";
+
+
+    private NavController navController;
+
 
     public PlacesFragment() { }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentPlacesBinding.inflate(inflater, container, false);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        navController = Navigation.findNavController(view);
 
+        String wilayaName = getArguments().getString("wilaya_name");
         /** INITALIZE PLACES LISTS */
         // Category / Places List
         totalPlaces = new HashMap<String, ArrayList<Place>>(){{
@@ -64,11 +72,28 @@ public class PlacesFragment extends Fragment {
             put("19000", new ArrayList<Place>());
             put("15000", new ArrayList<Place>());
         }};
-        initPlaces();
+        totalTopRatedPlaces = new HashMap<String, ArrayList<Place>>(){{
+            put("12000,16000", new ArrayList<Place>());
+            put("10000,14000,18000", new ArrayList<Place>());
+            put("11000,17000", new ArrayList<Place>());
+            put("13000", new ArrayList<Place>());
+            put("19000", new ArrayList<Place>());
+            put("15000", new ArrayList<Place>());
+        }};
+
+        initPlaces(wilayaName, "POPULARITY", totalPlaces);
+        initPlaces(wilayaName, "RATING", totalTopRatedPlaces);
         /** CATEGORY BAR CLICK */
         initCategoryBar();
         /** SET CHECKED POSITION ON SWITCH BUTTON TO PLACES */
         //binding.mapSwitchButton.setCheckedPosition(1);
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentPlacesBinding.inflate(inflater, container, false);
+
 
         return binding.getRoot();
     }
@@ -79,20 +104,26 @@ public class PlacesFragment extends Fragment {
             public void onTabSelected(TabLayout.Tab tab) {
                 switch (tab.getPosition()){
                     default:
-                        currentCategory = "12000,16000";
+                        currentCategory = "12000,16000";        // Touristic
                         break;
                     case 1:
-                        currentCategory = "10000,14000,18000";
+                        currentCategory = "10000,14000,18000";      // Entertainment
                         break;
                     case 2:
-                        currentCategory = "11000,17000";
+                        currentCategory = "11000,17000";            //Commercial
                         break;
                     case 3:
-                        currentCategory = "13000";
+                        currentCategory = "15000";                  // Health
+                        break;
+                    case 4:
+                        currentCategory = "13000";                  // Food
+                        break;
+                    case 5:
+                        currentCategory = "19000";                  // Hotels
                         break;
                 }
                 setPlacesAdapter(totalPlaces.get(currentCategory));                    // PLACES
-                setTopRatedAdapter(totalPlaces.get(currentCategory));                  // TOP RATED
+                setTopRatedAdapter(totalTopRatedPlaces.get(currentCategory));                  // TOP RATED
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) { }
@@ -101,26 +132,47 @@ public class PlacesFragment extends Fragment {
         });
     }
 
+    /** ADAPTRES */
     private void setPlacesAdapter(ArrayList<Place> currentPlaceList){
-        mPlacesAdapter = new PlaceAdapter(getContext(), currentPlaceList);
+        PlaceAdapter mPlacesAdapter = new PlaceAdapter(getContext(), currentPlaceList);
+
+        mPlacesAdapter.setOnPlaceClickedListener(new OnPlaceClickedListener() {
+            @Override
+            public void placeClicked(Place place) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("place_object", place);
+                navController.navigate(R.id.action_placesFragment_to_overview, bundle);
+            }
+        });
+
         binding.placesRecyclerView.setAdapter(mPlacesAdapter);
     }
 
     private void setTopRatedAdapter(ArrayList<Place> currentTopRatedList){
-        mTopRatedAdapter = new TopRatedAdapter(getContext(), currentTopRatedList);
+        TopRatedAdapter mTopRatedAdapter = new TopRatedAdapter(getContext(), currentTopRatedList);
+
+        mTopRatedAdapter.setOnPlaceClickedListener(new OnPlaceClickedListener() {
+            @Override
+            public void placeClicked(Place place) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("place_object", place);
+                navController.navigate(R.id.action_placesFragment_to_overview, bundle);
+            }
+        });
         binding.topRatedRecyclerView.setAdapter(mTopRatedAdapter);
     }
 
 
 
-    public void initPlaces() {
-        //////////////////////////////////////////////////// CHANGE IT LATER
-        String wilayaName = "algiers";
+    public void initPlaces(String wilayaName, String sort, Map<String, ArrayList<Place>> placesCollection) {
+        NumberFormat numberFormat = new DecimalFormat("#0.0");
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        String fields = "fsq_id%2Cname%2Clocation%2Ccategories%2Cdistance%2Cdescription%2Ctel%2Cwebsite%2Crating%2Cstats%2Cpopularity%2Cprice%2Cphotos%2Ctips%2Cgeocodes";
 
-        for (String category: totalPlaces.keySet()) {
-            ArrayList<Place> currentPlacesList = totalPlaces.get(category);
-            String placeUrl = url + "?categories=" + category + "&fields=" + fields + "&near=" + wilayaName + "&sort=" + sort + "&limit=" + placesNumberLimit;
+        for (String category: placesCollection.keySet()) {
+            ArrayList<Place> currentPlacesList = placesCollection.get(category);
+            // Search Parameters
+            String placeUrl = "https://api.foursquare.com/v3/places/search?categories=" + category + "&fields=" + fields + "&near=" + wilayaName + "&sort=" + sort + "&limit=50";
             StringRequest stringRequest = new StringRequest(Request.Method.GET, placeUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
@@ -136,7 +188,7 @@ public class PlacesFragment extends Fragment {
                             currentPlace.fsqId = placeJsonObject.getString("fsq_id");
                             // Place Name
                             currentPlace.placeName = placeJsonObject.getString("name");
-                            // Place Address
+                            // Place Address (Location)
                             try {
                                 currentPlace.placeAddress = placeJsonObject.getJSONObject("location").getString("formatted_address");
                             } catch (JSONException e){
@@ -166,7 +218,7 @@ public class PlacesFragment extends Fragment {
                             }
                             // Rating
                             try {
-                                currentPlace.placeRate = placeJsonObject.getDouble("rating");
+                                currentPlace.placeRate = Double.parseDouble(numberFormat.format(placeJsonObject.getDouble("rating") / 2));
                             }catch (JSONException e){
                                 currentPlace.placeRate = 0;
                             }
@@ -178,7 +230,7 @@ public class PlacesFragment extends Fragment {
                                 currentPlace.placeStats = new Place.Stats(0, 0, 0);
                             }
                             // Popularity
-                            currentPlace.placePopularity = placeJsonObject.getDouble("popularity");
+                            currentPlace.placePopularity = Double.parseDouble(numberFormat.format(10 * placeJsonObject.getDouble("popularity")));
                             // Price
                             try {
                                 switch (placeJsonObject.getInt("price")){
@@ -215,6 +267,10 @@ public class PlacesFragment extends Fragment {
                                     currentPlace.placeTips.add(new Place.Tip(tipJsonObject.getString("text"), tipJsonObject.getString("created_at")));
                                 }
                             }catch (JSONException ignored){}
+                            // GEOCODES (latitude, longitude)
+                            currentPlace.latitude = placeJsonObject.getJSONObject("geocodes").getJSONObject("main").getDouble("latitude");
+                            currentPlace.longitude = placeJsonObject.getJSONObject("geocodes").getJSONObject("main").getDouble("longitude");
+
 
                             currentPlacesList.add(currentPlace);
                         }
@@ -222,8 +278,10 @@ public class PlacesFragment extends Fragment {
                     catch (JSONException ignored){}
 
                     /** INITIALISE */
-                    setPlacesAdapter(totalPlaces.get(currentCategory));           // PLACES
-                    setTopRatedAdapter(totalPlaces.get(currentCategory));         // TOP RATED
+                    if(placesCollection == totalPlaces)
+                        setPlacesAdapter(placesCollection.get(currentCategory));           // PLACES
+                    else
+                        setTopRatedAdapter(placesCollection.get(currentCategory));         // TOP RATED
                 }
             }, new Response.ErrorListener() {
                 @Override

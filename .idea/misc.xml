@@ -3,8 +3,32 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_places.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/drawable/ic_baseline_add_location_alt_24.xml" value="0.1585" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/drawable/ic_baseline_blur_star_24.xml" value="0.1585" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.1585" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/drawable/ic_baseline_bookmark_border_24.xml" value="0.1585" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/drawable/ic_location_orange.xml" value="0.1585" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/agency_profile.xml" value="0.67" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_discuss.xml" value="0.10261780104712041" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_entertainment.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_news.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_overview.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_places.xml" value="0.25" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_restaurents_hotels.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_review_agency_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_reviews.xml" value="0.22" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/fragment_tips.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/item_discuss_recyclerview.xml" value="0.33" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/item_hotel.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/item_tip.xml" value="0.25" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/meteo_view_pager_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/places_recycler_view_item.xml" value="0.25" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/restaurent.xml" value="0.33" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/review.xml" value="0.33" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/scrool_layout.xml" value="0.33" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/toprated_recycler_view_item.xml" value="0.5" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/view_pager_layout.xml" value="0.20416666666666666" />
+        <entry key="..\:/Android Projects/t/thwissa/app/src/main/res/layout/wilaya_recycler_view_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/compose_discuss_dialog.xml" value="0.22" />
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/fragment_compose.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/fragment_discuss.xml" value="0.12789559543230017" />

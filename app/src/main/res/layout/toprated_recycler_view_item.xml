@@ -11,9 +11,11 @@
     android:clickable="true"
     android:focusable="true"
     app:cardCornerRadius="10dp">
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <!--TOP RATED IMAGE -->
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -30,40 +32,31 @@
         </androidx.cardview.widget.CardView>
 
 
-        <!--TOP RATED NAME -->
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_marginStart="7dp"
             android:layout_marginBottom="8dp"
             android:orientation="horizontal" >
+            <!--TOP RATED NAME -->
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_baseline_location_on_24_2" />
+                android:src="@drawable/ic_location_orange" />
             <TextView
                 android:id="@+id/topRated_name"
                 style="@style/text_moy2"
-                android:textSize="16sp"
+                android:layout_width="0dp"
+                android:layout_weight="2.5"
+                android:textSize="14sp"
                 android:textColor="#0D2B51"
                 tools:text="Makam Chahid" />
-        </LinearLayout>
 
-
-        <!--RATE-->
-        <androidx.cardview.widget.CardView
-            android:layout_width="55dp"
-            android:layout_height="20dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginEnd="5dp"
-            app:cardBackgroundColor="@color/white"
-            android:layout_marginBottom="10dp"
-            app:cardCornerRadius="20dp">
+            <!--RATE-->
             <TextView
                 android:id="@+id/topRated_rate"
                 style="@style/text_moy"
+                android:layout_width="wrap_content"
                 android:textColor="#E97911"
                 android:layout_marginStart="6dp"
                 tools:text="4.8"/>
@@ -73,8 +66,8 @@
                 android:src="@drawable/ic_baseline_star_24"
                 android:layout_gravity="end"
                 android:layout_marginEnd="5dp" />
-        </androidx.cardview.widget.CardView>
-    </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 
     <View

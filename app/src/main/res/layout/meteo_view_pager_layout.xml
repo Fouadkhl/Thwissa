@@ -41,14 +41,15 @@
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
+
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:src="@drawable/ic_baseline_location_on_24_2"
         android:layout_below="@id/date"
-        android:layout_toStartOf="@+id/wilaya"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_toStartOf="@+id/wilaya"
+        android:src="@drawable/ic_location_orange" />
 
     <ImageView
         android:id="@+id/weatherStateIcon"

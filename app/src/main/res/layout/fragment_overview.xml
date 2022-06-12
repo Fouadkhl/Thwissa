@@ -27,15 +27,16 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="450dp">
+
                         <androidx.viewpager2.widget.ViewPager2
+                            android:id="@+id/viewPager"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:id="@+id/viewPager"
-                            android:background="@drawable/bottom_rounded_bg"/>
+                            android:background="@drawable/bottom_rounded_bg" />
                         <ImageView
                             android:layout_width="50dp"
                             android:layout_height="70dp"
-                            android:src="@drawable/ic_baseline_bookmark_24"
+                            android:src="@drawable/ic_baseline_bookmark_border_24"
                             android:layout_alignParentTop="true"
                             android:layout_alignParentEnd="true"
                             android:layout_margin="20dp"/>
@@ -66,7 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-            <include layout="@layout/scrool_layout"/>
+            <include layout="@layout/scrool_layout"
+                android:id="@+id/scrool_layout"/>
         </androidx.core.widget.NestedScrollView>
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/mapButton"

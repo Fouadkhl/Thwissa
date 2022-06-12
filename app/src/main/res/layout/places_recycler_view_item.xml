@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_place_item"
     android:layout_width="match_parent"
-    android:layout_height="145dp"
+    android:layout_height="147dp"
     android:layout_marginBottom="5dp"
     android:clickable="true"
     android:focusable="true"
@@ -22,7 +22,6 @@
             android:layout_marginVertical="12dp"
             android:layout_marginStart="10dp"
             app:cardCornerRadius="9dp">
-
             <ImageView
                 android:id="@+id/place_image"
                 android:layout_width="match_parent"
@@ -41,68 +40,40 @@
             android:textColor="#0D2B51"
             tools:text="Bey place" />
 
+        <!-- RATE -->
+        <TextView
+            android:id="@+id/place_rate_text"
+            style="@style/text_story"
+            android:layout_below="@id/place_name"
+            android:layout_alignStart="@id/place_name"
+            android:layout_marginEnd="5dp"
+            android:textColor="@color/orange"
+            tools:text="4.5"/>
+
+        <RatingBar
+            android:id="@+id/place_rating_bar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/place_rate_text"
+            android:layout_toEndOf="@id/place_rate_text"
+            android:isIndicator="true"
+            android:numStars="5"
+            android:stepSize="0.1"
+            android:theme="@style/RatingBar" />
+
         <!-- PLACE ARTICLE SUMARRY -->
         <TextView
             android:id="@+id/place_summary"
             style="@style/text_story"
             android:layout_height="match_parent"
-            android:layout_below="@id/place_name"
+            android:layout_below="@id/place_rate_text"
             android:layout_alignStart="@+id/place_name"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="7dp"
-            android:layout_marginBottom="19dp"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/gray_bottom_nav"
-            tools:text="Address: Bd de L'A.L.N, Oran\nHours: Open 24 hours \nPromenade lined with palm trees and restaurants above a busy highway.
+            tools:text="Category: Japanese Restaurant\nAddress: Bd de L'A.L.N, Oran\nPopularity: 10/10\nDistance from local state: 100km\nDescription: lined with palm trees and restaurants above a busy highway.
                 " />
-
-        <!-- RATE -->
-        <LinearLayout
-            android:id="@+id/place_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_alignTop="@+id/image_frame"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="7dp"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/text_moy"
-                android:layout_marginEnd="5dp"
-                android:textColor="#E97911"
-                tools:text="4.8" />
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="3dp"
-                android:src="@drawable/ic_baseline_star_24" />
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="3dp"
-                android:src="@drawable/ic_baseline_star_24" />
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="3dp"
-                android:src="@drawable/ic_baseline_star_24" />
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="3dp"
-                android:src="@drawable/ic_baseline_star_24" />
-
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_marginTop="3dp"
-                android:src="@drawable/ic_baseline_star_24" />
-        </LinearLayout>
-
     </RelativeLayout>
 
     <View
