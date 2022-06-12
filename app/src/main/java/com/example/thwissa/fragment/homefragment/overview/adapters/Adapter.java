@@ -44,7 +44,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.InnerViewHolder>{
 
     @Override
     public int getItemCount() {
-        return 4;
+        if(place.placeImagesUrls.size() == 0)
+            return 1;
+        return place.placeImagesUrls.size();
     }
 
     protected static class InnerViewHolder extends RecyclerView.ViewHolder{

@@ -12,24 +12,26 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/SearchBar"
         android:layout_marginBottom="10dp">
+
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_bar"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:searchIcon="@drawable/ic_baseline_search_24"
-            android:layoutDirection="rtl"
-            android:id="@+id/search_bar"
             android:layout_marginEnd="15sp"
-            />
+            android:background="@color/white"
+            android:layoutDirection="rtl"
+            android:searchIcon="@drawable/ic_baseline_search_24" />
+
         <TextView
+            android:id="@+id/hint"
             android:layout_width="290dp"
             android:layout_height="50dp"
-            android:textAlignment="textStart"
             android:layout_marginStart="10dp"
             android:paddingVertical="12dp"
-            android:textSize="17sp"
             android:text="@string/where_do_you_want_to_go"
-            android:id="@+id/hint"/>
+            android:textAlignment="textStart"
+            android:textSize="17sp" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="50dp"
             android:layout_height="50dp"

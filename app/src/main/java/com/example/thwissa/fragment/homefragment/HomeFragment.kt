@@ -23,11 +23,14 @@ import com.example.thwissa.Adapter.StoriesAdapter
 import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentHomeBinding
 import com.example.thwissa.dataclasses.WillayaStory
+import com.example.thwissa.fragment.homefragment.willaya.Place
+import com.google.android.gms.maps.GoogleMap
 import kotlinx.coroutines.flow.collectLatest
 
 
 @Suppress("DEPRECATION")
 class HomeFragment : Fragment() {
+
 
     lateinit var binding: FragmentHomeBinding
     private val viewModel: ImageViewModel by viewModels()

@@ -104,6 +104,9 @@
          <action
             android:id="@+id/action_placesFragment_to_overview"
             app:destination="@id/overview" />
+        <action
+            android:id="@+id/action_placesFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/wilayasFragment"

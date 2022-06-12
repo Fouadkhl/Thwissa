@@ -26,6 +26,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.thwissa.R;
 import com.example.thwissa.fragment.homefragment.overview.adapters.RestaurentsAdapter;
 import com.example.thwissa.fragment.homefragment.willaya.Place;
+import com.example.thwissa.utils.MapQuery;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -160,10 +161,8 @@ public class RestaurantsFragment extends Fragment {
             @Override
             public void onMapReady(@NonNull GoogleMap googleMap) {
                 mMap = googleMap;
-                // Add a marker in Sydney and move the camera
-                LatLng sydney = new LatLng(-34, 151);
-                mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-                mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                String placeName = place.placeName;
+                MapQuery.getMap(getContext(), placeName, mMap);
             }
         });
     }

@@ -34,7 +34,6 @@ public class Overview extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentOverviewBinding.inflate(inflater, container, false);
 
-
         setLayout();
 
         return binding.getRoot();
@@ -72,9 +71,7 @@ public class Overview extends Fragment {
         restaurants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("place_object", place);
-                navController.navigate(R.id.action_overview_to_restaurantsFragment, bundle);
+                navController.navigate(R.id.action_overview_to_restaurantsFragment, getBundle());
             }
         });
 
@@ -106,7 +103,9 @@ public class Overview extends Fragment {
         buttonMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                navController.navigate(R.id.action_overview_to_mapFragment2);
+                Bundle bundle = new Bundle();
+                bundle.putString("place_name", place.placeName);
+                navController.navigate(R.id.action_overview_to_mapFragment2, bundle);
             }
         });
     }

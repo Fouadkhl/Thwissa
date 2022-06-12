@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".fragments.Overview">
+    tools:context="com.example.thwissa.fragment.homefragment.overview.fragments.Overview">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -21,6 +21,9 @@
                     app:contentScrim="?attr/colorPrimary"
                     app:layout_scrollFlags="scroll|snap|exitUntilCollapsed"
                     app:title="Wilaya Name"
+                    app:expandedTitleMargin="25dp"
+                    app:expandedTitleTextAppearance="@style/text_big"
+                    app:expandedTitleTextColor="@color/white"
                     app:expandedTitleMarginBottom="20dp"
                     android:id="@+id/collapsing_toolbar"
                     android:theme="@style/toolBarLayout">
@@ -33,21 +36,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:background="@drawable/bottom_rounded_bg" />
-                        <ImageView
-                            android:layout_width="50dp"
-                            android:layout_height="70dp"
-                            android:src="@drawable/ic_baseline_bookmark_border_24"
-                            android:layout_alignParentTop="true"
-                            android:layout_alignParentEnd="true"
-                            android:layout_margin="20dp"/>
+
                         <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
                             android:id="@+id/dotsIndicator"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
-                            android:layout_alignParentBottom="true"
+                            android:layout_marginTop="25dp"
                             android:layout_marginEnd="12dp"
-                            android:layout_marginBottom="20dp"
                             app:dotsColor="@color/white"
                             app:dotsSize="10dp"
                             app:dotsSpacing="5dp"
