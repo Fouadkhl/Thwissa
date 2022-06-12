@@ -16,12 +16,9 @@ class SPUserData(context: Context) {
 
     fun getSharedPreferences() = mySharedPrefenreces
 
-
     init {
         this.mySharedPrefenreces = context.getSharedPreferences(SHARED_PREFERENCES , 0)
     }
-
-
 
     /**
      * @param user the user logged in
@@ -56,7 +53,6 @@ class SPUserData(context: Context) {
     /**
      * @return user from the share preferences
      */
-
     fun getLoggedInUser() : UserRes{
         val name = mySharedPrefenreces.getString("name" , "")
         val email = mySharedPrefenreces.getString("email" , "")

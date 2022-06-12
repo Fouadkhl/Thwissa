@@ -44,7 +44,7 @@ class CodeValidationFragment : Fragment() {
                     if (role == 1) {
                         findNavController().navigate(R.id.action_codeValidationFragment_to_profileFragment)
                     }else{
-                        findNavController().navigate(R.id.action_codeValidationFragment_to_agencyProfileFragment)
+                        findNavController().navigate(R.id.action_codeValidationFragment_to_verifyDocumentsFragment)
                     }
                 }else {
                     Toast.makeText(

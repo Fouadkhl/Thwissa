@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/tv_agency_description"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:gravity="start"
+        android:maxHeight="200dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginEnd="14dp"
+        android:hint="@string/description"
+        android:textSize="16sp"
+        android:backgroundTint="@color/transparent"
+        android:textColor="@color/gray_text_color"
+        android:maxLines="6"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cancel"
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/blue_logo"
+            android:text="@string/cancel"
+            android:background="@drawable/background_post_description"
+            android:layout_marginStart="14dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_post_description"
+            android:layout_weight="0.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/blue_logo"
+            android:text="@string/post_agency_description"
+            android:background="@drawable/background_post_description"
+            android:layout_marginEnd="14dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

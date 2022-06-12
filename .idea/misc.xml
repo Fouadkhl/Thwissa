@@ -19,39 +19,60 @@
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/toprated_recycler_view_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/view_pager_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/wilaya_recycler_view_item.xml" value="0.20416666666666666" />
+        <entry key="app/src/main/res/drawable/background_btn_rating.xml" value="0.1585" />
+        <entry key="app/src/main/res/drawable/background_certificate.xml" value="0.132" />
+        <entry key="app/src/main/res/drawable/background_follow.xml" value="0.132" />
+        <entry key="app/src/main/res/drawable/background_post_description.xml" value="0.1585" />
+        <entry key="app/src/main/res/drawable/background_sign_in.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/ic_add_photo.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/ic_baseline_check.xml" value="0.1385" />
+        <entry key="app/src/main/res/drawable/ic_baseline_navigate_next_24.xml" value="0.132" />
+        <entry key="app/src/main/res/drawable/ic_broken_image.xml" value="0.166" />
+        <entry key="app/src/main/res/drawable/loading_img.xml" value="0.166" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17864583333333334" />
-        <entry key="app/src/main/res/layout/agency_profile.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/agency_profile.xml" value="0.2" />
         <entry key="app/src/main/res/layout/agency_sign_up.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/compose_discuss_dialog.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/compose_images_layout.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/confirmation_code.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/dialog_accept_terms.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/dialog_update_agency_description.xml" value="0.25" />
         <entry key="app/src/main/res/layout/discuss_button.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_accept_terms.xml" value="0.19270833333333334" />
         <entry key="app/src/main/res/layout/fragment_agency_profile.xml" value="0.12222222222222222" />
         <entry key="app/src/main/res/layout/fragment_agency_sign_up.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_article.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_compose.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_discuss.xml" value="0.1182453909726637" />
+        <entry key="app/src/main/res/layout/fragment_edit_agency_profile.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_edit_password.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_entertainment.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.17844202898550723" />
+        <entry key="app/src/main/res/layout/fragment_map.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_map_agency_profile.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_news.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_overview.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_reset_password.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_reset_password_enter_code.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_restaurents_hotels.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_review_agency_profile.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/fragment_reviews.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_story.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_trip_plan_agency_profile.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_profile.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/item_search_view.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/log_in_screen.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/modal_bottom_sheet_content.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/profile_image_and_text.xml" value="0.15670289855072464" />
         <entry key="app/src/main/res/layout/profile_screen.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/register_screen.xml" value="0.15052083333333333" />
+        <entry key="app/src/main/res/layout/register_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/review.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/top_pictures_viewer_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/tourist_sign_up.xml" value="0.19375" />
-        <entry key="app/src/main/res/layout/verification_screen.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/verification_screen.xml" value="0.18" />
         <entry key="app/src/main/res/layout/view_pager_layout.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/wilaya_recycler_view_item.xml" value="0.19375" />
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.19375" />

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,6 +24,7 @@ import com.example.thwissa.Adapter.StoriesAdapter
 import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentHomeBinding
 import com.example.thwissa.dataclasses.WillayaStory
+import com.example.thwissa.utils.Constants
 import kotlinx.coroutines.flow.collectLatest
 
 
@@ -45,6 +47,7 @@ class HomeFragment : Fragment() {
         gallery = ArrayList<Uri>()
         setupui()
 
+        // TODO: remove this
         binding.btn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_agencyProfileFragment)
         }
@@ -148,18 +151,20 @@ class HomeFragment : Fragment() {
             id = resources.getIdentifier("beach", "drawable", activity?.packageName)
             listofItmes[i - 1] = id
         }
+
         var data = ArrayList<WillayaStory>()
 
 
         for (i in 0..3) {
-            var item = WillayaStory(listofItmes[i], "willaya")
+            var item = WillayaStory(listofItmes[i], "medea")
             data.add(item)
         }
 
         var data2 = homeviewmodel.getWillayaStories()
 
         val storiesAdapter = StoriesAdapter(data, homeviewmodel, StoriesAdapter.OnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_storyFragment)
+            val bundle = bundleOf(Constants.WILLAYANAME to it.text)
+            findNavController().navigate(R.id.action_homeFragment_to_storyFragment , bundle)
         })
 
         val placesAdapter = PlacesAdapter(data)

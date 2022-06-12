@@ -1,4 +1,4 @@
-package com.example.thwissa.fragment.auth.agencyAuth
+package com.example.thwissa.fragment.Profile.agencyProfile
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -6,37 +6,45 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.example.thwissa.LogService
 import com.example.thwissa.R
-import com.example.thwissa.databinding.FragmentAgencySignUpBinding
-import com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.CertaficationVerificationViewModel
+import com.example.thwissa.databinding.FragmentEditAgencyProfileBinding
+import com.example.thwissa.dataclasses.AgencyRes
 import com.example.thwissa.fragment.auth.validation.BaseValidator
-import com.example.thwissa.fragment.auth.validation.controlValidators.*
-import com.example.thwissa.utils.Constants
+import com.example.thwissa.fragment.auth.validation.controlValidators.EmailValidator
+import com.example.thwissa.fragment.auth.validation.controlValidators.EmptyValidator
+import com.example.thwissa.fragment.auth.validation.controlValidators.PhoneNumberValidation
+import com.example.thwissa.utils.createPartFromString
+import com.example.thwissa.utils.getFilePart
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Response
+import java.io.File
 
+private const val TAG = "EditAgencyProfile"
 
 @Suppress("DEPRECATION")
-class AgencySignupFragment : Fragment() {
+class EditAgencyProfile : Fragment() {
 
-    private lateinit var binding: FragmentAgencySignUpBinding
-    private val viewModelCertafications: CertaficationVerificationViewModel by activityViewModels()
+    private lateinit var binding: FragmentEditAgencyProfileBinding
     var curFile: Uri? = null
     var picturePath: String? = null
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentAgencySignUpBinding.inflate(inflater, container, false)
+        binding = FragmentEditAgencyProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -75,32 +83,30 @@ class AgencySignupFragment : Fragment() {
         }
 
 
-        binding.btnNext.setOnClickListener {
+        binding.btnUpdate.setOnClickListener {
+
             val name = binding.etName.text.toString()
             val email = binding.etEmail.text.toString()
-            val password = binding.etPassword.text.toString()
-            val confirmPassword = binding.etConfirmPassword.text.toString()
             val location = binding.etLocation.text.toString()
             val phoneNumber = binding.etPhoneNumber.text.toString()
             val photoPath = if (curFile != null) picturePath else ""
 
-            var controlPassed =
-                controlAgencyData(name, email, location, password, confirmPassword, phoneNumber)
-            if (
-                controlPassed
+            val map = HashMap<String, RequestBody>()
 
-            ) {
-                val bundle = bundleOf(
-                    Constants.SIGNUP_BUNDLE_NAME to name,
-                    Constants.SIGNUP_EMAIL to email,
-                    Constants.SIGNUP_PASSWORD to password,
-                    Constants.SIGNUP_LOCATION to location,
-                    Constants.SIGNUP_PHONE_NUMBER to phoneNumber,
-                    Constants.PHOTO_PATH to photoPath
-                )
-//                )
-//              put("picture" ,curFile.toString())
-                navigateToFragmentCertaficationVerification(bundle)
+            map.apply {
+                put("name", createPartFromString(name))
+//                put("email", createPartFromString(email))
+                put("location", createPartFromString(location))
+                put("phonenumber", createPartFromString(phoneNumber))
+            }
+
+            val filepart = if (photoPath != null) getFilePart((File(photoPath)), "picture") else null
+
+            var controlPassed =
+                controlAgencyData(name, email, location, phoneNumber)
+            if (controlPassed) {
+                updateAllData(map, filepart)
+                navigateBackToProfile()
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -108,9 +114,27 @@ class AgencySignupFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
-
         }
+    }
 
+    private fun updateAllData(map: HashMap<String, RequestBody>, filepart: MultipartBody.Part?) {
+        LogService.retrofitService.updateAgencyProfile(map, filepart)
+            .enqueue(object : retrofit2.Callback<Unit> {
+                override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                    if (response.isSuccessful) {
+//                        Toast.makeText(requireContext(), "data is updated", Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "success")
+
+                        navigateBackToProfile()
+                    } else {
+                        Log.d(TAG, "fail :" +response.message() )
+                    }
+                }
+
+                override fun onFailure(call: Call<Unit>, t: Throwable) {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                }
+            })
     }
 
 
@@ -121,12 +145,8 @@ class AgencySignupFragment : Fragment() {
         name: String,
         email: String,
         location: String,
-        password: String,
-        confirmPassword: String,
         phoneNumber: String
     ): Boolean {
-        // get the data from xml
-
         // name validation
         val usernameEmptyValidation = EmptyValidator(name).validate()
         binding.etName.error =
@@ -142,20 +162,6 @@ class AgencySignupFragment : Fragment() {
         binding.etEmail.error =
             if (!emailValidations.isSuccess) getString(emailValidations.message) else null
 
-        // password validation
-        val passwordValidations = BaseValidator.validate(
-            EmptyValidator(password), PasswordValidator(password)
-        )
-        binding.etPassword.error =
-            if (!passwordValidations.isSuccess) getString(passwordValidations.message) else null
-
-        // confirm password validation
-        val confirmPasswordValidations = BaseValidator.validate(
-            EmptyValidator(confirmPassword), ConfirmPasswordValidator(confirmPassword, password)
-        )
-        binding.etConfirmPassword.error =
-            if (!confirmPasswordValidations.isSuccess) getString(passwordValidations.message) else null
-
         val phonenumbervalidation = BaseValidator.validate(
             PhoneNumberValidation(phonenumber = phoneNumber)
         )
@@ -163,20 +169,13 @@ class AgencySignupFragment : Fragment() {
             if (!phonenumbervalidation.isSuccess) getString(phonenumbervalidation.message) else null
 
         return (usernameEmptyValidation.isSuccess
-                && emailValidations.isSuccess
-                && confirmPasswordValidations.isSuccess
                 && phonenumbervalidation.isSuccess)
     }
 
-
-    // TODO: get the image from the internal storage and pass it and return request object from this fun
-    // TODO: set setUserloggedin to true
-
-    private fun navigateToFragmentCertaficationVerification(bundle: Bundle) {
-        findNavController().navigate(
-            R.id.action_agencySignupFragment_to_acceptTermsFragment,
-            bundle
-        )
+    private fun navigateBackToProfile() {
+        lifecycleScope.launchWhenResumed {
+            findNavController().popBackStack()
+        }
     }
 
 }

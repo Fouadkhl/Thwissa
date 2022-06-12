@@ -14,8 +14,10 @@
         android:layout_weight="70"
         android:background="@drawable/background_search"
         android:backgroundTint="@color/white"
+        android:iconifiedByDefault="true"
         app:defaultQueryHint="hint"
-        app:queryHint="@string/search_question" />
+        android:queryHint="@string/search_question"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
         android:layout_width="50dp"

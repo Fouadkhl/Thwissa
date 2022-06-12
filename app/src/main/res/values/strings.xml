@@ -24,7 +24,7 @@
     <string name="settings">settings</string>
     <string name="contact">contact us</string>
     <string name="feedback">feedback</string>
-    <string name="description">description</string>
+    <string name="description">Description</string>
 
 
     <!--    entertainment strings-->
@@ -265,12 +265,16 @@
     <string name="cancel">Cancel</string>
     <string name="title_dialog_fragment">Accept terms</string>
     <string name="accept_terms">Accept terms</string>
-    <string name="sign_up2">sign up</string>
+    <string name="sign_up2">Sign up</string>
 
     <string name="facebook_app_id">718193356189574</string>
     <string name="fb_login_protocol_scheme">fb718193356189574</string>
     <string name="facebook_client_token">51b92c4be8af0348beeec8ddb31b4f1b</string>
     <string name="adding_review">"adding review "</string>
+    <string name="continu">Continue</string>
+    <string name="accept_terms_fragment_text">If you want to continue your registration make sure you read all the terms and accept all of them if you can not accept these terms you can not finish your registration</string>
+    <string name="post_agency_description">Post</string>
+    <string name="agency_description">add description <h2>+</h2></string>
 
 
 </resources>

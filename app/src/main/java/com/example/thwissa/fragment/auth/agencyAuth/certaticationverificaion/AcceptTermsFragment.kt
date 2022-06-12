@@ -1,108 +1,75 @@
 package com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.thwissa.LogService
 import com.example.thwissa.R
-import com.example.thwissa.databinding.VerificationScreenBinding
+import com.example.thwissa.databinding.FragmentAcceptTermsBinding
 import com.example.thwissa.dataclasses.AgencyRes
 import com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.AcceptTermsDialogFragment.Companion.REQUEST_CODE
 import com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.AcceptTermsDialogFragment.Companion.TERACCEPTED_BUNDLE_KEY
-import com.example.thwissa.repository.userLocalStore.SPUserData
 import com.example.thwissa.utils.Constants
+import com.example.thwissa.utils.createPartFromString
+import com.example.thwissa.utils.getFilePart
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
+import java.io.File
 
 
 @Suppress("DEPRECATION")
-class CertaficationVerificationFragment : Fragment() {
+class AcceptTermsFragment : Fragment() {
 
 
-    lateinit var binding: VerificationScreenBinding
+    lateinit var binding: FragmentAcceptTermsBinding
     private val viewModelCertafication: CertaficationVerificationViewModel by activityViewModels()
-    var curFile: Uri? = null
     private var isAccpeted: Boolean = false
-    private var issignup: Boolean = false
-    var map = HashMap<String, Any>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = VerificationScreenBinding.inflate(inflater, container, false)
-        var resultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    // There are no request codes
-                    val data: Intent? = result.data
-                    data?.data?.let {
-                        curFile = it
-                        //then we set the image in the image view
-                        binding.ivCertafication.setImageURI(it)
-                    }
-                }
-            }
+        binding = FragmentAcceptTermsBinding.inflate(inflater, container, false)
 
-
-        binding.llAddCertaficat.setOnClickListener {
-            // TODO: add here the image for certaficat
-            Intent(Intent.ACTION_GET_CONTENT).also {
-                it.type = "image/*"
-                resultLauncher.launch(it)
-            }
-        }
-
-//        // TODO: add here the image for certaficat
-//        var resultLauncher =  registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-//            if (result.resultCode == Activity.RESULT_OK) {
-//                // There are no request codes
-//                val data: Intent? = result.data
-//                data?.data?.let {
-//                    // TODO: change this to another file
-//                    curFile = it
-//                    //then we set the image in the image view
-//                    binding.ivCertafication.setImageURI(it)
-//                }
-//            }
-//        }
-        binding.llAddClassification.setOnClickListener {
-
-            Intent(Intent.ACTION_GET_CONTENT).also {
-                it.type = "image/*"
-                resultLauncher.launch(it)
-            }
-        }
 
         binding.btnAcceptTerms.setOnClickListener {
             acceptTerms()
         }
 
 
-        binding.btnSignUp.setOnClickListener {
+        binding.btnContinue.setOnClickListener {
             if (isAccpeted) {
                 Toast.makeText(requireContext(), "inside", Toast.LENGTH_SHORT).show()
-//                val agencyprimaryinfo = viewModelCertafication.agencyprimarydata
-//                primaryAgencySignUp(agencyprimaryinfo.value!!)
-//                viewModelCertafication.uploadImageToDatabase(curFile)
-                //go to code verification
-                var map = HashMap<String, Any>()
+
+
+                val map = HashMap<String, RequestBody>()
                 val name = arguments?.getString(Constants.SIGNUP_BUNDLE_NAME)
+                    ?.let { it1 -> createPartFromString(it1) }
+
                 val email = arguments?.getString(Constants.SIGNUP_EMAIL)
+                    ?.let { it1 -> createPartFromString(it1) }
+
                 val password = arguments?.getString(Constants.SIGNUP_PASSWORD)
+                    ?.let { it1 -> createPartFromString(it1) }
+
                 val phone = arguments?.getString(Constants.SIGNUP_PHONE_NUMBER)
+                    ?.let { it1 -> createPartFromString(it1) }
                 val location = arguments?.getString(Constants.SIGNUP_LOCATION)
+                    ?.let { it1 -> createPartFromString(it1) }
+
+                val photoPath = arguments?.getString(Constants.PHOTO_PATH)
+                val filepart = if (photoPath != null) getFilePart((File(photoPath)) , "photo") else null
+
+
                 map.apply {
                     put("name", name!!)
                     put("email", email!!)
@@ -111,15 +78,7 @@ class CertaficationVerificationFragment : Fragment() {
                     put("location", location!!)
                     put("phonenumber", phone!!)
                 }
-                val iduser = primaryAgencySignUp(map)
-                val bundle = bundleOf(
-                    Constants.USER_ID to iduser,
-                    Constants.SIGNUP_EMAIL to email
-                )
-                findNavController().navigate(
-                    R.id.action_certaficationVerificationFragment_to_codeValidationFragment,
-                    bundle
-                )
+                 primaryAgencySignUp(map, filepart)
 
             } else {
                 Toast.makeText(
@@ -152,9 +111,12 @@ class CertaficationVerificationFragment : Fragment() {
         )
     }
 
-    fun primaryAgencySignUp(agencyInfo: HashMap<String, Any>): String? {
-        var id: String? = null
-        LogService.retrofitService.executeSignUpAgency(agencyInfo)
+    fun primaryAgencySignUp(
+        agencyInfo: HashMap<String, RequestBody>,
+        image: MultipartBody.Part?
+    ){
+//        var id: String? = null
+        LogService.retrofitService.executeSignUpAgency(agencyInfo, image)
             .enqueue(object : retrofit2.Callback<AgencyRes> {
                 override fun onResponse(call: Call<AgencyRes>, response: Response<AgencyRes>) {
                     /**handle the sign up  */
@@ -168,8 +130,17 @@ class CertaficationVerificationFragment : Fragment() {
                         Log.i("signupuser", "onFailure:${response.message()} ")
 
                         val res = response.body()
-                        id = res?.id
+                        val id = res?.id
                         //handle the response
+                        val bundle = bundleOf(
+                            Constants.USER_ID to id,
+                            Constants.SIGNUP_EMAIL to arguments?.getString(Constants.SIGNUP_EMAIL)
+                        )
+
+                        findNavController().navigate(
+                            R.id.action_acceptTermsFragment_to_codeValidationFragment,
+                            bundle
+                        )
 
                     } else {
                         Log.i("signupuser", "onFailure:${response.message()} ")
@@ -191,7 +162,7 @@ class CertaficationVerificationFragment : Fragment() {
                 }
             }
             )
-        return id
+//        return id
     }
 
 }

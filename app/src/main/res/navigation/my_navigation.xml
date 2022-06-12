@@ -240,29 +240,25 @@
             android:id="@+id/action_codeValidationFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
         <action
-            android:id="@+id/action_codeValidationFragment_to_agencyProfileFragment"
-            app:destination="@id/agencyProfileFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/certaficationVerificationFragment"
-        android:name="com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.CertaficationVerificationFragment"
-        android:label="CertaficationVerificationFragment" >
-        <action
-            android:id="@+id/action_certaficationVerificationFragment_to_codeValidationFragment"
-            app:destination="@id/codeValidationFragment" />
+            android:id="@+id/action_codeValidationFragment_to_verifyDocumentsFragment"
+            app:destination="@id/verifyDocumentsFragment" />
     </fragment>
     <fragment
         android:id="@+id/agencySignupFragment"
         android:name="com.example.thwissa.fragment.auth.agencyAuth.AgencySignupFragment"
         android:label="AgencySignupFragment" >
         <action
-            android:id="@+id/action_agencySignupFragment_to_certaficationVerificationFragment"
-            app:destination="@id/certaficationVerificationFragment" />
+            android:id="@+id/action_agencySignupFragment_to_acceptTermsFragment"
+            app:destination="@id/acceptTermsFragment" />
     </fragment>
     <fragment
         android:id="@+id/agencyProfileFragment"
         android:name="com.example.thwissa.fragment.Profile.agencyProfile.AgencyProfileFragment"
-        android:label="AgencyProfileFragment" />
+        android:label="AgencyProfileFragment" >
+        <action
+            android:id="@+id/action_agencyProfileFragment_to_editAgencyProfile"
+            app:destination="@id/editAgencyProfile" />
+    </fragment>
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.thwissa.fragment.Profile.Favorites.FavoritesFragment"
@@ -289,6 +285,30 @@
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_resetPasswordFragment_to_agencyProfileFragment"
+            app:destination="@id/agencyProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/acceptTermsFragment"
+        android:name="com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.AcceptTermsFragment"
+        android:label="AcceptTermsFragment" >
+        <action
+            android:id="@+id/action_acceptTermsFragment_to_codeValidationFragment"
+            app:destination="@id/codeValidationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyDocumentsFragment"
+        android:name="com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.VerifyDocumentsFragment"
+        android:label="VerifyDocumentsFragment" >
+        <action
+            android:id="@+id/action_verifyDocumentsFragment_to_agencyProfileFragment"
+            app:destination="@id/agencyProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editAgencyProfile"
+        android:name="com.example.thwissa.fragment.Profile.agencyProfile.EditAgencyProfile"
+        android:label="EditAgencyProfile" >
+        <action
+            android:id="@+id/action_editAgencyProfile_to_agencyProfileFragment"
             app:destination="@id/agencyProfileFragment" />
     </fragment>
 </navigation>

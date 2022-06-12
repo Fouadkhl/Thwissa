@@ -84,6 +84,7 @@
     <color name="shadow">#70000000</color>
     <color name="colorPrimary">#106BCC</color>
     <color name="secondaryColor">#0D2B51</color>
+    <color name="color_secondary_light">#3B4047</color>
     <color name="normalTextColor">#9CA3AC</color>
     <color name="starColor">#F38722</color>
     <color name="backgroundColor2">#F9FBFF</color>

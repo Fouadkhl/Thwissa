@@ -6,15 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.thwissa.R
+import com.example.thwissa.databinding.FragmentReviewAgencyProfileBinding
+import com.example.thwissa.databinding.FragmentReviewsBinding
 
 class ReviewAgencyProfileFragment : Fragment() {
+
+    lateinit var binding  : FragmentReviewAgencyProfileBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_review_agency_profile, container, false)
+
+        binding = FragmentReviewAgencyProfileBinding.inflate(inflater , container ,false )
+
+        val reviewText  =binding.etAddReview.text.toString()
+        val rating  = binding.ratingBarAgencyProfile.rating
+        binding.btnShareRating.setOnClickListener {
+            uploadRating(reviewText , rating)
+        }
+
+
+        return binding.root
     }
+
+    private fun uploadRating(reviewText: String, rating: Float) {
+
+    }
+
 
 }

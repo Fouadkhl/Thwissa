@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.homefragment.overview.fragments.MapFragment"
     android:orientation="vertical">
     <RelativeLayout
@@ -12,32 +13,30 @@
         android:layout_gravity="center_horizontal"
         android:id="@+id/SearchBar"
         android:layout_marginBottom="10dp">
+
         <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_bar"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:searchIcon="@drawable/ic_baseline_search_24"
-            android:layoutDirection="rtl"
-            android:id="@+id/search_bar"
             android:layout_marginEnd="15sp"
-            />
-        <TextView
-            android:layout_width="290dp"
-            android:layout_height="50dp"
-            android:textAlignment="textStart"
-            android:layout_marginStart="10dp"
-            android:paddingVertical="12dp"
-            android:textSize="17sp"
-            android:text="@string/where_do_you_want_to_go"
-            android:id="@+id/hint"/>
+            android:background="@color/white"
+            app:queryBackground="@drawable/background_search"
+            android:iconifiedByDefault="false"
+            android:layoutDirection="rtl"
+            android:searchIcon="@drawable/ic_baseline_search_24"
+            app:defaultQueryHint="hint"
+            app:queryHint="@string/search_question" />
+
+
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_toEndOf="@+id/search_bar"
-            android:background="@color/white"
+            android:background="@drawable/background_search"
             android:drawableStart="@drawable/ic_filtrer"
             android:paddingHorizontal="10dp" />
     </RelativeLayout>
+
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
