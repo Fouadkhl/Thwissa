@@ -1,17 +1,20 @@
 package com.example.thwissa.fragment.auth.userAuth
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.thwissa.LogService
 import com.example.thwissa.R
@@ -25,6 +28,8 @@ import com.example.thwissa.fragment.auth.validation.controlValidators.PasswordVa
 import com.example.thwissa.repository.userLocalStore.SPUserData
 import com.example.thwissa.utils.Constants
 import com.example.thwissa.utils.Constants.USER_ROLE
+import com.example.thwissa.utils.createPartFromString
+import com.example.thwissa.utils.getFilePart
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -34,12 +39,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
+import java.io.File
 
 
 @Suppress("DEPRECATION")
@@ -50,7 +53,7 @@ class SignupFragment : Fragment() {
     lateinit var callbackManager: CallbackManager
 
     private lateinit var binding: TouristSignUpBinding
-    var curFile: Uri? = null
+    var picturePath: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,11 +64,40 @@ class SignupFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("Range")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // getDataAndSignUpUser()
 
+        var resultLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
+                    // There are no request codes
+
+                    val data: Intent? = result.data
+                    data?.data?.let { it ->
+                        context?.contentResolver?.query(it, null, null, null, null)?.use {
+                            if (it.moveToFirst()) {
+                                picturePath = it.getString(it.getColumnIndex(MediaStore.MediaColumns.DATA))
+                            }
+                        }
+                        //then we set the image in the image view
+                        binding.ivShapeableSignUpUser.setImageURI(it)
+
+                    }
+                }
+            }
+
+        binding.ivShapeableSignUpUser.setOnClickListener {
+            Intent(Intent.ACTION_GET_CONTENT).also {
+                it.type = "image/*"
+                resultLauncher.launch(it)
+            }
+        }
+
         binding.btnSignUp.setOnClickListener {
-            signUpUser()
+            if (dataIsControlled()) {
+                signUpUser()
+            }
         }
 
 
@@ -104,13 +136,22 @@ class SignupFragment : Fragment() {
             LoginManager.getInstance()
                 .logInWithReadPermissions(requireActivity(), listOf("public_profile"))
         }
+
+        // back button
+        val navController = Navigation.findNavController(view)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navController.popBackStack()
+            }
+        })
+
     }
 
 
     /**
      * get the data from xml control it and pass it to register
      */
-    private fun getDataAndSignUpUser() {
+    private fun dataIsControlled(): Boolean {
         // get the data from xml
         var name = binding.etName.text.toString()
         var email = binding.etEmail.text.toString()
@@ -118,27 +159,6 @@ class SignupFragment : Fragment() {
         var confirmPassword = binding.etPassword.text.toString()
         var location = binding.etLocation.text.toString()
         var gender = if (binding.rbtnMale.isChecked) "male" else "female"
-
-        var resultLauncher =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-                if (result.resultCode == Activity.RESULT_OK) {
-                    // There are no request codes
-                    val data: Intent? = result.data
-                    data?.data?.let {
-                        curFile = it
-                        //then we set the image in the image view
-                        binding.ivShapeableSignUpUser.setImageURI(it)
-
-                    }
-                }
-            }
-
-        binding.ivShapeableSignUpUser.setOnClickListener {
-            Intent(Intent.ACTION_GET_CONTENT).also {
-                it.type = "image/*"
-                resultLauncher.launch(it)
-            }
-        }
 
         val usernameEmptyValidation = EmptyValidator(name).validate()
         binding.etName.error =
@@ -167,31 +187,32 @@ class SignupFragment : Fragment() {
         binding.etConfirmPassword.error =
             if (!confirmPasswordValidations.isSuccess) getString(passwordValidations.message) else null
 
-        if (usernameEmptyValidation.isSuccess &&
-            emailValidations.isSuccess &&
-            confirmPasswordValidations.isSuccess
-        ) {
-            signUpUser()
+        return (usernameEmptyValidation.isSuccess &&
+                emailValidations.isSuccess &&
+                confirmPasswordValidations.isSuccess)
 
-        }
         // TODO: get the image from the internal storage and pass it and return request object from this fun
         // TODO: set setUserloggedin to true
 
     }
 
-    private fun signUpUser() {
-        val userinfo = HashMap<String, Any>()
-        userinfo.put("name", binding.etName.text.toString())
-        userinfo.put("email", binding.etEmail.text.toString())
-        userinfo.put("password", binding.etPassword.text.toString())
-        userinfo.put("location", binding.etLocation.text.toString())
-        userinfo.put("confirmepassword", binding.etConfirmPassword.text.toString())
+     private  fun signUpUser() {
+        val userinfo = HashMap<String, RequestBody>()
+        userinfo.put("name", createPartFromString(binding.etName.text.toString()))
+        userinfo.put("email", createPartFromString(binding.etEmail.text.toString()))
+        userinfo.put("password", createPartFromString(binding.etPassword.text.toString()))
+        userinfo.put("location", createPartFromString(binding.etLocation.text.toString()))
+        userinfo.put(
+            "confirmepassword",
+            createPartFromString(binding.etConfirmPassword.text.toString())
+        )
 //            var gender = binding.radioGroup.checkedRadioButtonId // 0 for male and 1 for female
 //            userinfo.put("gender", gender.toString())
-        uploadImageToDatabase()
 
+
+        val filepart = if (picturePath != null) getFilePart((File(picturePath)) , "photo") else null
         val spUserData = SPUserData(requireContext())
-        LogService.retrofitService.executeSignUp(userinfo)
+        LogService.retrofitService.executeSignUp(userinfo, filepart)
             .enqueue(object : retrofit2.Callback<UserRes> {
                 override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
                     /**handle the sign up  */
@@ -209,10 +230,14 @@ class SignupFragment : Fragment() {
                         spUserData.setUserLoggedIn(true)
                         spUserData.StoreUserData(res!!)
                         //redirect the to his profile
-                        val bundle = bundleOf(USER_ROLE to  1 ,
+                        val bundle = bundleOf(
+                            USER_ROLE to 1,
                             Constants.USER_ID to res.id
                         )
-                        findNavController().navigate(R.id.action_signupFragment_to_codeValidationFragment , bundle)
+                        findNavController().navigate(
+                            R.id.action_signupFragment_to_codeValidationFragment,
+                            bundle
+                        )
 
                     } else {
                         Toast.makeText(
@@ -236,30 +261,11 @@ class SignupFragment : Fragment() {
 
     }
 
-    private fun uploadImageToDatabase() = CoroutineScope(Dispatchers.IO).launch {
-        try {
-            curFile?.let {
-//                imageRef.child("images/$fileName").putFile(it).await()
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        requireContext(), "the image is uploaded to the storage ",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        } catch (e: Exception) {
-            withContext(Dispatchers.Main) {
-                Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
     fun signUpWithGoogle() {
         val signinintent = gsc.signInIntent
         startActivityForResult(signinintent, 1000)
 
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -280,6 +286,8 @@ class SignupFragment : Fragment() {
     fun navigateToProfileFragment() {
         findNavController().navigate(R.id.action_signupFragment_to_profileFragment)
     }
+
+
 }
 
 
@@ -308,3 +316,23 @@ class SignupFragment : Fragment() {
 //                ).show()
 //            }
 //        })
+
+
+
+//private fun uploadImageToDatabase() = CoroutineScope(Dispatchers.IO).launch {
+//    try {
+//        curFile?.let {
+////                imageRef.child("images/$fileName").putFile(it).await()
+//            withContext(Dispatchers.Main) {
+//                Toast.makeText(
+//                    requireContext(), "the image is uploaded to the storage ",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//        }
+//    } catch (e: Exception) {
+//        withContext(Dispatchers.Main) {
+//            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
+//        }
+//    }
+//}

@@ -15,7 +15,6 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="7dp">
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/replyCancelPic"
                 android:layout_width="40dp"
@@ -54,21 +53,18 @@
                 android:src="@drawable/ic_baseline_add_a_photo_24"
                 app:fabCustomSize="40dp" />
         </RelativeLayout>
-
         <RelativeLayout
             android:id="@+id/DestinationBar"
             android:layout_width="370dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/replyProfileBar"
             android:layout_marginHorizontal="20dp">
-
             <ImageView
                 android:id="@+id/compose_location_icon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_baseline_location_on_24_2" />
-
             <EditText
                 android:id="@+id/EditDestination"
                 android:layout_width="match_parent"
@@ -88,7 +84,6 @@
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_baseline_calendar_today_24" />
-
             <EditText
                 android:id="@+id/EditDate"
                 android:layout_width="match_parent"
@@ -118,7 +113,6 @@
                 android:layout_toEndOf="@id/compose_period_icon"
                 android:hint="@string/period"
                 android:inputType="number"/>
-
             <Spinner
                 android:id="@+id/spinner"
                 android:layout_width="match_parent"
@@ -138,7 +132,6 @@
                 android:layout_height="20dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_baseline_coin_24"/>
-
             <EditText
                 android:id="@+id/EditPrice"
                 android:layout_width="match_parent"
@@ -168,7 +161,6 @@
                 android:textStyle="bold"
                 android:layout_marginVertical="10dp"
                 android:id="@+id/price"/>
-
             <EditText
                 android:id="@+id/descriptionEditText"
                 android:layout_width="match_parent"

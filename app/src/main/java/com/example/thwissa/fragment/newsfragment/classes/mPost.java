@@ -1,184 +1,78 @@
 package com.example.thwissa.fragment.newsfragment.classes;
 
-import android.graphics.Bitmap;
+import com.google.gson.annotations.SerializedName;
 
-public class mPost {
-    private String postID;
-    private String Date;
+import java.util.List;
+import java.util.Objects;
 
-    public String getPostID() {
-        return postID;
+public class mPost implements Comparable<mPost>{
+    @SerializedName("_id")
+    public String _id;
+    @SerializedName("date")
+    public String date;
+    @SerializedName("minduration")
+    public int minduration;
+    @SerializedName(value = "maxduration")
+    public int maxduration;
+    @SerializedName("minprice")
+    public int minprice;
+    @SerializedName(value = "maxprice")
+    public int maxprice;
+    @SerializedName("meetingplace")
+    public String meetingplace;
+    @SerializedName("destination")
+    public String destination;
+    @SerializedName(value = "agencyId", alternate = "userid")
+    public String agencyId;
+    @SerializedName("picture")
+    public List<String> pictures;
+    @SerializedName("text")
+    public String text;
+    @SerializedName("username")
+    public String username;
+    @SerializedName("userpicture")
+    public String userpicture;
+    @SerializedName("userlocation")
+    public String userlocation;
+    @SerializedName("likes")
+    public List<ReactionRes> likes;
+    @SerializedName("dislikes")
+    public List<ReactionRes> dislikes;
+    @SerializedName("replynumber")
+    public int replynumber;
+    @SerializedName("tripDate")
+    public String tripDate;
+    @SerializedName("tags")
+    public String[] tags;
+    public boolean isLiked = false;
+    public boolean isDisliked = false;
+    public boolean isBookmarked;
+    public int likeNum;
+    public int dislikeNum;
+
+    public int diff(){
+        return likeNum - dislikeNum;
+    }
+    public float rate() {
+        if(likeNum == 0 && dislikeNum == 0) return 0;
+        else return Math.min(0, diff())/((float)(likeNum + dislikeNum));
     }
 
-    public void setPostID(String postID) {
-        this.postID = postID;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        mPost post = (mPost) o;
+        return _id.equals(post._id);
     }
 
-    private String maxduration;
-    private int Maxprice;
-    private String Meetingplace;
-    private String Destination;
-    private int agencyId;
-    private String agencypicture;
-    private String agencyname;
-    private String agencylocation;
-    private String text;
-    private String[] picture;
-    private int likes;
-    private int dislikes;
-    private int replynumber;
-    private String tripDate;
-    private String[] tags;
-
-    public int getReplynumber() {
-        return replynumber;
+    @Override
+    public int hashCode() {
+        return Objects.hash(_id);
     }
 
-    public void setReplynumber(int replynumber) {
-        this.replynumber = replynumber;
-    }
-
-    public mPost(String date, String maxduration, int maxprice, String meetingplace,
-                 String destination, int agencyId, String agencypicture, String agencyname,
-                 String agencylocation, String text, String[] picture, int likes, int dislikes,
-                 String tripDate, String[] tags) {
-        Date = date;
-        this.maxduration = maxduration;
-        Maxprice = maxprice;
-        Meetingplace = meetingplace;
-        Destination = destination;
-        this.agencyId = agencyId;
-        this.agencypicture = agencypicture;
-        this.agencyname = agencyname;
-        this.agencylocation = agencylocation;
-        this.text = text;
-        this.picture = picture;
-        this.likes = likes;
-        this.dislikes = dislikes;
-        this.tripDate = tripDate;
-        this.tags = tags;
-    }
-
-    public int getAgencyId() {
-        return agencyId;
-    }
-
-    public void setAgencyId(int agencyId) {
-        this.agencyId = agencyId;
-    }
-
-    public void setAgencypicture(String agencypicture) {
-        this.agencypicture = agencypicture;
-    }
-
-    public void setAgencyname(String agencyname) {
-        this.agencyname = agencyname;
-    }
-
-    public void setAgencylocation(String agencylocation) {
-        this.agencylocation = agencylocation;
-    }
-
-    public String getAgencypicture() {
-        return agencypicture;
-    }
-
-    public String getAgencyname() {
-        return agencyname;
-    }
-
-    public String getAgencylocation() {
-        return agencylocation;
-    }
-
-    public void setDate(String date) {
-        Date = date;
-    }
-
-    public void setMaxduration(String maxduration) {
-        this.maxduration = maxduration;
-    }
-
-    public void setMaxprice(int maxprice) {
-        Maxprice = maxprice;
-    }
-
-    public void setMeetingplace(String meetingplace) {
-        Meetingplace = meetingplace;
-    }
-
-    public void setDestination(String destination) {
-        Destination = destination;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public void setPicture(String[] picture) {
-        this.picture = picture;
-    }
-
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
-    }
-
-    public void setTripDate(String tripDate) {
-        this.tripDate = tripDate;
-    }
-
-    public void setTags(String[] tags) {
-        this.tags = tags;
-    }
-
-    public String getDate() {
-        return Date;
-    }
-
-    public String getMaxduration() {
-        return maxduration;
-    }
-
-    public int getMaxprice() {
-        return Maxprice;
-    }
-
-    public String getMeetingplace() {
-        return Meetingplace;
-    }
-
-    public String getDestination() {
-        return Destination;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public String[] getPicture() {
-        return picture;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
-    public int getDislikes() {
-        return dislikes;
-    }
-
-    public String getTripDate() {
-        return tripDate;
-    }
-
-    public String[] getTags() {
-        return tags;
-    }
-    public boolean isBookMarkClicked(){
-        return true;
+    @Override
+    public int compareTo(mPost post) {
+        return Float.compare(this.rate(), post.rate());
     }
 }

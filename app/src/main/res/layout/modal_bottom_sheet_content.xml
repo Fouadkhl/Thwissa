@@ -65,7 +65,7 @@
             android:entries="@array/willaya" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/sending"
+            android:id="@+id/btn_sending"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

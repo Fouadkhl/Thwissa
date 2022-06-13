@@ -14,10 +14,13 @@
         android:layout_weight="70"
         android:background="@drawable/background_search"
         android:backgroundTint="@color/white"
+        android:iconifiedByDefault="true"
         app:defaultQueryHint="hint"
-        app:queryHint="@string/search_question" />
+        android:queryHint="@string/search_question"
+        />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_filter"
         android:layout_width="50dp"
         android:layout_height="match_parent"
         android:layout_toEndOf="@+id/search_bar"

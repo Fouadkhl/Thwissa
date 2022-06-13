@@ -89,9 +89,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_email"
             android:drawableStart="@drawable/ic_password"
+            android:hint="Password"
             android:inputType="textPassword"
-            android:padding="14dp"
-            android:hint="Password" />
+            android:padding="14dp" />
 
         <EditText
             android:id="@+id/et_confirm_password"
@@ -100,9 +100,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/et_password"
             android:drawableStart="@drawable/ic_password"
+            android:hint="Confirm password"
             android:inputType="textPassword"
-            android:padding="14dp"
-            android:hint="Confirm password" />
+            android:padding="14dp" />
 
 
         <EditText

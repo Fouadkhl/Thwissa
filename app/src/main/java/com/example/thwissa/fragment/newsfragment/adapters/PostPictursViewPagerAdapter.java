@@ -1,20 +1,30 @@
 package com.example.thwissa.fragment.newsfragment.adapters;
 
-import android.graphics.Bitmap;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.thwissa.R;
+import com.example.thwissa.fragment.newsfragment.NewsService;
 import com.google.android.material.imageview.ShapeableImageView;
+
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class PostPictursViewPagerAdapter extends RecyclerView.Adapter<PostPictursViewPagerAdapter.InnerViewHolder>{
 
-    private ArrayList<Bitmap> imgIds = new ArrayList<>();
+    private ArrayList<String> names = new ArrayList<>();
+    private final Context context;
+
+    public PostPictursViewPagerAdapter(Context context){
+        this.context = context;
+    };
 
     @NonNull
     @Override
@@ -27,16 +37,23 @@ public class PostPictursViewPagerAdapter extends RecyclerView.Adapter<PostPictur
 
     @Override
     public void onBindViewHolder(@NonNull InnerViewHolder holder, int position) {
-        holder.shapeableImageView.setImageBitmap(imgIds.get(position));
+        String url;
+        for(String name : names){
+            url = NewsService.BASE_URL + "/" + name.split("/")[0];
+            Glide.with(context)
+                    .asBitmap()
+                    .load(url)
+                    .into(holder.shapeableImageView);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return imgIds.size();
+        return names.size();
     }
 
-    public void setImgIds(ArrayList<Bitmap> imgIds) {
-        this.imgIds = imgIds;
+    public void setImgIds(List<String> names) {
+        this.names.addAll(names);
     }
 
     protected static class InnerViewHolder extends RecyclerView.ViewHolder{

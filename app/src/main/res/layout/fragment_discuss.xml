@@ -7,58 +7,76 @@
     android:background="@color/background_color"
     tools:context=".fragment.discuss.DiscussFragment">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:id="@+id/swipe">
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="20dp"
-            android:orientation="vertical">
-            <!-- SEARCH BAR -->
-            <include
+            android:layout_height="match_parent" >
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:layout_marginVertical="24dp"
-                layout="@layout/item_search_view" />
-            <!--CATEGORIES BAR: Touristic, Entertainment, Commercial, Historic -->
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/top_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/background_color"
-                app:tabSelectedTextColor="@color/blue_logo"
-                app:tabTextColor="@color/secondary_color">
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:orientation="vertical">
+                <!-- SEARCH BAR -->
+                <include
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Discuss"/>
-                <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Notifications"/>
-            </com.google.android.material.tabs.TabLayout>
-            <TextView
-                style="@style/text_big"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="15dp"
-                android:text="Threads "
-                android:textColor="@color/secondary_color"  />
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginVertical="24dp"
+                    layout="@layout/item_search_view" />
+                <!--CATEGORIES BAR: Touristic, Entertainment, Commercial, Historic -->
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/top_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/background_color"
+                    app:tabSelectedTextColor="@color/blue_logo"
+                    app:tabTextColor="@color/secondary_color">
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Discuss"/>
+                    <com.google.android.material.tabs.TabItem
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notifications"/>
+                </com.google.android.material.tabs.TabLayout>
 
-            <!--        DISCUSS RECYCLER VIEW-->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/discuss_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="vertical"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_discuss_recyclerview" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                <TextView
+                    style="@style/text_big"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginTop="15dp"
+                    android:text="Threads "
+                    android:textColor="@color/secondary_color"  />
 
-    <!--    COMPOSE BUTTON-->
+                <!--        DISCUSS RECYCLER VIEW-->
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer"
+                    android:layout_width="355dp"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <include layout="@layout/shimmer_posts_effect_item"/>
+                        <include layout="@layout/shimmer_posts_effect_item"/>
+                    </LinearLayout>
+                </com.facebook.shimmer.ShimmerFrameLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/discuss_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/item_discuss_recyclerview" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <!--    COMPOSE BUTTON-->
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/compose_button"
         android:layout_width="wrap_content"

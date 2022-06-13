@@ -6,10 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.thwissa.Adapter.ViewPagerAdapter
 import com.example.thwissa.LogService
+import com.example.thwissa.R
 import com.example.thwissa.databinding.AgencyProfileBinding
 import com.example.thwissa.dataclasses.AgencyRes
+import com.example.thwissa.dataclasses.FollowMessage
+import com.example.thwissa.utils.UsefulFct
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,6 +22,7 @@ class AgencyProfileFragment : Fragment() {
 
 
     lateinit var binding: AgencyProfileBinding
+    var descripiton: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,15 +31,47 @@ class AgencyProfileFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = AgencyProfileBinding.inflate(inflater, container, false)
+
         setUpAgencyData()
         addFragment()
 
+        binding.tvDescription.setOnClickListener {
+            launchDescriptionDialog()
+        }
 
+        binding.ivEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_agencyProfileFragment_to_editAgencyProfile)
+        }
+
+        binding.btnBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
 
         return binding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        childFragmentManager.setFragmentResultListener(
+            DescriptionDialog.REQUEST_CODE, this
+        ) { requestKey, result ->
+            descripiton = result.getString(DescriptionDialog.ADD_DESCRIPTION_BUNDLE_KEY)
+                ?: "empty description"
+            binding.tvDescription.text = descripiton
+        }
+    }
+
+    private fun launchDescriptionDialog() {
+        val dialogFragment = DescriptionDialog(requireContext())
+        dialogFragment.show(
+            childFragmentManager,
+            DescriptionDialog.TAG
+        )
+    }
+
     private fun setUpAgencyData() {
+
         LogService.retrofitService.getAgencyData().enqueue(object : Callback<AgencyRes> {
             override fun onResponse(call: Call<AgencyRes>, response: Response<AgencyRes>) {
                 if (response.isSuccessful) {
@@ -46,13 +83,24 @@ class AgencyProfileFragment : Fragment() {
                             res.Phonenumber,
                             res.location,
                             res.rate,
-                            res.nbfollowers
+                            res.nbfollowers ,
+                            res.nbofTrips ,
+                            res.picture
                         )
+
+                        Toast.makeText(requireContext(), res.id, Toast.LENGTH_SHORT).show()
+                        binding.btnFollow.setOnClickListener {
+                            followOrUnfollowAgency(res.id, res.nbfollowers)
+                        }
                     }
 
                     Toast.makeText(requireContext(), "req done ", Toast.LENGTH_SHORT).show()
                 } else {
-                    Toast.makeText(requireContext(), response.message() +response.code(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        response.message() + response.code(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -62,13 +110,61 @@ class AgencyProfileFragment : Fragment() {
         })
     }
 
+    /** follow or unfollow agency*/
+    private fun followOrUnfollowAgency(agencyId: String, nbfollowers: Int) {
+        LogService.retrofitService.followOrUnfollowAgency(agencyId)
+            .enqueue(object : Callback<FollowMessage> {
+                override fun onResponse(
+                    call: Call<FollowMessage>,
+                    response: Response<FollowMessage>
+                ) {
+                    if (response.isSuccessful) {
+                        val res = response.body()!!.followMessage
+                        if (res.equals("Follow sucuss")) {
+                            updateFollowButtonText("follow", nbfollowers)
+                        } else if (res.equals("infollow sucuss")) {
+                            updateFollowButtonText("unfollow", nbfollowers)
+                        } else {
+                            Toast.makeText(
+                                requireContext(),
+                                "no attr follow message",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    } else {
+                        Toast.makeText(
+                            requireContext(),
+                            "not success" + response.message() + response.code(),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<FollowMessage>, t: Throwable) {
+                    Toast.makeText(
+                        requireContext(),
+                        "some error is occured" + t.message,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            })
+    }
+
+    private fun updateFollowButtonText(followText: String, nbfollowers: Int) {
+        binding.btnFollow.text = followText
+        binding.tvNombreFollowers.text = nbfollowers.toString()
+    }
+
+
     private fun updateAgencyUi(
         name: String,
         email: String,
         phonenumber: String,
         location: String,
         rate: Int,
-        nbfollowers: Int
+        nbfollowers: Int ,
+        nbTrips: Int ,
+        picture : String
     ) {
         binding.apply {
             agencyName.text = name
@@ -78,10 +174,10 @@ class AgencyProfileFragment : Fragment() {
             ratingBar.rating = rate.toFloat()
             tvRatingNumber.text = rate.toString()
             tvNombreFollowers.text = nbfollowers.toString()
-
+            tvSaves.text = nbTrips.toString()
+            UsefulFct.bindImage(binding.ivAgencyPicture , picture)
         }
     }
-
 
     private fun addFragment() {
         val adapter = ViewPagerAdapter(childFragmentManager)
@@ -91,5 +187,4 @@ class AgencyProfileFragment : Fragment() {
         binding.vpAgencyProfile.adapter = adapter
         binding.tablayout.setupWithViewPager(binding.vpAgencyProfile)
     }
-
 }

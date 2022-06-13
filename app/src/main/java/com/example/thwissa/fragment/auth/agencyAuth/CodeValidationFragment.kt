@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.thwissa.LogService
 import com.example.thwissa.R
@@ -44,7 +46,7 @@ class CodeValidationFragment : Fragment() {
                     if (role == 1) {
                         findNavController().navigate(R.id.action_codeValidationFragment_to_profileFragment)
                     }else{
-                        findNavController().navigate(R.id.action_codeValidationFragment_to_agencyProfileFragment)
+                        findNavController().navigate(R.id.action_codeValidationFragment_to_verifyDocumentsFragment)
                     }
                 }else {
                     Toast.makeText(
@@ -109,6 +111,16 @@ class CodeValidationFragment : Fragment() {
 
         })
         return isconfirmed
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val navController = Navigation.findNavController(view)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navController.popBackStack()
+            }
+        })
     }
 
 //    private fun getValidationData(): HashMap<String, String> {

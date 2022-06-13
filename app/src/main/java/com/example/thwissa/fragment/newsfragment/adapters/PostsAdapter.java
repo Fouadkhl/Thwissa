@@ -1,45 +1,47 @@
 package com.example.thwissa.fragment.newsfragment.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.example.thwissa.R;
+import com.example.thwissa.fragment.newsfragment.NewsService;
+import com.example.thwissa.fragment.newsfragment.NewsUtil;
+import com.example.thwissa.fragment.newsfragment.classes.ReactionRes;
 import com.example.thwissa.fragment.newsfragment.classes.mPost;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnItemClickedListener;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnReplyButtonClicked;
+import com.example.thwissa.repository.userLocalStore.SPUserData;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
+
 import java.util.ArrayList;
-import java.util.Collections;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHolder>{
 
     private ArrayList<mPost> data = new ArrayList<>();
-    private Context context;
-    private boolean isVisible = true;
+    private final Context context;
+    private final SPUserData userData;
 
-    private OnReplyButtonClicked onReplyButtonClicked = new OnReplyButtonClicked() {
-        @Override
-        public void replyButtonClicked(String postID) {}
-    };
-    private OnItemClickedListener onItemClickedListener = new OnItemClickedListener() {
-        @Override
-        public void ItemClicked(String postID) { }
-    };
+    private OnReplyButtonClicked onReplyButtonClicked = (postID, pos) -> {};
+    private OnItemClickedListener onItemClickedListener = (postID, pos) -> {};
 
     public PostsAdapter(Context context){
         this.context = context;
+        userData = new SPUserData(context);
     }
 
     @NonNull
@@ -53,31 +55,39 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
     public void onBindViewHolder(@NonNull InnerViewHolder holder, int position) {
         mPost post = data.get(position);
 
-        holder.profile_pic.setImageBitmap(stringToBitmap(post.getAgencypicture()));
-        holder.user_name.setText(post.getAgencyname());
-        holder.location.setText(post.getAgencylocation());
-        if(!isVisible){
-            holder.bookmark.setVisibility(View.GONE);
+        if(post.isLiked){
+            holder.upButton.setImageResource(R.drawable.clicked_up_arrow);
         }
-        else{
-            holder.bookmark.setVisibility(View.VISIBLE);
+        else if(post.isDisliked){
+            holder.downButton.setImageResource(R.drawable.clicked_down_arrow);
         }
-        /*holder.bookmark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(!post.isBookMarkClicked()){
-                    holder.bookmark.setImageResource(R.drawable.ic_baseline_bookmark_clicked_24);
-                    addToBookmark(data.get(position));
-                }
-                else{
-                    holder.bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
-                    removeFromBookmark(data.get(post).)
-                }
+        if(!post.isBookmarked){
+            holder.bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
+        }
+        // holder.profile_pic.setImageBitmap(NewsUtil.urlToBitmap(post.userpicture));
+
+        if(post.userpicture != null && !post.userpicture.equals("")) {
+            String url = NewsService.BASE_URL + "/" + post.userpicture.split("/")[1];
+            Glide.with(context)
+                    .asBitmap()
+                    .load(url)
+                    .into(holder.profile_pic);
+        } else holder.profile_pic.setImageResource(R.drawable.ic_baseline_person_24);
+
+        holder.user_name.setText(post.username);
+        holder.location.setText(post.userlocation);
+        holder.bookmark.setOnClickListener(view -> {
+            if(!post.isBookmarked){
+                holder.bookmark.setImageResource(R.drawable.ic_baseline_bookmark_24);
+            } else {
+                holder.bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
             }
-        });*/
-        if(post.getPicture() != null && post.getPicture().length != 0) {
+            bookmark(post._id);
+            post.isBookmarked = !post.isBookmarked;
+        });
+        /*if(post.picture != null) {
             ArrayList<Bitmap> arrayList = new ArrayList<>();
-            stringToBitmap(post.getPicture(), arrayList);
+            arrayList.add(NewsUtil.urlToBitmap(post.picture));
             PostPictursViewPagerAdapter postPictursViewPagerAdapter = new PostPictursViewPagerAdapter();
             postPictursViewPagerAdapter.setImgIds(arrayList);
             holder.viewPager2.setAdapter(postPictursViewPagerAdapter);
@@ -86,87 +96,82 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
         else{
             holder.viewPager2.setVisibility(View.GONE);
         }
-        if(post.getPicture() == null || post.getPicture().length <= 1){
+        holder.wormDotsIndicator.setVisibility(View.GONE);*/
+
+        if(post.pictures != null && post.pictures.size() != 0){
+            PostPictursViewPagerAdapter postPictursViewPagerAdapter = new PostPictursViewPagerAdapter(context);
+            postPictursViewPagerAdapter.setImgIds(post.pictures);
+            holder.viewPager2.setAdapter(postPictursViewPagerAdapter);
+            if(post.pictures.size()!=1) {
+                holder.wormDotsIndicator.setViewPager2(holder.viewPager2);
+            } else holder.wormDotsIndicator.setVisibility(View.GONE);
+        } else {
+            holder.viewPager2.setVisibility(View.GONE);
             holder.wormDotsIndicator.setVisibility(View.GONE);
         }
-        holder.diff.setText(String.valueOf(post.getLikes()-post.getDislikes()));
-        holder.reply_num.setText(String.valueOf(post.getReplynumber()).concat(" comments"));
-        holder.upButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*if(!post.upButtonClicked) {
-                    holder.upButton.setImageResource(R.drawable.clicked_up_arrow);
-                    post.diff++;
-                }
-                else{
-                    holder.upButton.setImageResource(R.drawable.up_arrow_not_clicked);
-                    post.diff--;
-                }
-                if(post.downButtonClicked){
-                    holder.downButton.setImageResource(R.drawable.down_arrow_not_clicked);
-                    post.diff++;
-                    post.downButtonClicked = false;
-                }
-                post.upButtonClicked = !post.upButtonClicked;
-                holder.diff.setText(String.valueOf(post.diff));*/
+
+
+        holder.diff.setText(String.valueOf(post.diff()));
+        holder.reply_num.setText(String.valueOf(post.replynumber).concat(" comments"));
+
+        post.likeNum = post.likes.size();
+        post.dislikeNum = post.dislikes.size();
+        post.isLiked = post.likes.contains(new ReactionRes(userData.getLoggedInUser().getId()));
+        post.isLiked = post.dislikes.contains(new ReactionRes(userData.getLoggedInUser().getId()));
+        holder.upButton.setOnClickListener(view -> {
+            if(!post.isLiked) {
+                holder.upButton.setImageResource(R.drawable.clicked_up_arrow);
+                post.likeNum++;
             }
-        });
-        holder.downButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*if(!post.downButtonClicked) {
-                    holder.downButton.setImageResource(R.drawable.clicked_down_arrow);
-                    post.diff--;
-                }
-                else{
-                    holder.downButton.setImageResource(R.drawable.down_arrow_not_clicked);
-                    post.diff++;
-                }
-                if(post.upButtonClicked){
-                    holder.upButton.setImageResource(R.drawable.up_arrow_not_clicked);
-                    post.diff--;
-                    post.upButtonClicked = false;
-                }
-                post.downButtonClicked = !post.downButtonClicked;
-                holder.diff.setText(String.valueOf(post.diff));*/
+            else{
+                holder.upButton.setImageResource(R.drawable.up_arrow_not_clicked);
+                post.dislikeNum--;
             }
-        });
-        holder.replyIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onReplyButtonClicked.replyButtonClicked(post.getPostID());
+            if(post.isDisliked){
+                holder.downButton.setImageResource(R.drawable.down_arrow_not_clicked);
+                post.likeNum--;
+                post.isDisliked = false;
+                dislikePost(post._id);
             }
+            likePost(post._id);
+            post.isLiked = !post.isLiked;
+            holder.diff.setText(String.valueOf(post.diff()));
         });
+        holder.downButton.setOnClickListener(view -> {
+            if(!post.isDisliked) {
+                holder.downButton.setImageResource(R.drawable.clicked_down_arrow);
+                post.dislikeNum++;
+            }
+            else{
+                holder.downButton.setImageResource(R.drawable.down_arrow_not_clicked);
+                post.dislikeNum--;
+            }
+            if(post.isLiked){
+                holder.upButton.setImageResource(R.drawable.up_arrow_not_clicked);
+                post.likeNum--;
+                post.isLiked = false;
+                likePost(post._id);
+            }
+            dislikePost(post._id);
+            post.isDisliked = !post.isDisliked;
+            holder.diff.setText(String.valueOf(post.diff()));
+        });
+        holder.replyIcon.setOnClickListener(view -> onReplyButtonClicked.replyButtonClicked(post._id, holder.getAdapterPosition()));
+
         String string = "";
-        string += context.getResources().getString(R.string.destination).concat(" :").concat(post.getDestination()+"\n");
-        string += context.getResources().getString(R.string.date).concat(" :").concat(post.getTripDate()+"\n");
-        string += context.getResources().getString(R.string.period).concat(" :").concat(post.getMaxduration()+"\n");
-        string += context.getResources().getString(R.string.price).concat(" :").concat(String.valueOf(post.getMaxprice())+"\n");
-        string += context.getResources().getString(R.string.description)+" :"+post.getText();
+        string += context.getResources().getString(R.string.destination).concat(" :").concat(post.destination+"\n");
+        string += context.getResources().getString(R.string.date).concat(" :").concat(
+                post.tripDate.substring(0, 10).replace("-", "/")
+                +"\n");
+        string += context.getResources().getString(R.string.period).concat(" :").concat(post.maxduration+"\n");
+        string += context.getResources().getString(R.string.price).concat(" :").concat(post.maxprice +"\n");
+        string += context.getResources().getString(R.string.description)+" :"+post.text;
 
         holder.content.setText(string);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onItemClickedListener.ItemClicked(post.getPostID());
-            }
-        });
+        holder.itemView.setOnClickListener(view -> onItemClickedListener.ItemClicked(post._id, holder.getAdapterPosition()));
     }
 
-    private Bitmap stringToBitmap(String agencypicture) {
-        byte[] decodedString = Base64.decode(agencypicture, Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-    }
 
-    private void stringToBitmap(String[] picture, ArrayList<Bitmap> bitmaps) {
-        for(String s: picture){
-            byte[] decodedString = Base64.decode(s, Base64.DEFAULT);
-             bitmaps.add(BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length));
-        }
-    }
-
-    private void addToBookmark(mPost mPost) {
-    }
 
     @Override
     public int getItemCount() {
@@ -181,9 +186,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
     }
     public void setOnItemClickedListener(OnItemClickedListener onItemClickedListener) {
         this.onItemClickedListener = onItemClickedListener;
-    }
-    public void setBookMarkVisibility(boolean isVisible){
-        this.isVisible = isVisible;
     }
 
     public static class InnerViewHolder extends RecyclerView.ViewHolder{
@@ -213,4 +215,44 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
         }
     }
 
+    public void likePost(String postId){
+        Call<Void> call = NewsUtil.getInstance()
+                .getNewsService()
+                .likeTrip(postId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
+        });
+    }
+    public void dislikePost(String postId){
+        Call<Void> call = NewsUtil.getInstance()
+                .getNewsService()
+                .dislikeTrip(postId);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+            }
+        });
+    }
+    public void bookmark(String id){
+        Call<Void> call = NewsUtil.getInstance().getNewsService().bookMark(id);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+
+            }
+        });
+    }
 }

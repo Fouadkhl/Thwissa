@@ -1,7 +1,6 @@
 package com.example.thwissa
 
-import com.example.thwissa.dataclasses.AgencyRes
-import com.example.thwissa.dataclasses.UserRes
+import com.example.thwissa.dataclasses.*
 import com.example.thwissa.utils.MyApp
 import com.example.thwissa.utils.setCookieStore
 import okhttp3.MultipartBody
@@ -20,16 +19,32 @@ interface RetrofitInterface {
     @POST("/login")
     fun executeLogIn(@Body userinfoMap: HashMap<String, String>): Call<UserRes>
 
-//
-//    @Multipart
+    @Multipart
     @POST("/signupUser")
-    fun executeSignUp(@Body userinfoMap: HashMap<String, Any>): Call<UserRes>
+    fun executeSignUp(
+        @PartMap data: HashMap<String, RequestBody>,
+        @Part photo: MultipartBody.Part?
+    ): Call<UserRes>
 
+    @Multipart
     @POST("/signupAgency")
-    fun executeSignUpAgency(@Body userinfoMap: HashMap<String, Any>): Call<AgencyRes>
+    fun executeSignUpAgency(
+        @PartMap data: HashMap<String, RequestBody>,
+        @Part photo: MultipartBody.Part?
+    ): Call<AgencyRes>
 
-    @GET("/agencyprofile")
-    fun getAgencyData(): Call<AgencyRes>
+    @Multipart
+    @PATCH("/agencyprofiledit")
+    fun updateAgencyProfile(
+        @PartMap data: HashMap<String, RequestBody>,
+        @Part photo: MultipartBody.Part?
+    ): Call<Unit>
+
+    @Multipart
+    @PATCH("/signupAgencyf")
+    fun uploadAgencyDocuments(
+        @Part documents: List<MultipartBody.Part>
+    ): Call<Unit>
 
     @POST("/verifyotp")
     fun postOtp(@Body codeValidation: HashMap<String, String>): Call<Unit>
@@ -43,6 +58,77 @@ interface RetrofitInterface {
     @GET("/logout")
     fun getLogout(): Call<Unit>
 
+    // TODO: profile section
+
+    @GET("/agencyprofile")
+    fun getAgencyData(): Call<AgencyRes>
+
+
+    @POST("/agency/{agencyid}/follow")
+    fun followOrUnfollowAgency(@Path("agencyid") agencyid: String): Call<FollowMessage>
+
+    @Headers("Content-Type: application/json")
+    @PATCH("/agencyprofiledit")
+    fun updadateDescription(@Body description: HashMap<String, String>): Call<Unit>
+
+    @GET("/agency/{agencyId}/reviews")
+    fun getAllReviews(@Path("agencyId") agencyid: String): Call<List<AgencyReviews>>
+
+    @GET("/agency/{agencyId}/reviews")
+    fun postReview(
+        @Path("agencyId") agencyid: String,
+        @Body review: HashMap<String, Any>
+    ): Call<Unit>
+
+    // TODO: story section
+
+    @Multipart
+    @POST("/story/{idLocation}")
+    fun uploadStory(
+        @Path("idLocation") location: String,
+        @Part picture: MultipartBody.Part
+    ): Call<Unit>
+
+    @Headers("Content-Type: application/json")
+    @PATCH("/story/{idLocation}/{idPicture}")
+    fun addStoryReport(
+        @Path("idLocation") idLocation: String,
+        @Path("idPicture") idPicture: String,
+    ): Call<Unit>
+
+    @FormUrlEncoded
+    @POST("/story/{idLocation}/{idPicture}/like")
+    fun addStoryLike(
+        @Path("idLocation") location: String,
+        @Path("idPicture") pictureid: String,
+        @Field("like") nbLike: Int,
+    ): Call<Void>
+
+    @FormUrlEncoded
+    @POST("/story/{idLocation}/{idPicture}/like")
+    fun addStoryDislike(
+        @Path("idLocation") location: String,
+        @Path("idPicture") pictureid: String,
+        @Field("dislike") nbLike: Int,
+    ): Call<Void>
+
+//    @GET("/story/{idLocation}")
+//fun getStories(@Path("idLocation") location: String): Call<List<StoryItem>>
+
+    @GET("/story/Adrar")
+    fun getStories(): Call<StoryData>
+
+    @DELETE("/story/{idLocation}/{idPicture}")
+    fun deletePhoto(
+        @Path("idLocation") location: String,
+        @Path("idPicture") pictureid: String
+    )
+
+    @PATCH("/story/{idLocation}/{idPicture}")
+    fun updateStory(
+        @Path("idLocation") location: String,
+        @Path("idPicture") pictureid: String
+    )
     //  to indicate that the image can be any size
 
 //    @POST
@@ -72,7 +158,6 @@ object LogService {
      * @param serviceType pass the interface
      * @return return  the service
      */
-
     fun <T> buildService(serviceType: Class<T>): T {
         return retrofit.create(serviceType)
     }

@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,14 +24,12 @@ import com.example.thwissa.Adapter.StoriesAdapter
 import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentHomeBinding
 import com.example.thwissa.dataclasses.WillayaStory
-import com.example.thwissa.fragment.homefragment.willaya.Place
-import com.google.android.gms.maps.GoogleMap
+import com.example.thwissa.utils.Constants
 import kotlinx.coroutines.flow.collectLatest
 
 
 @Suppress("DEPRECATION")
 class HomeFragment : Fragment() {
-
 
     lateinit var binding: FragmentHomeBinding
     private val viewModel: ImageViewModel by viewModels()
@@ -48,6 +47,7 @@ class HomeFragment : Fragment() {
         gallery = ArrayList<Uri>()
         setupui()
 
+        // TODO: remove this
         binding.btn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_agencyProfileFragment)
         }
@@ -70,6 +70,10 @@ class HomeFragment : Fragment() {
                 homeviewmodel.setCanNotLoad()
             }
         })
+
+        binding.searchBar.btnFilter.setOnClickListener {
+
+        }
 
         // TODO: change the button to story click
 //        binding.rlToBtnAddStory.setOnClickListener{
@@ -144,27 +148,36 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupui() {
-        val listofItmes = IntArray(4)
+        val listofItmes = IntArray(3)
 
-        var id: Int
-        for (i in 1..4) {
-            id = resources.getIdentifier("beach", "drawable", activity?.packageName)
-            listofItmes[i - 1] = id
-        }
+        var id = resources.getIdentifier("saharaa", "drawable", activity?.packageName)
+        listofItmes[0] = id
+        id = resources.getIdentifier("sahili", "drawable", activity?.packageName)
+        listofItmes[1] = id
+        id = resources.getIdentifier("tell", "drawable", activity?.packageName)
+        listofItmes[2] = id
+
+
         var data = ArrayList<WillayaStory>()
 
+        var item = WillayaStory(listofItmes[0], "medea")
+        data.add(item)
 
-        for (i in 0..3) {
-            var item = WillayaStory(listofItmes[i], "willaya")
-            data.add(item)
-        }
+        item = WillayaStory(listofItmes[1], "medea")
+        data.add(item)
+
+        item = WillayaStory(listofItmes[2], "medea")
+        data.add(item)
+
 
         var data2 = homeviewmodel.getWillayaStories()
 
         val storiesAdapter = StoriesAdapter(data, homeviewmodel, StoriesAdapter.OnClickListener {
-            findNavController().navigate(R.id.action_homeFragment_to_storyFragment)
+            val bundle = bundleOf(Constants.WILLAYANAME to it.text)
+            findNavController().navigate(R.id.action_homeFragment_to_storyFragment, bundle)
         })
 
+        // TODO: change this
         val placesAdapter = PlacesAdapter(data)
         val nearToYouRecyclerViewAdapter = NearToYouRecyclerViewAdapter(data)
 

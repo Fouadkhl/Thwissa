@@ -24,7 +24,7 @@
     <string name="settings">settings</string>
     <string name="contact">contact us</string>
     <string name="feedback">feedback</string>
-    <string name="description">description</string>
+    <string name="description">Description</string>
 
 
     <!--    entertainment strings-->
@@ -34,8 +34,8 @@
     <string name="option_1">mostaganem</string>
     <string name="option_2">medea</string>
     <string name="option_3">Tlemcene</string>
-    <string name="more_informations">more informations</string>
-    <string name="decide_where_you_want_to_go">Decide Where you want to go</string>
+    <string name="more_informations">More informations</string>
+    <string name="how_to_plan_your_trip">HOW TO PLAN YOUR TRIP IN 5 EASY STEPS</string>
     <string name="randomText">
 <![CDATA[ Maybe you already know where to go, or maybe you need inspiration. Let me help you.\n\n First, find the reason why you want to travel.\n\n Do you want to escape ks,lksznx kl,dzlx,kxdznlez&m x\n sl jwzsjn wxbxz bhd\n ]]>
 </string>
@@ -49,7 +49,7 @@
     <string name="other_trips">Other trips</string>
     <string name="compose">Compose</string>
     <string name="share">share</string>
-    <string name="type_something">Type something ...</string>
+    <string name="type_something">Type something...</string>
     <string name="location">location</string>
     <string name="reply">reply</string>
     <string name="report">report</string>
@@ -265,12 +265,66 @@
     <string name="cancel">Cancel</string>
     <string name="title_dialog_fragment">Accept terms</string>
     <string name="accept_terms">Accept terms</string>
-    <string name="sign_up2">sign up</string>
+    <string name="sign_up2">Sign up</string>
+
+    <string name="failedToLoadData">failed to load data</string>
+    <string name="replyPosted">Reply posted</string>
+    <string name="deletedTrip">this trip has been deleted</string>
+    <string name="Retry">Retry again</string>
+    <string name="failedToLikeTrip">failed to like trip</string>
+    <string name="tripLiked">trip liked</string>
+    <string name="female">Female</string>
+    <string name="male">male</string>
+    <string name="replies">Replies</string>
 
     <string name="facebook_app_id">718193356189574</string>
     <string name="fb_login_protocol_scheme">fb718193356189574</string>
     <string name="facebook_client_token">51b92c4be8af0348beeec8ddb31b4f1b</string>
     <string name="adding_review">"adding review "</string>
+    <string name="continu">Continue</string>
+    <string name="accept_terms_fragment_text">If you want to continue your registration make sure you read all the terms and accept all of them if you can not accept these terms you can not finish your registration</string>
+    <string name="post_agency_description">Post</string>
+    <string name="agency_description">add description<h2> + </h2></string>
+    <string name="plan_your_trip">there are some people can get overwhelmed by the idea of planning a trip by themselves. You feel like there’s so much to think about and so much to do!Planning a trip is easier than you may think
+        <b>\n\n  1.Decide Where You Want to Go\n</b>
+            - First , find the reason why you want to travel.\n
+            - Do you want to escape from winter?\n
+            - Do you want to discover a new culture?\n
+            - Do you want to learn something new? (That last one is often my reason to travel.)\n
+            Maybe you already know where you want to go, or maybe you need inspiration. Let me help you.
+            in all scenario thwissa  is your friend
 
+<b>\n\n2.Decide the duration of your trip\n</b><br/>
+     There is a fine line between getting bored
+     and enjoying every moment at a destination.\n
+     However, no destination has a predefined ideal duration.\n
+     It often depends on the touring plans and purpose of the visit of the travelers.
+     Some travelers like to see new cities every day, whereas some travelers prefer
+     taking it slow by witnessing and enjoying the subtle nuances of places they visit.
+     This is a key aspect of your trip planning which can help your itinerary and budget both.
 
+<b>\n\n3.Book flights, train, or bus tickets, and accommodation\n</b><br/>
+            booking tickets for your flight, train or bus transfer well in advance is
+            an important step in learning how to plan your trip to perfection.\n
+            Since flight and train tickets are subject to availability and prices rise over time,
+            getting the bookings done a few months in advance will help you , we are looking to make
+            this available in our application just still updated
+
+<b>\n\n4.Plan the day-wise activities and course of action\n</b><br/>
+
+            It always sounds fascinating and adventurous when touring plans are made
+            on a sudden impulse and gut feel. However, the downside of going on
+            such trips is that there could be many days where the scheduling can
+            go haywire because of everything being so last-minute.
+
+<b>\n\n5.Pack Your Bag\n</b><br/>
+
+            it is always advisable for your trip planning to pack your stuff
+            keeping in mind the destination and the influence of external factors on it.\n
+            The unpredictability of weather, socio-political scenario, or a festive season
+            can adversely affect travel plans.\n
+            In order to avoid alteration of touring plans due to these scenarios,
+            travelers should do a bit of research before starting their vacation
+    </string>
+    <string name="wheremostasituate">How to plan your trip in 5 easy steps</string>
 </resources>

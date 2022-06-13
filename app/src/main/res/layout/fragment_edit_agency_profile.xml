@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="36dp"
+            android:layout_weight="0.45"
+            android:text="Edit profile"
+            android:textColor="@color/text_color"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="36dp"
+            android:layout_height="3dp"
+            android:layout_below="@id/sign_in"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/blue_logo" />
+
+
+        <FrameLayout
+            android:id="@+id/fl_add_image"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_below="@id/sign_in"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"
+            android:elevation="2dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_shapable_agency_sign_up"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_below="@id/sign_in"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/_4"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/round" />
+
+            <ImageButton
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom|end"
+                android:background="@color/transparent"
+                android:elevation="2dp"
+                android:src="@drawable/ic_baseline_add_photo_alternate_24" />
+        </FrameLayout>
+
+        <EditText
+            android:id="@+id/et_name"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fl_add_image"
+            android:layout_marginTop="18dp"
+            android:drawableStart="@drawable/ic_person_icon"
+            android:hint="Agency name"
+            android:inputType="text"
+            android:padding="14dp" />
+
+        <EditText
+            android:id="@+id/et_email"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_name"
+            android:drawableStart="@drawable/ic_email"
+            android:hint="Email"
+            android:inputType="textEmailAddress"
+            android:padding="14dp" />
+
+        <EditText
+            android:id="@+id/et_location"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_email"
+            android:drawableStart="@drawable/ic_baseline_add_location_alt_24"
+            android:hint="Location"
+            android:padding="14dp" />
+
+        <EditText
+            android:id="@+id/et_phone_number"
+            style="@style/edit_text_style"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_location"
+            android:drawableStart="@drawable/ic_baseline_local_phone_24"
+            android:hint="Phone number"
+            android:inputType="number"
+            android:padding="14dp" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_update"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/et_phone_number"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginStart="24dp"
+            android:background="@drawable/background_sign_in"
+            android:text="Update"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</ScrollView>
