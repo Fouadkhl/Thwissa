@@ -8,8 +8,8 @@ import com.example.thwissa.R
 import com.example.thwissa.databinding.ItemRegionBinding
 import com.example.thwissa.dataclasses.WillayaStory
 
-class PlacesAdapter(private val listofregions : ArrayList<WillayaStory>)
-    : RecyclerView.Adapter<PlacesAdapter.PlaceViewAdapter>()  {
+class PlacesAdapter2(private val listofregions : ArrayList<WillayaStory>)
+    : RecyclerView.Adapter<PlacesAdapter2.PlaceViewAdapter>()  {
 
         inner class PlaceViewAdapter (private val binding : ItemRegionBinding)
             : RecyclerView.ViewHolder(binding.root){

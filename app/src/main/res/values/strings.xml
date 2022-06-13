@@ -2,13 +2,13 @@
     <string name="app_name">thwissa</string>
     <string name="search_question">Where do you want to go?</string>
     <string name="desert_area">Desert area</string>
-    <string name="recommended_places">Recommended places</string>
+    <string name="recommended_places">Recommended Places</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tab_item_1">near to you</string>
     <string name="tab_item_2">top sites</string>
     <string name="near_to_you">near to you</string>
-    <string name="topSites">top sites</string>
+    <string name="topSites">Top Sites</string>
     <string name="register_as">register as </string>
     <string name="sign_in">Sign in</string>
     <string name="sign_up"><u>Sign up </u></string>

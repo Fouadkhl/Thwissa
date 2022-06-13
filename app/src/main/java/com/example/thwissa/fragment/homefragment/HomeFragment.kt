@@ -16,16 +16,29 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.android.volley.AuthFailureError
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
 import com.example.mybottomsheet.ModalBottomSheet
 import com.example.thwissa.Adapter.NearToYouRecyclerViewAdapter
-import com.example.thwissa.Adapter.PlacesAdapter
+import com.example.thwissa.Adapter.PlacesAdapter2
 import com.example.thwissa.Adapter.StoriesAdapter
 import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentHomeBinding
 import com.example.thwissa.dataclasses.WillayaStory
+import com.example.thwissa.fragment.homefragment.willaya.Place
+import com.example.thwissa.fragment.homefragment.willaya.Place.Tip
+import com.example.thwissa.fragment.homefragment.willaya.PlaceAdapter
+import com.example.thwissa.fragment.homefragment.willaya.TopRatedAdapter
 import com.example.thwissa.utils.Constants
 import kotlinx.coroutines.flow.collectLatest
+import org.json.JSONException
+import org.json.JSONObject
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 
 @Suppress("DEPRECATION")
@@ -36,6 +49,7 @@ class HomeFragment : Fragment() {
     val homeviewmodel: ModelHomeFragment by viewModels()
     lateinit var gallery: ArrayList<Uri>
 //    lateinit var storiesAdapter : StoriesAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -150,6 +164,9 @@ class HomeFragment : Fragment() {
     private fun setupui() {
         val listofItmes = IntArray(3)
 
+        initPlacesList("RATING", 15)
+        initPlacesList("POPULARITY", 40)
+
         var id = resources.getIdentifier("saharaa", "drawable", activity?.packageName)
         listofItmes[0] = id
         id = resources.getIdentifier("sahili", "drawable", activity?.packageName)
@@ -178,16 +195,203 @@ class HomeFragment : Fragment() {
         })
 
         // TODO: change this
-        val placesAdapter = PlacesAdapter(data)
-        val nearToYouRecyclerViewAdapter = NearToYouRecyclerViewAdapter(data)
+        val placesAdapter = PlacesAdapter2(data)
+//        val nearToYouRecyclerViewAdapter = NearToYouRecyclerViewAdapter(data)
 
         binding.apply {
             rvStories.adapter = storiesAdapter
             rvStories.layoutManager?.smoothScrollToPosition(binding.rvStories, null, 0)
             rvRegions.adapter = placesAdapter
-            rvRecommendedPlaces.adapter = placesAdapter
-            rvTopsitesNeartoyou.adapter = nearToYouRecyclerViewAdapter
+//            rvRecommendedPlaces.adapter = placesAdapter
+//            rvTopsitesNeartoyou.adapter = nearToYouRecyclerViewAdapter
         }
+    }
+
+
+    private fun initPlacesList(sort: String, limit:Int) {
+        // Fields: name,location,categories,rating,photos
+        val fields =
+            "fsq_id%2Cname%2Clocation%2Ccategories%2Cdistance%2Cdescription%2Ctel%2Cwebsite%2Crating%2Cstats%2Cpopularity%2Cprice%2Cphotos%2Ctips%2Cgeocodes"
+        val url =
+            "https://api.foursquare.com/v3/places/search?fields=" + fields + "&near=algeria&sort=" + sort + "&limit=" + limit
+        val placesList = ArrayList<Place>()
+        val numberFormat: NumberFormat = DecimalFormat("#0.0")
+        val requestQueue = Volley.newRequestQueue(context)
+        val stringRequest: StringRequest = object : StringRequest(
+            Method.GET, url,
+            Response.Listener { response ->
+                try {
+                    val jsonResponse = JSONObject(response)
+                    val resultArray = jsonResponse.getJSONArray("results")
+                    if (resultArray.length() == 0) // case: empty list
+                        return@Listener
+                    for (i in 0 until resultArray.length()) {
+                        val placeJsonObject = resultArray.getJSONObject(i)
+                        val currentPlace = Place()
+                        // Place Fsq Id
+                        // Place Fsq Id
+                        currentPlace.fsqId = placeJsonObject.getString("fsq_id")
+                        // Place Name
+                        // Place Name
+                        currentPlace.placeName = placeJsonObject.getString("name")
+                        // Place Address (Location)
+                        // Place Address (Location)
+                        try {
+                            currentPlace.placeAddress = placeJsonObject.getJSONObject("location")
+                                .getString("formatted_address")
+                        } catch (e: JSONException) {
+                            currentPlace.placeAddress = "algeria"
+                        }
+                        // Category
+                        // Category
+                        currentPlace.placeCategory =
+                            placeJsonObject.getJSONArray("categories").getJSONObject(0)
+                                .getString("name")
+                        // Distance
+                        // Distance
+                        currentPlace.placeDistance = placeJsonObject.getInt("distance")
+                        // Description
+                        // Description
+                        try {
+                            currentPlace.placeDescription = placeJsonObject.getString("description")
+                        } catch (e: JSONException) {
+                            currentPlace.placeDescription = "No Description"
+                        }
+                        // Phone Number
+                        // Phone Number
+                        try {
+                            currentPlace.placePhoneNumber = placeJsonObject.getString("tel")
+                        } catch (e: JSONException) {
+                            currentPlace.placePhoneNumber = "No Phone Number"
+                        }
+                        // Website
+                        // Website
+                        try {
+                            currentPlace.placeWebsite = placeJsonObject.getString("website")
+                        } catch (e: JSONException) {
+                            currentPlace.placeWebsite = "No Website"
+                        }
+                        // Rating
+                        // Rating
+                        try {
+                            currentPlace.placeRate =
+                                numberFormat.format(placeJsonObject.getDouble("rating") / 2)
+                                    .toDouble()
+                        } catch (e: JSONException) {
+                            currentPlace.placeRate = 0.0
+                        }
+                        // Stats
+                        // Stats
+                        try {
+                            val statJsonObject = placeJsonObject.getJSONObject("stats")
+                            currentPlace.placeStats = Place.Stats(
+                                statJsonObject.getInt("total_photos"),
+                                statJsonObject.getInt("total_ratings"),
+                                statJsonObject.getInt("total_tips")
+                            )
+                        } catch (e: JSONException) {
+                            currentPlace.placeStats = Place.Stats(0, 0, 0)
+                        }
+                        // Popularity
+                        // Popularity
+                        currentPlace.placePopularity =
+                            numberFormat.format(10 * placeJsonObject.getDouble("popularity"))
+                                .toDouble()
+                        // Price
+                        // Price
+                        try {
+                            when (placeJsonObject.getInt("price")) {
+                                1 -> currentPlace.placePrice = "Cheap"
+                                2 -> currentPlace.placePrice = "Moderate"
+                                3 -> currentPlace.placePrice = "Expensive"
+                                4 -> currentPlace.placePrice = "Very Expensive"
+                            }
+                        } catch (e: JSONException) {
+                            currentPlace.placePrice = "No Price"
+                        }
+                        // Pictures
+                        // Pictures
+                        try {
+                            val picturesJsonArray = placeJsonObject.getJSONArray("photos")
+                            for (j in 0 until picturesJsonArray.length()) {
+                                val pictureJsonObject = picturesJsonArray.getJSONObject(j)
+                                val pictureUrl =
+                                    pictureJsonObject.getString("prefix") + pictureJsonObject.getString(
+                                        "width"
+                                    ) + "x" + pictureJsonObject.getString("height") + pictureJsonObject.getString(
+                                        "suffix"
+                                    )
+                                currentPlace.placeImagesUrls.add(pictureUrl)
+                            }
+                        } catch (ignored: JSONException) {
+                        }
+                        // Tips
+                        // Tips
+                        try {
+                            val tipsJsonArray = placeJsonObject.getJSONArray("tips")
+                            for (j in 0 until tipsJsonArray.length()) {
+                                val tipJsonObject = tipsJsonArray.getJSONObject(j)
+                                currentPlace.placeTips.add(
+                                    Tip(
+                                        tipJsonObject.getString("text"),
+                                        tipJsonObject.getString("created_at")
+                                    )
+                                )
+                            }
+                        } catch (ignored: JSONException) {
+                        }
+                        // GEOCODES (latitude, longitude)
+                        // GEOCODES (latitude, longitude)
+                        currentPlace.latitude =
+                            placeJsonObject.getJSONObject("geocodes").getJSONObject("main")
+                                .getDouble("latitude")
+                        currentPlace.longitude =
+                            placeJsonObject.getJSONObject("geocodes").getJSONObject("main")
+                                .getDouble("longitude")
+                        placesList.add(currentPlace)
+                    }
+                } catch (ignored: JSONException) {
+                }
+
+                /** INITIALISE  */
+                if (sort.equals("RATING"))
+                    setRecommendedPlaces(placesList)
+                else
+                    setTopSites(placesList)
+            },
+            Response.ErrorListener { }) {
+            @Throws(AuthFailureError::class)
+            override fun getHeaders(): Map<String, String> {
+                val appId = "fsq3+HescpVWi499F8Qtda+huTh/ANyfkuVk3imyuhX9lbM="
+                val params: MutableMap<String, String> = HashMap()
+                params["Accept"] = "application/json"
+                params["Authorization"] = appId
+                return params
+            }
+        }
+        requestQueue.add(stringRequest)
+    }
+
+
+    private fun setTopSites(placesList: ArrayList<Place>) {
+        val mPlacesAdapter = PlaceAdapter(context, placesList)
+
+        mPlacesAdapter.setOnPlaceClickedListener { place ->
+            val bundle = Bundle()
+            bundle.putSerializable("place_object", place)
+            findNavController().navigate(R.id.action_homeFragment_to_overview, bundle)
+        }
+        binding.rvTopsitesNeartoyou.setAdapter(mPlacesAdapter)
+    }
+
+    private fun setRecommendedPlaces(currentTopRatedList: java.util.ArrayList<Place>) {
+        val mTopRatedAdapter = TopRatedAdapter(context, currentTopRatedList)
+        mTopRatedAdapter.setOnPlaceClickedListener { place ->
+            val bundle = Bundle()
+            bundle.putSerializable("place_object", place)
+            findNavController().navigate(R.id.action_homeFragment_to_overview, bundle)
+        }
+        binding.rvRecommendedPlaces.setAdapter(mTopRatedAdapter)
     }
 
 }
