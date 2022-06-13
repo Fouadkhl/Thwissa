@@ -172,7 +172,6 @@ public class PlacesFragment extends Fragment {
     }
 
 
-
     public void initPlaces(String wilayaName, String sort, Map<String, ArrayList<Place>> placesCollection) {
         NumberFormat numberFormat = new DecimalFormat("#0.0");
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
