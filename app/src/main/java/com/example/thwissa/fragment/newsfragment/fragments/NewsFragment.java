@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,6 +19,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.android.volley.Request;
@@ -28,18 +29,21 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.thwissa.R;
+import com.example.thwissa.fragment.newsfragment.NewsUtil;
 import com.example.thwissa.fragment.newsfragment.adapters.MeteoViewPagerAdapter;
 import com.example.thwissa.fragment.newsfragment.adapters.PostsAdapter;
-import com.example.thwissa.fragment.newsfragment.adapters.RV_Adapter;
+import com.example.thwissa.fragment.newsfragment.adapters.TripsAdapter;
 import com.example.thwissa.fragment.newsfragment.classes.Meteo;
+import com.example.thwissa.fragment.newsfragment.classes.Post;
+import com.example.thwissa.fragment.newsfragment.classes.Posts;
 import com.example.thwissa.fragment.newsfragment.classes.Trip;
 import com.example.thwissa.fragment.newsfragment.classes.mPost;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnItemClickedListener;
 import com.example.thwissa.fragment.newsfragment.interfaces.OnReplyButtonClicked;
 import com.example.thwissa.repository.userLocalStore.SPUserData;
 import com.example.thwissa.utils.Constants;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,19 +51,21 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+
 
 public class NewsFragment extends Fragment {
 
-    private Timer timer;
     private ViewPager2 viewPager2;    // meteo view pager
     private MeteoViewPagerAdapter meteoViewPagerAdapter;
-    private ArrayList<Trip> data = new ArrayList<>();
-    private ArrayList<mPost> data1 = new ArrayList<>();
+    private final ArrayList<Trip> data = new ArrayList<>();
+    private final ArrayList<mPost> data1 = new ArrayList<>();
     private View view = null;
     private PostsAdapter postsAdapter;
     private RecyclerView postsRecycleView;
@@ -68,6 +74,9 @@ public class NewsFragment extends Fragment {
     private SearchView searchView;
     private TextView hint;
     private RecyclerView topRatedTripsRecycleView;
+    private TripsAdapter trips_adapter;
+    private ShimmerFrameLayout shimmerFrameLayout;
+    private ShimmerFrameLayout shimmerFrameLayout1;
 
     private ArrayList<Meteo> meteos;
 
@@ -75,50 +84,106 @@ public class NewsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /*
+    * TODO liked,dislikes & bookmarks & pictures in adapters*/
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         //compose
         navController = Navigation.findNavController(view);
         composeButton = view.findViewById(R.id.composeButton);
         initComposeButton();
-        initPostAdapter();
         postsRecycleView.setAdapter(postsAdapter);
+        shimmerFrameLayout.startShimmer();
+        shimmerFrameLayout1.startShimmer();
+        initTopRatedTripsRecycleView();
+        initPostsRecycleView();
+        SwipeRefreshLayout refreshLayout = view.findViewById(R.id.swipe);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getTopTrips();
+                getAllTrips();
+            }
+        });
+
         if(navController.getCurrentBackStackEntry() != null) {
-            // final Bundle bundle;
-            navController.getCurrentBackStackEntry().getSavedStateHandle().getLiveData("composeFragment")
+            navController.getCurrentBackStackEntry().getSavedStateHandle().getLiveData("liveData")
                     .observe(getViewLifecycleOwner(),
                             new Observer<Object>() {
                                 @Override
                                 public void onChanged(Object o) {
                                     if(o instanceof Bundle){
-                                        // Bundle bundle = (Bundle) o;
-                                        if(((Bundle) o).getString("source") != null &&
-                                                ((Bundle) o).getString("source").equals("composeFragment"))
-                                        {
-                                            String destination = ((Bundle) o).getString("destination");
-                                            String date = ((Bundle) o).getString("date");
-                                            String period = ((Bundle) o).getString("period");
-                                            String price = ((Bundle) o).getString("price");
-                                            String description = ((Bundle) o).getString("description");
-                                            ArrayList<String> arrayBitmaps = ((Bundle) o).getStringArrayList("imagesBitmaps");
-                                            String[] imagesBitmaps = new String[arrayBitmaps.size()];
-                                            imagesBitmaps = arrayBitmaps.toArray(imagesBitmaps);
-                                            Toast.makeText(getContext(), price, Toast.LENGTH_SHORT).show();
-                                            mPost post = new mPost(
-                                                    getCurrentDate(), period, Integer.parseInt(price), "", destination, 0, imagesBitmaps[0],
-                                                    "name", "location", description, imagesBitmaps, 0, 0,
-                                                    date, null
-                                            );
-                                            //post
-                                            data1.add(post);
-                                            postsAdapter.notifyItemInserted(postsAdapter.getItemCount() - 1);
-                                            ((Bundle) o).clear();
+                                        Bundle bundle = (Bundle) o;
+                                        String source = bundle.getString("source");
+                                        if(source != null){
+                                            switch (source) {
+                                                case "news-posts":
+                                                case "reply": {
+                                                    int pos = bundle.getInt("pos");
+                                                    String postId = bundle.getString("postId");
+                                                    updatePostById(postId, pos);
+                                                    Log.e("reply", "reply");
+                                                    break;
+                                                }
+                                                case "news-trips": {
+                                                    int pos = bundle.getInt("pos");
+                                                    String postId = bundle.getString("postId");
+                                                    updateTripById(postId, pos);
+                                                    break;
+                                                }
+                                                case "composeFragment":
+                                                    boolean success = bundle.getBoolean("success", false);
+                                                    if (success) {
+                                                        addPostedTrip(bundle.getString("postId"));
+                                                    }
+                                                    break;
+                                            }
                                         }
+                                        bundle.clear();
                                     }
                                 }
                             }
                     );
         }
+    }
+
+    private void updateTripById(String postId, int pos) {
+        Call<Post> call = NewsUtil.getInstance().getNewsService().getTripById(postId);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, retrofit2.Response<Post> response) {
+                if(response.isSuccessful() && response.body()!=null && response.body().data!=null){
+                    data.set(pos, new Trip(response.body().data));
+                    trips_adapter.notifyItemChanged(pos);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+
+            }
+        });
+    }
+
+    private void addPostedTrip(String postID) {
+        Call<Post> call = NewsUtil.getInstance().getNewsService().getTripById(
+                postID
+        );
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, retrofit2.Response<Post> response) {
+                if(response.isSuccessful()
+                && response.body()!=null && response.body().data!=null){
+                    data1.add(response.body().data);
+                    postsAdapter.notifyItemInserted(postsAdapter.getItemCount()-1);
+                }
+            }
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override
@@ -136,44 +201,76 @@ public class NewsFragment extends Fragment {
             initMeteoViewPager();
             //recycle view
             topRatedTripsRecycleView = view.findViewById(R.id.topRatedTripsRecycleView);
-            initTopRatedTripsRecycleView();
             //posts recycle view
             postsRecycleView = view.findViewById(R.id.postsRecycleView);
             initPostsRecycleView();
+            shimmerFrameLayout = view.findViewById(R.id.shimmer);
+            shimmerFrameLayout1 = view.findViewById(R.id.shimmer_trips);
+            FrameLayout root = view.findViewById(R.id.root);
         }
         return view;
     }
 
-    public String getCurrentDate(){
+    /*public String getCurrentDate(){
         Calendar cal = Calendar.getInstance();
         return requireActivity().getResources().getStringArray(R.array.days)[Calendar.DAY_OF_MONTH-1]
         +" "+requireActivity().getResources().getStringArray(R.array.days)[Calendar.MONTH]+" "+
                 cal.get(Calendar.YEAR);
-    }
+    }*/
 
     private void initPostsRecycleView() {
         postsRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
         postsAdapter = new PostsAdapter(getContext());
+        initPostAdapter();
+        postsRecycleView.setAdapter(postsAdapter);
         //get posts from data base
+        getAllTrips();
+
+    }
+
+    public void initPostAdapter(){
         postsAdapter.setData(data1);
+        postsAdapter.setOnReplyIconClicked(new OnReplyButtonClicked() {
+            @Override
+            public void replyButtonClicked(String postId, int position) {
+                //TODO if user logged in
+                Bundle bundle = new Bundle();
+                bundle.putString("source", "news");
+                bundle.putString("postId", postId);
+                bundle.putInt("pos", position);
+                navController.navigate(R.id.action_newsFragment_to_replyFragment, bundle);
+            }
+        });
+        postsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
+            @Override
+            public void ItemClicked(String postId, int position) {
+                //pass post data
+                Bundle bundle = new Bundle();
+                bundle.putString("source", "news-posts");
+                bundle.putString("postId", postId);
+                bundle.putInt("pos", position);
+                navController.navigate(R.id.action_newsFragment_to_postClickedFragment, bundle);
+            }
+        });
     }
 
     private void initTopRatedTripsRecycleView() {
         topRatedTripsRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
-        RV_Adapter rv_adapter = new RV_Adapter();
-        data.add(
-                new Trip(R.drawable.images_1,
-                        "trip to Biskra limited djdhdjidhdnbbdbdbb"
-                        , 4.8f)
-        );
-        data.add(
-                new Trip(R.drawable.images_1,
-                        "visit Tlemcen to be bdbddjjddjjd"
-                        , 3.5f)
-        );
-        rv_adapter.setData(data);
-        topRatedTripsRecycleView.setAdapter(rv_adapter);
+        trips_adapter = new TripsAdapter(getContext());
+        trips_adapter.setData(data);
+        topRatedTripsRecycleView.setAdapter(trips_adapter);
+        trips_adapter.setOnItemClickedListener(new OnItemClickedListener() {
+            @Override
+            public void ItemClicked(String postId, int pos) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", "news-trips");
+                bundle.putString("postId", postId);
+                bundle.putInt("pos", pos);
+                navController.navigate(R.id.action_newsFragment_to_postClickedFragment, bundle);
+            }
+        });
+        getTopTrips();
     }
 
     private void initMeteoViewPager() {
@@ -182,8 +279,10 @@ public class NewsFragment extends Fragment {
         for (Meteo meteo : meteos) {
             getWilayaWeather(meteo, getContext());
         }
-
-        timer = new Timer();
+        meteoViewPagerAdapter = new MeteoViewPagerAdapter(getContext(), meteos);
+        viewPager2.setAdapter(meteoViewPagerAdapter);
+        // viewPager2.setUserInputEnabled(false);
+        Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -208,36 +307,18 @@ public class NewsFragment extends Fragment {
         composeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if(spuserdata.getUserLoggedIn()){
-                    Bundle bundle = new Bundle();
-                    bundle.putString("source", "compose");
-                    navController.navigate(R.id.action_newsFragment_to_composeFragment, bundle);
+                    if(spuserdata.getLoggedInUser().getRole().equals("user")) return; //TODO show a messgae
+                        Bundle bundle = new Bundle();
+                        bundle.putString("source", "compose");
+                        navController.navigate(R.id.action_newsFragment_to_composeFragment, bundle);
                 }else{
                     navController.navigate(R.id.action_newsFragment_to_registrationTypeFragment);
                 }
             }
         });
     }
-    public void initPostAdapter(){
-        postsAdapter.setOnReplyIconClicked(new OnReplyButtonClicked() {
-            @Override
-            public void replyButtonClicked(String postID) {
-                Bundle bundle = new Bundle();
-                bundle.putString("postID", postID);
-                navController.navigate(R.id.action_newsFragment_to_replyFragment, bundle);
-            }
-        });
-        postsAdapter.setOnItemClickedListener(new OnItemClickedListener() {
-            @Override
-            public void ItemClicked(String postID) {
-                //pass post data
-                Bundle bundle = new Bundle();
-                bundle.putString("postID", postID);
-                navController.navigate(R.id.action_newsFragment_to_postClickedFragment, bundle);
-            }
-        });
-    }
+
     public void initSearchView(){
         searchView.setQueryHint("search here");
         searchView.setOnSearchClickListener(new View.OnClickListener() {
@@ -257,7 +338,7 @@ public class NewsFragment extends Fragment {
 
 
 
-    private void getWilayaWeather(Meteo meteo, Context context){
+    public void getWilayaWeather(Meteo meteo, Context context){
         /** Get Url using wilaya name */
         // OPEN WEATHER MAP API
         final String url = Constants.WEATHER_URL;
@@ -293,4 +374,114 @@ public class NewsFragment extends Fragment {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         requestQueue.add(stringRequest);
     }
+
+    //TODO userinfos & picture
+    public void getAllTrips(){
+        Call<Posts> call = NewsUtil.getInstance().getNewsService().getAllTrips();
+        call.enqueue(new Callback<Posts>() {
+            @Override
+            public void onResponse(Call<Posts> call, retrofit2.Response<Posts> response) {
+                if(response.isSuccessful()){
+                    Posts posts = response.body();
+                    if(posts != null && posts.trips != null){
+                        int oldSize = data1.size();
+                        data1.removeAll(data1);
+                        postsAdapter.notifyItemRangeRemoved(0, oldSize);
+
+                        Collections.shuffle(posts.trips);
+                        //int oldSize = data1.size();
+                        data1.addAll(posts.trips.subList(0, Math.min(5, posts.trips.size()-1)));
+                        postsAdapter.notifyItemRangeInserted(0, postsAdapter.getItemCount()-1);
+
+                        shimmerFrameLayout.stopShimmer();
+                        shimmerFrameLayout.setVisibility(View.GONE);
+                        postsRecycleView.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Posts> call, Throwable t) {
+                Log.e("all trips : ", "trips");
+                // showSnackBar();
+            }
+        });
+    }
+
+    //TODO userinfos & picture & sort
+    public void getTopTrips(){
+        Call<Posts> call = NewsUtil.getInstance().getNewsService().getAllTrips();
+        call.enqueue(new Callback<Posts>() {
+            @Override
+            public void onResponse(Call<Posts> call, retrofit2.Response<Posts> response) {
+                if(response.isSuccessful()){
+                    Posts posts = response.body();
+                    if(posts != null && posts.trips != null){
+                        Collections.sort(posts.trips);
+                        data.clear();
+                        for(int i = 0;i < Math.min(10, posts.trips.size());i++){
+                            data.add(new Trip(posts.trips.get(i)));
+                        }
+                        trips_adapter.notifyItemRangeInserted(0, trips_adapter.getItemCount()-1);
+
+                        shimmerFrameLayout1.stopShimmer();
+                        shimmerFrameLayout1.setVisibility(View.GONE);
+                        topRatedTripsRecycleView.setVisibility(View.VISIBLE);
+                    }
+                } else Toast.makeText(requireContext(), "not successful : "+response.message()+" code : "+response.code(), Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(Call<Posts> call, Throwable t) {
+                // showSnackBar();
+                Toast.makeText(requireContext(), "failed : "+t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void updatePostById(String postId, int pos){
+        Call<Post> call = NewsUtil.getInstance().getNewsService().getTripById(postId);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, retrofit2.Response<Post> response) {
+                if(response.isSuccessful()){
+                    Post p = response.body();
+                    if(p!=null){
+                        data1.set(pos, p.data);
+                        postsAdapter.notifyItemChanged(pos);
+                    }
+                }
+                else if(response.errorBody()!=null) {
+                    Log.e("update : ","not updated");
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        // This Message means that the post doesn't exist anymore
+                        if(jObjError.getString("msg").equals("no trip with id :".concat(postId))){
+                            data1.remove(pos);
+                            postsAdapter.notifyItemRemoved(pos);
+                        }
+                    } catch (Exception e) {
+                        Toast.makeText(requireContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+            }
+        });
+    }
+
+//    private  void showSnackBar(){
+//        Snackbar.make(root, Util.getString(requireContext(), R.string.failedToLoadData), BaseTransientBottomBar.LENGTH_INDEFINITE)
+//                .setAction(R.string.Retry, new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        if(data1 == null || data1.size() == 0)
+//                            getAllTrips();
+//                        if(data == null || data.size() == 0)
+//                            getTopTrips();
+//                    }
+//                })
+//                .setActionTextColor(requireContext().getResources().getColor(R.color.teal_700))
+//                .setTextColor(requireContext().getResources().getColor(R.color.white))
+//                .show();
+//    }
 }

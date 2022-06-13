@@ -10,9 +10,9 @@ import androidx.navigation.Navigation;
 
 import com.example.thwissa.R;
 import com.example.thwissa.databinding.FragmentFavoritesBinding;
-import com.example.thwissa.fragment.discuss.Discuss;
+import com.example.thwissa.fragment.discuss.classes.Discuss;
 import com.example.thwissa.fragment.discuss.DiscussAdapter;
-import com.example.thwissa.fragment.discuss.User;
+import com.example.thwissa.fragment.discuss.classes.User;
 
 import java.util.ArrayList;
 
@@ -48,13 +48,13 @@ public class FavoritesFragment extends Fragment {
         });
 
         // DISCUSS RECYCLER VIEW
-        String testDiscuss = "We want to organize a trip this weekend if you want to go dont hesitate to join us";
+        /*String testDiscuss = "We want to organize a trip this weekend if you want to go dont hesitate to join us";
         users.add(new User("Yusuf Belkhiri", R.drawable.profile_b));
         users.add(new User("Khelil Fouad", R.drawable.profile_b));
         discussList.add(new Discuss(users.get(1), "Media",  testDiscuss, 20, 5, 10));
         discussList.add(new Discuss(users.get(0), "Batna",  testDiscuss, R.drawable.profile_b, 30, 10, 8));
         discussAdapter = new DiscussAdapter(discussList);
-        binding.favoritesRecyclerView.setAdapter(discussAdapter);
+        binding.favoritesRecyclerView.setAdapter(discussAdapter);*/
 
         return binding.getRoot();
     }

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.shape.fragment.newsfragment.fragments.PostClickedFragment">
+    tools:context="com.example.thwissa.fragment.newsfragment.fragments.PostClickedFragment">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -13,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
-
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/backButton"
                 android:layout_width="40dp"
@@ -47,173 +47,182 @@
                 android:theme="@style/cancelButtonTheme"
                 app:elevation="0dp"
                 app:fabCustomSize="40dp" />
+            <View
+                android:layout_below="@id/moreButton"
+                android:layout_width="match_parent"
+                android:layout_height="0.75dp"
+                android:background="@color/black"
+                android:id="@+id/blackLine1"/>
         </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.75dp"
-            android:background="@color/black"
+        <androidx.core.widget.NestedScrollView
             android:layout_below="@id/navigationBar"
-            android:id="@+id/blackLine1"/>
-        <RelativeLayout
-            android:id="@+id/profileBar"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/navigationBar"
-            android:layout_marginVertical="7dp">
-
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/post_profile_pic"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="15dp"
-                android:src="@drawable/profile_b"
-                app:shapeAppearanceOverlay="@style/circle" />
-
+            android:layout_height="match_parent">
             <RelativeLayout
-                android:id="@+id/container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@id/post_profile_pic">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:id="@+id/profileBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginVertical="7dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/post_profile_pic"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="15dp"
+                        android:src="@drawable/profile_b"
+                        app:shapeAppearanceOverlay="@style/circle" />
+
+                    <RelativeLayout
+                        android:id="@+id/container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/post_profile_pic">
+
+                        <TextView
+                            android:id="@+id/post_user_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_marginStart="3dp"
+                            android:text="abdel razak"
+                            android:textColor="@color/textColor"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/location_icon"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_below="@+id/post_user_name"
+                            android:src="@drawable/ic_baseline_location_on_24_2" />
+
+                        <TextView
+                            android:id="@+id/location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:layout_below="@id/post_user_name"
+                            android:layout_toEndOf="@id/location_icon"
+                            android:text="Bouira"
+                            android:textColor="@color/textColor"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="25dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="35dp"
+                            android:text="5h ago"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </RelativeLayout>
 
                 <TextView
-                    android:id="@+id/post_user_name"
+                    android:id="@+id/postContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/profileBar"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp"
+                    android:maxHeight="350dp"
+                    android:text="random text"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+                <androidx.viewpager2.widget.ViewPager2
+                    android:layout_width="match_parent"
+                    android:layout_height="280dp"
+                    android:layout_marginVertical="7dp"
+                    android:id="@+id/postPicViewPager"
+                    android:layout_below="@id/postContent"/>
+                <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                    android:id="@+id/dots_indicator"
                     android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="3dp"
-                    android:text="abdel razak"
-                    android:textColor="@color/textColor"
-                    android:textStyle="bold" />
-
-                <ImageView
-                    android:id="@+id/location_icon"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_below="@+id/post_user_name"
-                    android:src="@drawable/ic_baseline_location_on_24_2" />
-
-                <TextView
-                    android:id="@+id/location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_below="@id/post_user_name"
-                    android:layout_toEndOf="@id/location_icon"
-                    android:text="Bouira"
-                    android:textColor="@color/textColor"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/postPicViewPager"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginEnd="35dp"
-                    android:text="5h ago"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="-35dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    app:dotsColor="@color/selected_dot"
+                    app:dotsSize="7dp"
+                    app:dotsSpacing="3dp"
+                    app:progressMode="true"
+                    app:selectedDotColor="@color/selected_dot" />
+                <RelativeLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.75dp"
+                    android:background="@color/black"
+                    android:layout_below="@id/dots_indicator"
+                    android:id="@+id/blackLine2"/>
+                <RelativeLayout
+                    android:id="@+id/interactionsBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/blackLine2"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="10dp">
+
+                    <ImageView
+                        android:id="@+id/up_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/up_arrow_not_clicked" />
+
+                    <TextView
+                        android:id="@+id/diff"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_toEndOf="@id/up_button"
+                        android:padding="6dp"
+                        android:text="5"
+                        android:textAlignment="center"
+                        android:textColor="@color/textColor"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/down_button"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_toEndOf="@id/diff"
+                        android:src="@drawable/down_arrow_not_clicked" />
+
+                    <TextView
+                        android:id="@+id/reply_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:paddingVertical="5dp"
+                        android:text="20 replies"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/reply_icon"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_toStartOf="@+id/reply_num"
+                        android:src="@drawable/reply_icon" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.75dp"
+                    android:background="@color/black"
+                    android:layout_below="@id/interactionsBar"
+                    android:id="@+id/blackLine3"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/repliesRecycleView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/blackLine3" />
             </RelativeLayout>
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/postContent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/profileBar"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp"
-            android:maxHeight="350dp"
-            android:text="random text"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
-        <androidx.viewpager2.widget.ViewPager2
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_marginVertical="7dp"
-            android:id="@+id/postPicViewPager"
-            android:layout_below="@id/postContent"/>
-        <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
-            android:id="@+id/dots_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/postPicViewPager"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="-35dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
-            app:dotsColor="@color/selected_dot"
-            app:dotsSize="7dp"
-            app:dotsSpacing="3dp"
-            app:progressMode="true"
-            app:selectedDotColor="@color/selected_dot" />
-        <RelativeLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="0.75dp"
-            android:background="@color/black"
-            android:layout_below="@id/dots_indicator"
-            android:id="@+id/blackLine2"/>
-        <RelativeLayout
-            android:id="@+id/interactionsBar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/blackLine2"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="10dp">
-
-            <ImageView
-                android:id="@+id/up_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/up_arrow_not_clicked" />
-
-            <TextView
-                android:id="@+id/diff"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_toEndOf="@id/up_button"
-                android:padding="6dp"
-                android:text="5"
-                android:textAlignment="center"
-                android:textColor="@color/textColor"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/down_button"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_toEndOf="@id/diff"
-                android:src="@drawable/down_arrow_not_clicked" />
-
-            <TextView
-                android:id="@+id/reply_num"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:paddingVertical="5dp"
-                android:text="20 replies"
-                android:textStyle="bold" />
-
-            <ImageView
-                android:id="@+id/reply_icon"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_toStartOf="@+id/reply_num"
-                android:src="@drawable/reply_icon" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0.75dp"
-            android:background="@color/black"
-            android:layout_below="@id/interactionsBar"
-            android:id="@+id/blackLine3"/>
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/repliesRecycleView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/blackLine3" />
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 </FrameLayout>

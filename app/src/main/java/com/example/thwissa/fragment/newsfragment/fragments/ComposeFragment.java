@@ -1,18 +1,18 @@
 package com.example.thwissa.fragment.newsfragment.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,17 +32,26 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thwissa.R;
+import com.example.thwissa.fragment.newsfragment.NewsUtil;
 import com.example.thwissa.fragment.newsfragment.adapters.ChoosedImagesAdapter;
+import com.example.thwissa.fragment.newsfragment.classes.Post;
+import com.example.thwissa.fragment.newsfragment.classes.mPost;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ComposeFragment extends Fragment {
 
@@ -55,15 +64,15 @@ public class ComposeFragment extends Fragment {
     private EditText date;
     private RecyclerView imagesRecycleView;
     private ChoosedImagesAdapter choosedImagesAdapter;
-    public static final int pickCode = 1;
-    public static final int permissionCode = 2;
-    private String source;
+    private static final int pickCode = 1;
+    private static final int permissionCode = 2;
     private EditText editPeriod;
-    private ArrayList<Bitmap> imagesBitmaps = new ArrayList<>();
+    private ArrayList<Uri> imagesUris = new ArrayList<>();
     private Spinner spinner;
-    private  EditText editPrice;
+    private EditText editPrice;
     private EditText description;
-    private String postID;
+    private Bundle args;
+    private ArrayList<String> paths;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +89,11 @@ public class ComposeFragment extends Fragment {
         spinner = view.findViewById(R.id.spinner);
         editPrice = view.findViewById(R.id.EditPrice);
         description = view.findViewById(R.id.descriptionEditText);
+        args = requireArguments();
+        if(args.getString("source").equals("postClickedFragment")){
+            shareButton.setText(R.string.save);
+            getPostById(); //maybe needs to be moved to initChoosedImagesRecycleView
+        }
         return view;
     }
 
@@ -87,8 +101,7 @@ public class ComposeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         navController = Navigation.findNavController(view);
-        Bundle args = requireArguments();
-        source = args.getString("source");
+
         //edit text
         initEditDestination();
         //cancel button
@@ -101,17 +114,12 @@ public class ComposeFragment extends Fragment {
         initChoosedImagesRecycleView();
         //share button
         initShareButton();
-        if(source.equals("postClickedFragment")){
-            postID = args.getString("postID");
-            //find post && set fields
-            shareButton.setText(requireActivity().getResources().getString(R.string.save));
-        }
     }
 
     private void initChoosedImagesRecycleView() {
         imagesRecycleView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         choosedImagesAdapter = new ChoosedImagesAdapter();
-        choosedImagesAdapter.setImagesIds(imagesBitmaps);
+        choosedImagesAdapter.setImagesIds(imagesUris);
         imagesRecycleView.setAdapter(choosedImagesAdapter);
     }
 
@@ -178,6 +186,7 @@ public class ComposeFragment extends Fragment {
     }
 
     private void initShareButton() {
+        String source = args.getString("source");
         shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,33 +204,50 @@ public class ComposeFragment extends Fragment {
                     } else if(choosedImagesAdapter.getItemCount() == 0){
                         showMessage(requireActivity().getResources().getString(R.string.noImages));
                     }else{
-                        putDataInBundle();
+                        HashMap<String, RequestBody> body = new HashMap<>();
+                        body.put("destination", NewsUtil.createRequestFromString(editDestination.getText().toString()));
+                        body.put("tripDate", NewsUtil.createRequestFromString(date.getText().toString().replace("/", "-")+"T00:00:00.000Z"));
+                        body.put("duration", NewsUtil.createRequestFromString(editPeriod.getText().toString()));
+                        body.put("price", NewsUtil.createRequestFromString(editPrice.getText().toString()));
+                        // TODO image & userid
+                        //postTrip(p);
                     }
                 }
-                else {
-                    //make new instance of post
-                    // update it in data base
-                    navController.popBackStack();
+                else if(source.equals("postClickedFragment")){
+                    //TODO image & userid
+                    updatePost();
                 }
             }
         });
     }
 
-    private void putDataInBundle() {
-        Bundle bundle = new Bundle();
-        bundle.putString("source", "composeFragment");
-        bundle.putString("destination", editDestination.getText().toString());
-        bundle.putString("date", date.getText().toString());
-        bundle.putString("period", editPeriod.getText().toString() + " " + spinner.getSelectedItem());
-        bundle.putString("price", editPrice.getText().toString());
-        bundle.putString("description", description.getText().toString());
-        ArrayList<String> strings = new ArrayList<>();
-        for (Bitmap bitmap : imagesBitmaps) {
-            strings.add(bitmapToString(bitmap));
-        }
-        bundle.putStringArrayList("imagesBitmaps", strings);
-        navController.getPreviousBackStackEntry().getSavedStateHandle().set("composeFragment", bundle);
-        navController.popBackStack();
+    //TODO userid & pic
+    private void postTrip(HashMap<String, RequestBody> body, List<MultipartBody.Part> pictures) {
+        Call<Post> call = NewsUtil.getInstance().getNewsService().postTrip(body, pictures);
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null && response.body().data!=null){
+                        Bundle bundle = new Bundle();
+                        bundle.putString("source", "composeFragment");
+                        bundle.putString("postId", response.body().data._id);
+                        bundle.putBoolean("success", true);
+                        navController.getPreviousBackStackEntry().getSavedStateHandle()
+                                .set("liveDate", bundle);
+                        navController.popBackStack();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", "composeFragment");
+                navController.getPreviousBackStackEntry().getSavedStateHandle()
+                        .set("liveDate", bundle);
+                navController.popBackStack();
+            }
+        });
     }
 
 
@@ -241,13 +267,6 @@ public class ComposeFragment extends Fragment {
 
     private void showMessage(String s) {
         Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-    }
-
-    private String bitmapToString(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
     private void initCancelButton() {
@@ -279,43 +298,106 @@ public class ComposeFragment extends Fragment {
         startActivityForResult(Intent.createChooser(intent, "select image(s)"), pickCode);
     }
 
+    @SuppressLint("Range")
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == pickCode){
-            if(resultCode == Activity.RESULT_OK){
-                assert data != null;
+            if(resultCode == Activity.RESULT_OK&&data!=null){
                 if(data.getClipData() != null){
                     int size = data.getClipData().getItemCount();
                     for(int i = 0;i < size;i++){
                         Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                        try {
-                            imagesBitmaps.add(
-                                   MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri)
-                            );
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        imagesUris.add(
+                                imageUri
+                        );
+                        Cursor cursor = requireContext().getContentResolver().query(
+                                imageUri, null, null, null,null
+                        );
+                        if(cursor.moveToFirst()){
+                            paths.add(cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)));
                         }
-                        // Uris.add(imageUri);
                     }
                     choosedImagesAdapter.notifyItemRangeInserted(
                             choosedImagesAdapter.getItemCount() - size
                             ,size);
                 } else {
-                    /* Uris.add(
-                            data.getData()
-                    );*/
-                    try {
-                        imagesBitmaps.add(
-                                MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), data.getData())
-                        );
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    Uri imageUri = data.getData();
+                    imagesUris.add(
+                            imageUri
+                    );
+                    Cursor cursor = requireContext().getContentResolver().query(
+                            imageUri, null, null, null,null
+                    );
+                    if(cursor.moveToFirst()){
+                        paths.add(cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)));
                     }
                     choosedImagesAdapter.notifyItemInserted(choosedImagesAdapter.getItemCount()-1);
                 }
             }
         }
+    }
+
+    public void getPostById(){
+        Call<Post> call = NewsUtil.getInstance().getNewsService().getTripById(
+                args.getString("postId")
+        );
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null && response.body().data != null){
+                        mPost p = response.body().data;
+                        editDestination.setText(p.destination);
+                        date.setText(p.tripDate.substring(0, 11).replace("-","/"));
+                        editPeriod.setText(String.valueOf(p.maxduration));
+                        editPrice.setText(String.valueOf(p.maxduration));
+                        description.setText(p.text);
+                        // set pictures
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void updatePost(){
+        HashMap<String, RequestBody> body = new HashMap<>();
+        body.put("duration", NewsUtil.createRequestFromString(editPeriod.getText().toString()));
+        body.put("price", NewsUtil.createRequestFromString(editPrice.getText().toString()));
+        body.put("description", NewsUtil.createRequestFromString(description.getText().toString()));
+        body.put("tripDate", NewsUtil.createRequestFromString(
+                date.getText().toString().replace("/", "-")+"T00:00:00.000Z"
+        ));
+        //picture
+
+        Call<Post> call = NewsUtil.getInstance().getNewsService().updateTrip(
+                args.getString("postId"), body,NewsUtil.getFilesParts("pictures", paths)
+        );
+        call.enqueue(new Callback<Post>() {
+            @Override
+            public void onResponse(Call<Post> call, Response<Post> response) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", args.getString("_source"));
+                bundle.putString("postId", args.getString("postId"));
+                bundle.putInt("pos", args.getInt("pos"));
+                navController.getPreviousBackStackEntry().getSavedStateHandle().set("postLiveData", bundle);
+                navController.popBackStack();
+            }
+
+            @Override
+            public void onFailure(Call<Post> call, Throwable t) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", args.getString("_source"));
+                bundle.putString("postId", args.getString("postId"));
+                bundle.putInt("pos", args.getInt("pos"));
+                navController.getPreviousBackStackEntry().getSavedStateHandle().set("postLiveData", bundle);
+                navController.popBackStack();
+            }
+        });
     }
 }

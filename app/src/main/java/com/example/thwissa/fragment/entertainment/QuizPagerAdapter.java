@@ -12,16 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thwissa.R;
 
+import java.util.ArrayList;
 
 public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.ViewPagerViewHolder>{
 
     private int checkedPos;
-    private final quiz[] quizzes = {
-            new quiz(R.string.decide_where_you_want_to_go
-            , R.string.option_1, R.string.option_2, R.string.option_3),
-            new quiz(R.string.decide_where_you_want_to_go
-                    , R.string.option_1, R.string.option_2, R.string.option_3)
-    };
+    private ArrayList<Quiz.innerQuiz> quizzes;
 
     @NonNull
     @Override
@@ -34,7 +30,7 @@ public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewPagerViewHolder holder, int position) {
-        if(position != quizzes.length) {
+        if(position != quizzes.size()) {
             RadioButton[] radioButtons = {holder.itemView.findViewById(R.id.radioButton1)
                     , holder.itemView.findViewById(R.id.radioButton2), holder.itemView.findViewById(R.id.radioButton3)
             };
@@ -52,10 +48,10 @@ public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.View
                         checkedPos = finalI;
                     }
                 });
-                radioButtons[i].setText(quizzes[position].options[i]);
+                radioButtons[i].setText(quizzes.get(position).options[i]);
             }
 
-            textView.setText(quizzes[position].Question);
+            textView.setText(quizzes.get(position).question);
         } else {
             holder.itemView.findViewById(R.id.question_text_view).setVisibility(View.GONE);
             holder.itemView.findViewById(R.id.radioGroup).setVisibility(View.GONE);
@@ -65,7 +61,11 @@ public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.View
 
     @Override
     public int getItemCount() {
-        return quizzes.length+1;
+        return quizzes.size()+1;
+    }
+
+    public void setQuizzes(ArrayList<Quiz.innerQuiz> quizzes) {
+        this.quizzes = quizzes;
     }
 
     public class ViewPagerViewHolder extends RecyclerView.ViewHolder {

@@ -1,30 +1,19 @@
 package com.example.thwissa.fragment.newsfragment.adapters;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.example.thwissa.R;
 import com.example.thwissa.fragment.newsfragment.classes.Meteo;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -34,6 +23,9 @@ public class MeteoViewPagerAdapter extends RecyclerView.Adapter<MeteoViewPagerAd
 
     private Context context;
     private ArrayList<Meteo> meteos = new ArrayList<>();
+    private static final String[] wilyas = {
+            "Algiers", "Oran", "Setif"
+    };
 
     public MeteoViewPagerAdapter(Context context, ArrayList<Meteo> meteos){
         this.context = context;
@@ -52,6 +44,8 @@ public class MeteoViewPagerAdapter extends RecyclerView.Adapter<MeteoViewPagerAd
     @Override
     public void onBindViewHolder(@NonNull ViewPagerViewHolder holder, int position) {
         //date
+        //NewsFragment.getWilayaWeather(meteos.get(position), context);
+        //notifyItemChanged(position);
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
 
