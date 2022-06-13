@@ -227,7 +227,7 @@ public class RepliesAdapter extends RecyclerView.Adapter<RepliesAdapter.InnerVie
         public ImageView upButton;
         public ImageView downButton;
         public TextView diff;
-        private FloatingActionButton moreButton;
+        public FloatingActionButton moreButton;
 
 
         public InnerViewHolder(@NonNull View itemView) {

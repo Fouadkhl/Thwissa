@@ -34,7 +34,7 @@
     <string name="option_1">mostaganem</string>
     <string name="option_2">medea</string>
     <string name="option_3">Tlemcene</string>
-    <string name="more_informations">more informations</string>
+    <string name="more_informations">More informations</string>
     <string name="how_to_plan_your_trip">HOW TO PLAN YOUR TRIP IN 5 EASY STEPS</string>
     <string name="randomText">
 <![CDATA[ Maybe you already know where to go, or maybe you need inspiration. Let me help you.\n\n First, find the reason why you want to travel.\n\n Do you want to escape ks,lksznx kl,dzlx,kxdznlez&m x\n sl jwzsjn wxbxz bhd\n ]]>
@@ -326,5 +326,5 @@
             In order to avoid alteration of touring plans due to these scenarios,
             travelers should do a bit of research before starting their vacation
     </string>
-    <string name="wheremostasituate">"where mansoura situate "</string>
+    <string name="wheremostasituate">How to plan your trip in 5 easy steps</string>
 </resources>
