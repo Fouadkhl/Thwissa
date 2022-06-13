@@ -1,16 +1,16 @@
 package com.example.thwissa.fragment.newsfragment.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,18 +21,28 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.example.thwissa.R;
+import com.example.thwissa.fragment.newsfragment.NewsUtil;
+import com.example.thwissa.fragment.newsfragment.classes.Reply;
+import com.example.thwissa.fragment.newsfragment.classes.Thereply;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.util.HashMap;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+@SuppressWarnings("ALL")
 public class ReplyFragment extends Fragment {
 
     private ExtendedFloatingActionButton replyButton;
@@ -42,9 +52,12 @@ public class ReplyFragment extends Fragment {
     private ImageView choosedImage;
     public static final int requestCode = 1;
     public static final int permissionCode = 2;
-    private String imageCode = "";
     private FloatingActionButton deletePic;
     private RelativeLayout c;
+    private Bundle args;
+    private Uri uri;
+    private String path;
+
 
     public ReplyFragment() {
         // Required empty public constructor
@@ -59,6 +72,7 @@ public class ReplyFragment extends Fragment {
         deletePic = view.findViewById(R.id.cancelButton);
         c = view.findViewById(R.id.container);
         choosedImage = view.findViewById(R.id.choosedImage);
+        replyButton = view.findViewById(R.id.replyButton);
         //automatically click edit text
         replyContentEditText.post(() -> {
             replyContentEditText.requestFocusFromTouch();
@@ -67,14 +81,48 @@ public class ReplyFragment extends Fragment {
         });
         initReplyAddPic();
         initDeletePic();
+        args = requireArguments();
+        if(args.getString("source").equals("postClicked")){
+            replyButton.setText(NewsUtil.getString(getContext(), R.string.save));
+            getReply(args.getString("postId"), args.getString("replyId"));
+        }
         return view;
+    }
+
+    private void getReply(String postId, String replyId) {
+        Call<Thereply> call = NewsUtil.getInstance().getNewsService().getReplyById(
+                postId, replyId
+        );
+        call.enqueue(new Callback<Thereply>() {
+            @Override
+            public void onResponse(Call<Thereply> call, Response<Thereply> response) {
+                if(response.isSuccessful()){
+                    if(response.body()!=null && response.body().reply!=null){
+                        Reply reply = response.body().reply;
+                        replyContentEditText.setText(reply.text);
+                        if(reply.picture != null && reply.picture.equals("")) {
+                            choosedImage.setImageBitmap(
+                                    NewsUtil.stringToBitmap(reply.picture)
+                            );
+                            c.setVisibility(View.VISIBLE);
+                        }
+                        //TODO : set profile picture & user picture
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Thereply> call, Throwable t) {
+
+            }
+        });
     }
 
     private void initDeletePic() {
         deletePic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                imageCode = "";
+                path = null;
                 c.setVisibility(View.GONE);
             }
         });
@@ -115,33 +163,27 @@ public class ReplyFragment extends Fragment {
         startActivityForResult(intent, requestCode);
     }
 
+    @SuppressLint("Range")
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == ReplyFragment.requestCode){
             if(resultCode == Activity.RESULT_OK){
                 if(data != null) {
-                    Uri uri = data.getData();
-                    try {
-                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver()
-                                , uri
-                        );
-                        imageCode = bitmapToString(bitmap);
-                        choosedImage.setImageBitmap(bitmap);
-                        c.setVisibility(View.VISIBLE);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    uri = data.getData();
+                    choosedImage.setImageURI(uri);
+                    c.setVisibility(View.VISIBLE);
+                    Cursor cursor = requireContext().getContentResolver().query(
+                            uri, null, null, null,null
+                    );
+                    if(cursor.moveToFirst()){
+                        path = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA));
                     }
+                    cursor.close();
                 }
             }
         }
-    }
-
-    private String bitmapToString(@NonNull Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
-        return Base64.encodeToString(byteArray, Base64.DEFAULT);
     }
 
     @Override
@@ -161,15 +203,84 @@ public class ReplyFragment extends Fragment {
         FloatingActionButton cancelButton = view.findViewById(R.id.replyCancelPic);
         cancelButton.setOnClickListener(view1 -> navController.popBackStack());
         //reply button
-        replyButton = view.findViewById(R.id.replyButton);
         initReplyButton();
-        //
     }
 
     private void initReplyButton() {
         replyButton.setOnClickListener(view12 -> {
-            //share the reply
-            navController.popBackStack();
+            /*Reply reply = new Reply();
+            reply.text = replyContentEditText.getText().toString();
+            reply.picture = imageCode;*/
+
+            RequestBody text = NewsUtil.createRequestFromString(replyContentEditText.getText().toString());
+
+            HashMap<String, RequestBody> reply = new HashMap<>();
+            reply.put("text", text);
+
+            if(args.getString("source").equals("news")) {
+                putReply(reply, NewsUtil.getFilePart("picture",path));
+            } else if(args.getString("source").equals("postClicked")){
+                updateReply();
+            }
         });
     }
+
+    private void putReply(HashMap<String, RequestBody> reply, MultipartBody.Part picture){
+        Call<Thereply> call = NewsUtil.getInstance().getNewsService().postReply(
+                args.getString("postId"), reply, picture
+        );
+        call.enqueue(new Callback<Thereply>() {
+            @Override
+            public void onResponse(Call<Thereply> call, Response<Thereply> response) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", "reply");
+                bundle.putString("postId", args.getString("postId"));
+                bundle.putInt("pos", args.getInt("pos"));
+                navController.getPreviousBackStackEntry().getSavedStateHandle().set("liveData", bundle);
+                navController.popBackStack();
+            }
+            @Override
+            public void onFailure(Call<Thereply> call, Throwable t) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", "reply");
+                bundle.putString("postId", args.getString("postId"));
+                bundle.putInt("pos", args.getInt("pos"));
+                navController.getPreviousBackStackEntry().getSavedStateHandle().set("liveData", bundle);
+                navController.popBackStack();
+            }
+        });
+    }
+
+    public void updateReply(){
+        HashMap<String, RequestBody> body = new HashMap<>();
+        body.put("text", NewsUtil.createRequestFromString(replyContentEditText.getText().toString()));
+        // the photo
+        Call<Thereply> call = NewsUtil.getInstance().getNewsService().updateReply(
+                args.getString("postId"), args.getString("replyId"),
+                body, NewsUtil.getFilePart("picture", path)
+        );
+        call.enqueue(new Callback<Thereply>() {
+            @Override
+            public void onResponse(Call<Thereply> call, Response<Thereply> response) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", args.getString("_source"));
+                bundle.putString("postId", args.getString("postId"));
+                bundle.putInt("pos", args.getInt("pos"));
+                navController.getPreviousBackStackEntry().getSavedStateHandle().set("postLiveData", bundle);
+                navController.popBackStack();
+            }
+
+            @Override
+            public void onFailure(Call<Thereply> call, Throwable t) {
+                Bundle bundle = new Bundle();
+                bundle.putString("source", args.getString("_source"));
+                bundle.putString("postId", args.getString("postId"));
+                bundle.putInt("pos", args.getInt("pos"));
+                navController.getPreviousBackStackEntry().getSavedStateHandle().set("postLiveData", bundle);
+                navController.popBackStack();
+            }
+        });
+    }
+
+
 }

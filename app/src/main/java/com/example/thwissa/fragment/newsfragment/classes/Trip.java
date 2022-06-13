@@ -1,15 +1,15 @@
 package com.example.thwissa.fragment.newsfragment.classes;
 
 public class Trip {
-    public int imageId;
+    public String picture;
     public String description;
     public float rating;
-    private String postID;
+    public String _id;
 
-    public Trip(int imageId, String description, float rating){
-        this.imageId = imageId;
-        this.description = description;
-        this.rating = rating;
+    public Trip(mPost post){
+        this.picture = post.pictures.get(0);
+        this.description = post.text;
+        this.rating = post.rate();
+        this._id = post._id;
     }
-
 }

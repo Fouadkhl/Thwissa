@@ -40,12 +40,11 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textStyle="bold"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/user_profile_image"
-                android:fontFamily="@font/nunito_sans_extralight"
-                android:text="mohamed\nali"
-                android:textColor="@color/white"
-                android:textStyle="bold" />
+                android:text="mohamed\nali"/>
 
             <TextView
                 android:id="@+id/score"
@@ -53,7 +52,6 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:fontFamily="@font/nunito_sans_extralight"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="310dp"
                 android:textSize="20sp"
@@ -88,7 +86,6 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/top_pictures_this_week"
                     android:textColor="@color/text_color"
                     android:textSize="20sp"
@@ -125,7 +122,6 @@
                     android:layout_marginVertical="5dp"
                     android:layout_marginStart="15dp"
                     android:text="@string/quiz"
-                    android:fontFamily="@font/nunito_bold"
                     android:textColor="@color/text_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -168,7 +164,6 @@
                     android:text="@string/more_informations"
                     android:textColor="@color/text_color"
                     android:textSize="20sp"
-                    android:fontFamily="@font/nunito_bold"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -184,15 +179,22 @@
                     android:paddingBottom="10dp">
 
                     <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="30dp"
+                        android:textColor="@color/text_color"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <TextView
                         android:id="@+id/subTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/nunito_bold"
-                        android:text="@string/how_to_plan_your_trip"
-                        android:textColor="@color/red"
-                        android:textSize="16sp"
+                        android:layout_below="@+id/title"
+                        android:text="@string/decide_where_you_want_to_go"
+                        android:textColor="@color/black"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -201,10 +203,10 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@id/subTitle"
                         android:padding="10dp"
-                        android:fontFamily="@font/nunito_sans_extralight"
-                        android:text="@string/plan_your_trip"
+                        android:text="@string/randomText"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
+
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
