@@ -25,6 +25,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.thwissa.R;
 import com.example.thwissa.databinding.FragmentPlacesBinding;
 import com.example.thwissa.fragment.homefragment.overview.interfaces.OnPlaceClickedListener;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
@@ -65,20 +66,20 @@ public class PlacesFragment extends Fragment {
         /** INITALIZE PLACES LISTS */
         // Category / Places List
         totalPlaces = new HashMap<String, ArrayList<Place>>(){{
-            put("12000,16000", new ArrayList<Place>());
-            put("10000,14000,18000", new ArrayList<Place>());
-            put("11000,17000", new ArrayList<Place>());
-            put("13000", new ArrayList<Place>());
-            put("19000", new ArrayList<Place>());
-            put("15000", new ArrayList<Place>());
+            put("12000,16000", new ArrayList<>());
+            put("10000,14000,18000", new ArrayList<>());
+            put("11000,17000", new ArrayList<>());
+            put("13000", new ArrayList<>());
+            put("19000", new ArrayList<>());
+            put("15000", new ArrayList<>());
         }};
         totalTopRatedPlaces = new HashMap<String, ArrayList<Place>>(){{
-            put("12000,16000", new ArrayList<Place>());
-            put("10000,14000,18000", new ArrayList<Place>());
-            put("11000,17000", new ArrayList<Place>());
-            put("13000", new ArrayList<Place>());
-            put("19000", new ArrayList<Place>());
-            put("15000", new ArrayList<Place>());
+            put("12000,16000", new ArrayList<>());
+            put("10000,14000,18000", new ArrayList<>());
+            put("11000,17000", new ArrayList<>());
+            put("13000", new ArrayList<>());
+            put("19000", new ArrayList<>());
+            put("15000", new ArrayList<>());
         }};
 
         initPlaces(wilayaName, "POPULARITY", totalPlaces);
@@ -86,8 +87,16 @@ public class PlacesFragment extends Fragment {
         /** CATEGORY BAR CLICK */
         initCategoryBar();
         /** SET CHECKED POSITION ON SWITCH BUTTON TO PLACES */
-        //binding.mapSwitchButton.setCheckedPosition(1);
 
+        ExtendedFloatingActionButton buttonMap = view.findViewById(R.id.mapButton);
+        buttonMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle b = new Bundle();
+                b.putString("place_name", wilayaName);
+                navController.navigate(R.id.action_placesFragment_to_mapFragment, b);
+            }
+        });
     }
 
     @Override
@@ -298,4 +307,5 @@ public class PlacesFragment extends Fragment {
             requestQueue.add(stringRequest);
         }
     }
+
 }
