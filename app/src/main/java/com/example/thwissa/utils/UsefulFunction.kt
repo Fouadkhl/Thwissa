@@ -19,6 +19,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -89,9 +90,10 @@ object UsefulFct {
 
     fun bindImage(imgView: ImageView, imgUrl: String) {
         Log.d(TAG, "bindImage: $imgUrl")
+        val imagesplit  = imgUrl.split("/") as ArrayList
 
        val prefix = "http://192.168.43.248:5000/"
-        val stringurl =prefix +imgUrl
+        val stringurl = prefix +  imagesplit[1]
 //            "http://192.168.43.248:5000/ccc.PNG"
         stringurl.let {
             //toUri si an extention fun from the ktx lib

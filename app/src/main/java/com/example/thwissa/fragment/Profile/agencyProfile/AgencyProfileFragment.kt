@@ -13,6 +13,7 @@ import com.example.thwissa.R
 import com.example.thwissa.databinding.AgencyProfileBinding
 import com.example.thwissa.dataclasses.AgencyRes
 import com.example.thwissa.dataclasses.FollowMessage
+import com.example.thwissa.utils.UsefulFct
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -82,7 +83,9 @@ class AgencyProfileFragment : Fragment() {
                             res.Phonenumber,
                             res.location,
                             res.rate,
-                            res.nbfollowers
+                            res.nbfollowers ,
+                            res.nbofTrips ,
+                            res.picture
                         )
 
                         Toast.makeText(requireContext(), res.id, Toast.LENGTH_SHORT).show()
@@ -159,7 +162,9 @@ class AgencyProfileFragment : Fragment() {
         phonenumber: String,
         location: String,
         rate: Int,
-        nbfollowers: Int
+        nbfollowers: Int ,
+        nbTrips: Int ,
+        picture : String
     ) {
         binding.apply {
             agencyName.text = name
@@ -169,7 +174,8 @@ class AgencyProfileFragment : Fragment() {
             ratingBar.rating = rate.toFloat()
             tvRatingNumber.text = rate.toString()
             tvNombreFollowers.text = nbfollowers.toString()
-
+            tvSaves.text = nbTrips.toString()
+            UsefulFct.bindImage(binding.ivAgencyPicture , picture)
         }
     }
 
@@ -181,6 +187,4 @@ class AgencyProfileFragment : Fragment() {
         binding.vpAgencyProfile.adapter = adapter
         binding.tablayout.setupWithViewPager(binding.vpAgencyProfile)
     }
-
-
 }

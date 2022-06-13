@@ -1,58 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.Profile.agencyProfile.ReviewAgencyProfileFragment">
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         style="@style/text_moy2"
-        android:layout_margin="18dp"
-        android:text="@string/adding_review"
-        />
-
-    <RatingBar
-        android:id="@+id/rating_bar_agency_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:max="5"
-        android:rating="4"
-        android:scaleX=".7"
-        android:scaleY=".7"
-        android:theme="@style/RatingBar"
-        android:transformPivotX="0dp"
-        android:transformPivotY="0dp" />
-
-
-    <EditText
-        android:id="@+id/et_add_review"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginTop="18dp"
-        android:hint="review" />
+        android:layout_margin="18dp"
+        android:text="@string/adding_review" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_share_rating"
+    <LinearLayout
+        android:id="@+id/ll_rating"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/rate"
-        android:background="@drawable/back_icon"
-        android:textColor="@color/white"
-        android:layout_margin="18dp"
-        />
+        android:orientation="vertical">
+
+        <RatingBar
+            android:id="@+id/rating_bar_agency_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:max="5"
+            android:rating="4"
+            android:scaleX=".7"
+            android:scaleY=".7"
+            android:theme="@style/RatingBar"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp" />
+
+
+        <EditText
+            android:id="@+id/et_add_review"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginEnd="18dp"
+            android:hint="review" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_share_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="18dp"
+            android:background="@drawable/background_btn_rating"
+            android:text="@string/rate"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="@color/grey"
         android:layout_margin="18dp"
-        />
+        android:background="@color/grey" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/chip_group"
@@ -136,6 +142,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
-        tools:listitem="@layout/review"
-        />
+        tools:listitem="@layout/review" />
 </LinearLayout>

@@ -13,9 +13,14 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 
 import com.example.thwissa.LogService;
 import com.example.thwissa.R;
@@ -39,8 +44,9 @@ public class StoryFragment extends Fragment {
     private FragmentStoryBinding binding;
     private static final String TAG = "StoryFragment";
     private boolean isLoaded = false;
+//    StoryViewModel storyViewModel ;
 
-//    StoryViewModel storyViewModel;
+    StoryViewModel storyViewModel;
 
     public StoryFragment() {
     }
@@ -88,8 +94,8 @@ public class StoryFragment extends Fragment {
                 singleStory.getPicture(),
                 user1,
                 singleStory.getUserlocation(),
-                singleStory.getLike(),
-                singleStory.getDislike(),
+                singleStory.getLike().size(),
+                singleStory.getDislike().size(),
                 singleStory.getReport(),
 //                new Date(new Date().getYear(), 4, 10)
                 fromStringtoDate(singleStory.getAddAT())
@@ -118,7 +124,9 @@ public class StoryFragment extends Fragment {
         Log.d(TAG, "onCreateView: inside ");
 
         StoryViewModelFactory viewModelFactory = new StoryViewModelFactory(requireContext());
-        StoryViewModel storyViewModel = new ViewModelProvider(this, viewModelFactory).get(StoryViewModel.class);
+         storyViewModel =  new ViewModelProvider(this, viewModelFactory).get(StoryViewModel.class);
+        Log.d(TAG, "onCreateView: after ");
+
         /** observe status */
 //        storyViewModel.updateDataforStory();
 
@@ -247,13 +255,8 @@ public class StoryFragment extends Fragment {
                 binding.dislikes.setText(String.valueOf(story.dislikes));
             }
 //            if (storyViewModel != null) {
-            updateDataforStory(
-                    "medea",
-                    "62a359cd3b7903ec2d689cd5",
-                    story.likes,
-                    story.dislikes,
-                    story.numberReports
-            );
+            addLike("Adrar", "62a638c378af3fb061bb9969", story.likes) ;
+
             binding.likes.setText(String.valueOf(story.likes));
 //            }
         } else {
@@ -271,12 +274,10 @@ public class StoryFragment extends Fragment {
                 story.likes--;
                 binding.likes.setText(String.valueOf(story.likes));
             }
-            updateDataforStory(
-                    "medea",
-                    "62a359cd3b7903ec2d689cd5",
-                    story.likes,
-                    story.dislikes,
-                    story.numberReports
+            addDislike(
+                    "Adrar",
+                    "62a638c378af3fb061bb9969",
+                    story.dislikes
             );
 
             binding.dislikes.setText(String.valueOf(story.dislikes));
@@ -301,12 +302,9 @@ public class StoryFragment extends Fragment {
                 story.numberReports++;
                 story.reported = true;
 
-                updateDataforStory(
-                        "medea",
-                        "62a359cd3b7903ec2d689cd5",
-                        story.likes,
-                        story.dislikes,
-                        story.numberReports
+                addReport(
+                        "Adrar",
+                        "62a6a272b062ab05e9ac50ba"
                 );
 
                 Toast.makeText(getContext(), "This story is reported " + story.numberReports+ "time", Toast.LENGTH_SHORT).show();
@@ -317,26 +315,6 @@ public class StoryFragment extends Fragment {
             Toast.makeText(requireContext(), "you can't like image before it is not loaded ", Toast.LENGTH_SHORT).show();
         }
     }
-
-    private void updateDataforStory(String wilaya, String idStory, int likes, int dislikes, int numberReports) {
-        Call<Void> call = LogService.INSTANCE.getRetrofitService().updateStoryData(wilaya, idStory, likes, dislikes, numberReports);
-        call.enqueue(new Callback<Void>() {
-
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                if (response.isSuccessful()) {
-                    Toast.makeText(requireContext(), "response is succeful", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(requireContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
 
     public void checkStoriesDate() {
         Date currentDate = new Date();
@@ -411,6 +389,36 @@ public class StoryFragment extends Fragment {
             public void onClick(View view) {
                 if (currentStory > 0)
                     changeStory(-1);
+            }
+        });
+    }
+
+    private void addLike(String willaya, String id, int likes) {
+        if (isLoaded) {
+            storyViewModel.addLike(willaya, id, likes);
+        }
+    }
+
+    private void addDislike(String willaya, String id, int likes) {
+        if (isLoaded) {
+            storyViewModel.addDislike(willaya, id, likes);
+        }
+    }
+
+    private void addReport(String willaya, String id) {
+        if (isLoaded) {
+            storyViewModel.addReport(willaya, id);
+        }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        NavController navController = Navigation.findNavController(view);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true ) {
+            @Override
+            public void handleOnBackPressed() {
+                navController.popBackStack();
             }
         });
     }

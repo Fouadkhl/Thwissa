@@ -9,14 +9,14 @@ data class StoryItem(
     val _id: String,
     @SerializedName("addAT")
     val addAT: String,
-    @SerializedName("dislike")
-    val dislike: Int,
+    @SerializedName("dislikes")
+    val dislike: List<LikeItem>,
     @SerializedName("idLocation")
     val idLocation: String,
     @SerializedName("idUser")
     val idUser: String,
-    @SerializedName("like")
-    val like: Int,
+    @SerializedName("likes")
+    val like: List<LikeItem>,
     @SerializedName("picture")
     val picture: String,
     @SerializedName("report")

@@ -1,9 +1,6 @@
 package com.example.thwissa
 
-import com.example.thwissa.dataclasses.AgencyRes
-import com.example.thwissa.dataclasses.FollowMessage
-import com.example.thwissa.dataclasses.StoryData
-import com.example.thwissa.dataclasses.UserRes
+import com.example.thwissa.dataclasses.*
 import com.example.thwissa.utils.MyApp
 import com.example.thwissa.utils.setCookieStore
 import okhttp3.MultipartBody
@@ -68,14 +65,20 @@ interface RetrofitInterface {
 
 
     @POST("/agency/{agencyid}/follow")
-    fun followOrUnfollowAgency (@Path("agencyid" ) agencyid :  String  ) : Call<FollowMessage>
+    fun followOrUnfollowAgency(@Path("agencyid") agencyid: String): Call<FollowMessage>
 
     @Headers("Content-Type: application/json")
     @PATCH("/agencyprofiledit")
-    fun updadateDescription(@Body description : HashMap<String, String>) : Call<Unit>
+    fun updadateDescription(@Body description: HashMap<String, String>): Call<Unit>
 
     @GET("/agency/{agencyId}/reviews")
-//    fun getAllReviews(@Path("agencyId") agencyid: String) : Call<>
+    fun getAllReviews(@Path("agencyId") agencyid: String): Call<List<AgencyReviews>>
+
+    @GET("/agency/{agencyId}/reviews")
+    fun postReview(
+        @Path("agencyId") agencyid: String,
+        @Body review: HashMap<String, Any>
+    ): Call<Unit>
 
     // TODO: story section
 
@@ -86,20 +89,33 @@ interface RetrofitInterface {
         @Part picture: MultipartBody.Part
     ): Call<Unit>
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json")
     @PATCH("/story/{idLocation}/{idPicture}")
-    fun updateStoryData(
+    fun addStoryReport(
+        @Path("idLocation") idLocation: String,
+        @Path("idPicture") idPicture: String,
+    ): Call<Unit>
+
+    @FormUrlEncoded
+    @POST("/story/{idLocation}/{idPicture}/like")
+    fun addStoryLike(
         @Path("idLocation") location: String,
-        @Path("idPicture") pictureid: String ,
-        @Field("like")  nbLike : Int ,
-        @Field("dislike")  nbDislike : Int ,
-        @Field("report") report : Int
-    ) : Call<Void>
+        @Path("idPicture") pictureid: String,
+        @Field("like") nbLike: Int,
+    ): Call<Void>
+
+    @FormUrlEncoded
+    @POST("/story/{idLocation}/{idPicture}/like")
+    fun addStoryDislike(
+        @Path("idLocation") location: String,
+        @Path("idPicture") pictureid: String,
+        @Field("dislike") nbLike: Int,
+    ): Call<Void>
 
 //    @GET("/story/{idLocation}")
 //fun getStories(@Path("idLocation") location: String): Call<List<StoryItem>>
 
-    @GET("/story/medea")
+    @GET("/story/Adrar")
     fun getStories(): Call<StoryData>
 
     @DELETE("/story/{idLocation}/{idPicture}")
@@ -142,7 +158,6 @@ object LogService {
      * @param serviceType pass the interface
      * @return return  the service
      */
-
     fun <T> buildService(serviceType: Class<T>): T {
         return retrofit.create(serviceType)
     }

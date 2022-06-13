@@ -14,6 +14,8 @@ data class UserRes(
     val name: String,
     @SerializedName("role")
     val role: String ,
+    @SerializedName("picture")
+    val picture : String
 
 //    val id : String ,
 //    val name: String ,

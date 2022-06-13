@@ -71,6 +71,10 @@ class HomeFragment : Fragment() {
             }
         })
 
+        binding.searchBar.btnFilter.setOnClickListener {
+
+        }
+
         // TODO: change the button to story click
 //        binding.rlToBtnAddStory.setOnClickListener{
 //            val modalBottomSheet = ModalBottomSheet(listofItmes)
@@ -144,29 +148,36 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupui() {
-        val listofItmes = IntArray(4)
+        val listofItmes = IntArray(3)
 
-        var id: Int
-        for (i in 1..4) {
-            id = resources.getIdentifier("beach", "drawable", activity?.packageName)
-            listofItmes[i - 1] = id
-        }
+        var id = resources.getIdentifier("saharaa", "drawable", activity?.packageName)
+        listofItmes[0] = id
+        id = resources.getIdentifier("sahili", "drawable", activity?.packageName)
+        listofItmes[1] = id
+        id = resources.getIdentifier("tell", "drawable", activity?.packageName)
+        listofItmes[2] = id
+
 
         var data = ArrayList<WillayaStory>()
 
+        var item = WillayaStory(listofItmes[0], "medea")
+        data.add(item)
 
-        for (i in 0..3) {
-            var item = WillayaStory(listofItmes[i], "medea")
-            data.add(item)
-        }
+        item = WillayaStory(listofItmes[1], "medea")
+        data.add(item)
+
+        item = WillayaStory(listofItmes[2], "medea")
+        data.add(item)
+
 
         var data2 = homeviewmodel.getWillayaStories()
 
         val storiesAdapter = StoriesAdapter(data, homeviewmodel, StoriesAdapter.OnClickListener {
             val bundle = bundleOf(Constants.WILLAYANAME to it.text)
-            findNavController().navigate(R.id.action_homeFragment_to_storyFragment , bundle)
+            findNavController().navigate(R.id.action_homeFragment_to_storyFragment, bundle)
         })
 
+        // TODO: change this
         val placesAdapter = PlacesAdapter(data)
         val nearToYouRecyclerViewAdapter = NearToYouRecyclerViewAdapter(data)
 

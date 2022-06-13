@@ -10,10 +10,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentAgencySignUpBinding
@@ -100,7 +102,7 @@ class AgencySignupFragment : Fragment() {
                 )
 //                )
 //              put("picture" ,curFile.toString())
-                navigateToFragmentCertaficationVerification(bundle)
+                navigateToFragmentAcceptTerms(bundle)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -111,6 +113,13 @@ class AgencySignupFragment : Fragment() {
 
         }
 
+        // go back
+        val navController = Navigation.findNavController(view)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navController.popBackStack()
+            }
+        })
     }
 
 
@@ -172,7 +181,7 @@ class AgencySignupFragment : Fragment() {
     // TODO: get the image from the internal storage and pass it and return request object from this fun
     // TODO: set setUserloggedin to true
 
-    private fun navigateToFragmentCertaficationVerification(bundle: Bundle) {
+    private fun navigateToFragmentAcceptTerms(bundle: Bundle) {
         findNavController().navigate(
             R.id.action_agencySignupFragment_to_acceptTermsFragment,
             bundle

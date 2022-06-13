@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.thwissa.LogService
 import com.example.thwissa.R
@@ -44,7 +46,6 @@ class AcceptTermsFragment : Fragment() {
         binding.btnAcceptTerms.setOnClickListener {
             acceptTerms()
         }
-
 
         binding.btnContinue.setOnClickListener {
             if (isAccpeted) {
@@ -163,6 +164,16 @@ class AcceptTermsFragment : Fragment() {
             }
             )
 //        return id
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val navController = Navigation.findNavController(view)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navController.popBackStack()
+            }
+        })
     }
 
 }

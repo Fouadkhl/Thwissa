@@ -17,9 +17,9 @@ public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.View
 
     private int checkedPos;
     private final quiz[] quizzes = {
-            new quiz(R.string.decide_where_you_want_to_go
+            new quiz(R.string.wheremostasituate
             , R.string.option_1, R.string.option_2, R.string.option_3),
-            new quiz(R.string.decide_where_you_want_to_go
+            new quiz(R.string.wheremostasituate
                     , R.string.option_1, R.string.option_2, R.string.option_3)
     };
 

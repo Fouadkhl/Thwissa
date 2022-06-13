@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.thwissa.LogService
+import com.example.thwissa.LogService.retrofitService
 import com.example.thwissa.dataclasses.StoryData
 import com.example.thwissa.dataclasses.StoryItem
 import kotlinx.coroutines.CoroutineScope
@@ -81,39 +82,76 @@ class StoryViewModel(val context: Context) : ViewModel() {
         }
     }
 
-    fun updateDataforStory(
-        idLocation: String,
-        idStory: String,
-        like: Int,
-        dislike: Int,
-        report: Int
-    ) {
-        if (_status.value == StoryLoadingStatus.DONE) {
-            LogService.retrofitService.updateStoryData(
-                idLocation, idStory, like, dislike, report
-            ).enqueue(object : Callback<Void> {
-                override fun onResponse(call: Call<Void>, response: Response<Void>) {
-                    if (response.isSuccessful) {
-                        _isStoryDataUpdated.value = true
-                        Toast.makeText(context, "you just add like", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(context, "some thing wrong now ", Toast.LENGTH_SHORT)
-                            .show()
+
+    fun addLike(wilaya: String, idStory: String, likes: Int) {
+        coroutineScope.launch {
+            var call =
+                retrofitService.addStoryLike(wilaya, idStory, likes)
+            call.enqueue(
+                object : Callback<Void?> {
+                    override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(context, "response is succeful", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
-
-                override fun onFailure(call: Call<Void>, t: Throwable) {
-                    _isStoryDataUpdated.value = false
-                    Toast.makeText(context, "onfailure invoked" + t.message, Toast.LENGTH_SHORT)
-                        .show()
-                }
-
-            })
-        } else {
-            Toast.makeText(context, "story is not loaded", Toast.LENGTH_SHORT).show()
+                    override fun onFailure(call: Call<Void?>, t: Throwable) {
+                        Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                    }
+                })
         }
 
     }
+
+
+    fun addDislike(wilaya: String, idStory: String, dislikes: Int) {
+        coroutineScope.launch {
+            var call =
+                retrofitService.addStoryDislike(wilaya, idStory, dislikes)
+            call.enqueue(
+                object : Callback<Void?> {
+                    override fun onResponse(call: Call<Void?>, response: Response<Void?>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(context, "response is succeful", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Toast.makeText(context, response.message(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Void?>, t: Throwable) {
+                        Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                    }
+                })
+        }
+
+    }
+
+     fun addReport(wilaya: String, idStory: String) {
+        coroutineScope.launch {
+            var call =
+                retrofitService.addStoryReport(wilaya, idStory)
+            call.enqueue(
+                object : Callback<Unit> {
+                    override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                        if (response.isSuccessful) {
+                            Toast.makeText(context, "success report", Toast.LENGTH_SHORT)
+                                .show()
+                        } else {
+                            Toast.makeText(context, "already reported", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<Unit>, t: Throwable) {
+                        Toast.makeText(context, t.message, Toast.LENGTH_SHORT).show()
+                        Log.d(TAG, "failure" + t.message)
+                    }
+                })
+        }
+    }
+
 
     override fun onCleared() {
         super.onCleared()

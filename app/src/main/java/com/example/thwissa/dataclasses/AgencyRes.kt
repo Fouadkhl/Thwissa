@@ -19,7 +19,10 @@ data class AgencyRes(
     val role: String ,
     @SerializedName("nbfollowers")
     val nbfollowers: Int,
-
+    @SerializedName("picture")
+    val picture : String  ,
+    @SerializedName("NbOfTrips")
+    val nbofTrips : Int
 
 //    @SerializedName("picture")
 //    val description :String ,
