@@ -83,7 +83,7 @@ public class RepliesAdapter extends RecyclerView.Adapter<RepliesAdapter.InnerVie
                     .load(url)
                     .into(holder.replyPic);
         }  else {
-            holder.profilePic.setVisibility(View.GONE);
+            holder.replyPic.setVisibility(View.GONE);
         }
 
         if(reply.userpicture != null && !reply.userpicture.equals("")) {

@@ -100,6 +100,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
 
         if(post.pictures != null && post.pictures.size() != 0){
             PostPictursViewPagerAdapter postPictursViewPagerAdapter = new PostPictursViewPagerAdapter(context);
+            ArrayList<String> arr = new ArrayList<>();
+            for(String str : post.pictures) {
+                if(str == null || str.equals("")) arr.add(str);
+            }
+            post.pictures.removeAll(arr);
             postPictursViewPagerAdapter.setImgIds(post.pictures);
             holder.viewPager2.setAdapter(postPictursViewPagerAdapter);
             if(post.pictures.size()!=1) {
@@ -110,14 +115,13 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
             holder.wormDotsIndicator.setVisibility(View.GONE);
         }
 
-
-        holder.diff.setText(String.valueOf(post.diff()));
         holder.reply_num.setText(String.valueOf(post.replynumber).concat(" comments"));
 
         post.likeNum = post.likes.size();
         post.dislikeNum = post.dislikes.size();
         post.isLiked = post.likes.contains(new ReactionRes(userData.getLoggedInUser().getId()));
         post.isLiked = post.dislikes.contains(new ReactionRes(userData.getLoggedInUser().getId()));
+        holder.diff.setText(String.valueOf(post.diff()));
         holder.upButton.setOnClickListener(view -> {
             if(!post.isLiked) {
                 holder.upButton.setImageResource(R.drawable.clicked_up_arrow);

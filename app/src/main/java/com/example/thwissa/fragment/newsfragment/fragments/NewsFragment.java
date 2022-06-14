@@ -77,6 +77,7 @@ public class NewsFragment extends Fragment {
     private TripsAdapter trips_adapter;
     private ShimmerFrameLayout shimmerFrameLayout;
     private ShimmerFrameLayout shimmerFrameLayout1;
+    private SwipeRefreshLayout refreshLayout;
 
     private ArrayList<Meteo> meteos;
 
@@ -98,7 +99,7 @@ public class NewsFragment extends Fragment {
         shimmerFrameLayout1.startShimmer();
         initTopRatedTripsRecycleView();
         initPostsRecycleView();
-        SwipeRefreshLayout refreshLayout = view.findViewById(R.id.swipe);
+        refreshLayout = view.findViewById(R.id.swipe);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -126,7 +127,8 @@ public class NewsFragment extends Fragment {
                                                     Log.e("reply", "reply");
                                                     break;
                                                 }
-                                                case "news-trips": {
+                                                case "news-trips":
+                                                case "postClicked":{
                                                     int pos = bundle.getInt("pos");
                                                     String postId = bundle.getString("postId");
                                                     updateTripById(postId, pos);
@@ -226,7 +228,6 @@ public class NewsFragment extends Fragment {
         postsRecycleView.setAdapter(postsAdapter);
         //get posts from data base
         getAllTrips();
-
     }
 
     public void initPostAdapter(){
@@ -384,13 +385,11 @@ public class NewsFragment extends Fragment {
                 if(response.isSuccessful()){
                     Posts posts = response.body();
                     if(posts != null && posts.trips != null){
-                        int oldSize = data1.size();
-                        data1.removeAll(data1);
-                        postsAdapter.notifyItemRangeRemoved(0, oldSize);
-
+                        data1.clear();
+                        postsAdapter.notifyDataSetChanged();
                         Collections.shuffle(posts.trips);
                         //int oldSize = data1.size();
-                        data1.addAll(posts.trips.subList(0, Math.min(5, posts.trips.size()-1)));
+                        data1.addAll(posts.trips.subList(0, Math.min(5, posts.trips.size())));
                         postsAdapter.notifyItemRangeInserted(0, postsAdapter.getItemCount()-1);
 
                         shimmerFrameLayout.stopShimmer();
@@ -398,9 +397,11 @@ public class NewsFragment extends Fragment {
                         postsRecycleView.setVisibility(View.VISIBLE);
                     }
                 }
+                refreshLayout.setRefreshing(false);
             }
             @Override
             public void onFailure(Call<Posts> call, Throwable t) {
+                refreshLayout.setRefreshing(false);
                 Log.e("all trips : ", "trips");
                 // showSnackBar();
             }
@@ -427,12 +428,13 @@ public class NewsFragment extends Fragment {
                         shimmerFrameLayout1.setVisibility(View.GONE);
                         topRatedTripsRecycleView.setVisibility(View.VISIBLE);
                     }
-                } else Toast.makeText(requireContext(), "not successful : "+response.message()+" code : "+response.code(), Toast.LENGTH_SHORT).show();
+                }
+                refreshLayout.setRefreshing(false);
             }
             @Override
             public void onFailure(Call<Posts> call, Throwable t) {
                 // showSnackBar();
-                Toast.makeText(requireContext(), "failed : "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                refreshLayout.setRefreshing(false);
             }
         });
     }
