@@ -3,7 +3,7 @@ package com.example.thwissa.dataclasses
 import com.google.gson.annotations.SerializedName
 
 data class AgencyRes(
-    @SerializedName("id")
+    @SerializedName("_id")
     val id: String,
     @SerializedName("name")
     val name: String,
@@ -19,6 +19,11 @@ data class AgencyRes(
     val role: String ,
     @SerializedName("nbfollowers")
     val nbfollowers: Int,
+    @SerializedName("picture")
+    val picture : String  ,
+    @SerializedName("NbOfTrips")
+    val nbofTrips : Int
+
 //    @SerializedName("picture")
 //    val description :String ,
 //    @SerializedName("picture")

@@ -14,7 +14,8 @@ import com.example.thwissa.R
 
 
 @Suppress("DEPRECATION")
-class AcceptTermsDialogFragment : DialogFragment() {
+class
+AcceptTermsDialogFragment : DialogFragment() {
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

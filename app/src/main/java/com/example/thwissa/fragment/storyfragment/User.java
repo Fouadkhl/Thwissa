@@ -6,10 +6,10 @@ package com.example.thwissa.fragment.storyfragment;
 public class User {
     /** FIELDS */
     private String userName;
-    private int profilePicResource;
+    private String profilePicResource;
 
     /** CONSTRUCTOR */
-    public User(String userName, int profilePicResource) {
+    public User(String userName, String profilePicResource) {
         this.userName = userName;
         this.profilePicResource = profilePicResource;
     }
@@ -23,11 +23,11 @@ public class User {
         this.userName = userName;
     }
 
-    public int getProfilePicResource() {
+    public String getProfilePicResource() {
         return profilePicResource;
     }
 
-    public void setProfilePicResource(int profilePicResource) {
+    public void setProfilePicResource(String profilePicResource) {
         this.profilePicResource = profilePicResource;
     }
 }

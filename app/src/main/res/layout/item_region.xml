@@ -12,9 +12,8 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_region_item"
-        android:layout_width="wrap_content"
+        android:layout_width="140dp"
         android:layout_height="124dp"
-        android:maxWidth="160dp"
         android:clickable="true"
         android:layout_gravity="center"
         android:adjustViewBounds="true"

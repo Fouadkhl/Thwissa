@@ -6,22 +6,23 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
+
 
         <ImageView
-            android:id="@+id/book_mark"
+            android:id="@+id/iv_edit_profile"
             android:layout_width="30dp"
             android:layout_height="40dp"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="24dp"
-            android:src="@drawable/ic_baseline_bookmark_24"
+            android:src="@drawable/ic_baseline_edit_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:id="@+id/btn_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_marginTop="24dp"
             android:src="@drawable/ic_baseline_arrow_back_24"
             app:layout_constraintBottom_toTopOf="@+id/agency_name"
@@ -39,7 +40,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/book_mark" />
+            app:layout_constraintTop_toBottomOf="@+id/iv_edit_profile" />
 
         <ImageView
             android:id="@+id/iv_agency_picture"
@@ -57,7 +58,7 @@
             android:layout_width="150dp"
             android:layout_height="42dp"
             android:layout_marginTop="24dp"
-            android:background="@drawable/background_sign_in"
+            android:background="@drawable/background_follow"
             android:padding="0dp"
             android:text="follow"
             android:textAllCaps="false"
@@ -75,8 +76,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="follower"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="@+id/tv_nombre_followers"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/tv_nombre_followers"
             app:layout_constraintTop_toBottomOf="@+id/tv_nombre_followers" />
 
@@ -208,11 +209,13 @@
             app:layout_constraintTop_toBottomOf="@+id/phone_number" />
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/tv_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/description"
+            android:text="@string/agency_description"
+            android:clickable="true"
+            android:focusable="true"
             app:layout_constraintEnd_toStartOf="@+id/guideline4"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -226,7 +229,7 @@
                 android:background="@color/background_color"
                 app:layout_constraintEnd_toStartOf="@+id/guideline4"
                 app:layout_constraintStart_toStartOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/description"
+                app:layout_constraintTop_toBottomOf="@id/tv_description"
                 app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget">
 
                 <com.google.android.material.tabs.TabItem

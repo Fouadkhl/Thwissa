@@ -4,35 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="@color/profile_color"/>
+
         <ImageView
             android:layout_width="15dp"
             android:layout_height="15dp"
             android:background="@color/profile_color"
             android:layout_alignParentEnd="true"
             />
+
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:id="@+id/profile_card_view"
             android:background="@drawable/background_profile">
 
-            <com.google.android.material.imageview.ShapeableImageView
+            <com.example.thwissa.fragment.entertainment.RoundedImageView
                 android:id="@+id/user_profile_image"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
                 android:layout_marginHorizontal="20dp"
                 android:src="@drawable/_4"
-                tools:ignore="MissingClass"
-                android:scaleType="centerCrop"
-                app:shapeAppearanceOverlay="@style/circlePic"/>
+                tools:ignore="MissingClass" />
 
             <TextView
                 android:id="@+id/user_name"
@@ -40,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/user_profile_image"
+                android:fontFamily="@font/nunito_bold"
                 android:text="mohamed\nali"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
@@ -48,12 +52,12 @@
                 android:id="@+id/score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/white"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="310dp"
-                android:text="120"
-                android:textColor="@color/white"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:text="120"/>
 
             <ImageView
                 android:layout_width="30dp"
@@ -83,6 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="@font/nunito_bold"
                     android:layout_marginBottom="15dp"
                     android:text="@string/top_pictures_this_week"
                     android:textColor="@color/text_color"
@@ -106,7 +111,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="-50dp"
                     android:layout_marginEnd="15dp"
-                    app:dotsColor="@color/selected_dot"
+                    app:dotsColor="@color/black"
                     app:dotsSize="13dp"
                     app:dotsSpacing="8dp"
                     app:progressMode="true"
@@ -120,6 +125,7 @@
                     android:layout_marginVertical="5dp"
                     android:layout_marginStart="15dp"
                     android:text="@string/quiz"
+                    android:fontFamily="@font/nunito_bold"
                     android:textColor="@color/text_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -159,10 +165,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/quizSection"
                     android:layout_marginStart="20dp"
+                    android:fontFamily="@font/nunito_bold"
                     android:text="@string/more_informations"
                     android:textColor="@color/text_color"
                     android:textSize="20sp"
                     android:textStyle="bold" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -189,21 +197,27 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/title"
-                        android:text="@string/decide_where_you_want_to_go"
-                        android:textColor="@color/black"
-                        android:textSize="15sp"
+                        android:layout_marginBottom="8dp"
+                        android:text="@string/wheremostasituate"
+                        android:textColor="@color/red"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/body"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/subTitle"
                         android:padding="10dp"
-                        android:text="@string/randomText"
+                        android:fontFamily="@font/nunito_sans_extralight"
+                        android:text="@string/plan_your_trip"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
+
                 </RelativeLayout>
             </RelativeLayout>
         </ScrollView>
+
     </RelativeLayout>
+
 </FrameLayout>

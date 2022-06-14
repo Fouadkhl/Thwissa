@@ -1,17 +1,21 @@
 package com.example.thwissa.fragment.auth.agencyAuth
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentAgencySignUpBinding
@@ -20,11 +24,14 @@ import com.example.thwissa.fragment.auth.validation.BaseValidator
 import com.example.thwissa.fragment.auth.validation.controlValidators.*
 import com.example.thwissa.utils.Constants
 
+
+@Suppress("DEPRECATION")
 class AgencySignupFragment : Fragment() {
 
     private lateinit var binding: FragmentAgencySignUpBinding
     private val viewModelCertafications: CertaficationVerificationViewModel by activityViewModels()
     var curFile: Uri? = null
+    var picturePath: String? = null
 
 
     override fun onCreateView(
@@ -35,6 +42,7 @@ class AgencySignupFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("Range")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -43,8 +51,17 @@ class AgencySignupFragment : Fragment() {
                 if (result.resultCode == Activity.RESULT_OK) {
                     // There are no request codes
                     val data: Intent? = result.data
-                    data?.data?.let {
+                    data?.data?.let { it ->
                         curFile = it
+                        binding.ivShapableAgencySignUp.setImageURI(it)
+
+                        context?.contentResolver?.query(it, null, null, null, null)?.use {
+                            if (it.moveToFirst()) {
+                                picturePath =
+                                    it.getString(it.getColumnIndex(MediaStore.MediaColumns.DATA))
+                            }
+                        }
+
                         //then we set the image in the image view
                         binding.ivShapableAgencySignUp.setImageURI(it)
 
@@ -67,8 +84,10 @@ class AgencySignupFragment : Fragment() {
             val confirmPassword = binding.etConfirmPassword.text.toString()
             val location = binding.etLocation.text.toString()
             val phoneNumber = binding.etPhoneNumber.text.toString()
+            val photoPath = if (curFile != null) picturePath else ""
 
-            var controlPassed =controlAgencyData(name , email , location, password, confirmPassword, phoneNumber)
+            var controlPassed =
+                controlAgencyData(name, email, location, password, confirmPassword, phoneNumber)
             if (
                 controlPassed
 
@@ -78,11 +97,12 @@ class AgencySignupFragment : Fragment() {
                     Constants.SIGNUP_EMAIL to email,
                     Constants.SIGNUP_PASSWORD to password,
                     Constants.SIGNUP_LOCATION to location,
-                    Constants.SIGNUP_PHONE_NUMBER to phoneNumber
+                    Constants.SIGNUP_PHONE_NUMBER to phoneNumber,
+                    Constants.PHOTO_PATH to photoPath
                 )
 //                )
 //              put("picture" ,curFile.toString())
-                navigateToFragmentCertaficationVerification(bundle)
+                navigateToFragmentAcceptTerms(bundle)
             } else {
                 Toast.makeText(
                     requireContext(),
@@ -93,7 +113,15 @@ class AgencySignupFragment : Fragment() {
 
         }
 
+        // go back
+        val navController = Navigation.findNavController(view)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                navController.popBackStack()
+            }
+        })
     }
+
 
     /**
      * get the data from xml control it and pass it to register
@@ -105,7 +133,7 @@ class AgencySignupFragment : Fragment() {
         password: String,
         confirmPassword: String,
         phoneNumber: String
-    ) : Boolean{
+    ): Boolean {
         // get the data from xml
 
         // name validation
@@ -153,9 +181,9 @@ class AgencySignupFragment : Fragment() {
     // TODO: get the image from the internal storage and pass it and return request object from this fun
     // TODO: set setUserloggedin to true
 
-    private fun navigateToFragmentCertaficationVerification(bundle: Bundle) {
+    private fun navigateToFragmentAcceptTerms(bundle: Bundle) {
         findNavController().navigate(
-            R.id.action_agencySignupFragment_to_certaficationVerificationFragment,
+            R.id.action_agencySignupFragment_to_acceptTermsFragment,
             bundle
         )
     }

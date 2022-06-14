@@ -6,9 +6,12 @@ import java.util.Date;
  * STORY CLASS
  * FIELDS: storyPictureResource, profilePicResource, userName, wilaya, date, likes, dislikes
  */
+@SuppressWarnings("ALL")
 public class Story {
     /** FIELDS */
-    int storyPictureResource;
+
+    String  idStory ;
+    String storyPictureResource;
     User user;
     String wilaya;
     int likes;
@@ -20,9 +23,10 @@ public class Story {
     /** TEMPORARY */
     boolean liked = false;
     boolean disliked = false;
+    boolean reported  = false ;
 
     /** CONSTRUCTOR */
-    public Story(int storyPictureResource, User user, String wilaya, int likes, int dislikes, int numberReports, Date postingDate) {
+    public Story(String storyPictureResource, User user, String wilaya, int likes, int dislikes, int numberReports, Date postingDate) {
         this.storyPictureResource = storyPictureResource;
         this.user = user;
         this.wilaya = wilaya;
@@ -30,7 +34,6 @@ public class Story {
         this.dislikes = dislikes;
         this.numberReports = numberReports;
         this.postingDate = postingDate;
-
         this.dateText = postingDate.getDate() + "/" + (postingDate.getMonth()+1) + "/" + (postingDate.getYear() + 1900);
     }
 }

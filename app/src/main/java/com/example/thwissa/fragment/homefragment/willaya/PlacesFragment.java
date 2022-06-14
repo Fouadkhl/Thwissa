@@ -3,6 +3,7 @@ package com.example.thwissa.fragment.homefragment.willaya;
 import android.icu.number.NumberFormatter;
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -97,6 +98,15 @@ public class PlacesFragment extends Fragment {
                 navController.navigate(R.id.action_placesFragment_to_mapFragment, b);
             }
         });
+
+        /** back button pressed*/
+        NavController navController = Navigation.findNavController(view);
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true ) {
+            @Override
+            public void handleOnBackPressed() {
+                navController.popBackStack();
+            }
+        });
     }
 
     @Override
@@ -170,7 +180,6 @@ public class PlacesFragment extends Fragment {
         });
         binding.topRatedRecyclerView.setAdapter(mTopRatedAdapter);
     }
-
 
 
     public void initPlaces(String wilayaName, String sort, Map<String, ArrayList<Place>> placesCollection) {

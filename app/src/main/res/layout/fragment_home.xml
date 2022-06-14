@@ -13,9 +13,9 @@
 
     <Button
         android:id="@+id/btn"
-        android:text="fqdsf"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:text="fqdsf" />
 
 
     <include
@@ -25,7 +25,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp" />
+        android:layout_marginEnd="16dp"
+        />
 
 <!--    <ScrollView-->
 <!--        android:layout_width="match_parent"-->
@@ -117,7 +118,8 @@
                 android:layout_marginTop="16dp"
                 android:text="Regions"
                 android:textColor="#0D2B51"
-                android:textSize="18sp"
+                android:textSize="20sp"
+                android:fontFamily="@font/nunito_bold"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -141,7 +143,8 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/recommended_places"
                 android:textColor="#0D2B51"
-                android:textSize="18dp"
+                android:textSize="20sp"
+                android:fontFamily="@font/nunito_bold"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -162,10 +165,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rv_recommended_places"
-                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/topSites"
                 android:textColor="#0D2B51"
-                android:textSize="18dp"
+                android:fontFamily="@font/nunito_bold"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView

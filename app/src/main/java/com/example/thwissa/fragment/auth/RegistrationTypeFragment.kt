@@ -1,12 +1,12 @@
 package com.example.thwissa.fragment.auth
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavGraph
-import androidx.navigation.Navigation
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.thwissa.R
 import com.example.thwissa.databinding.RegisterScreenBinding
@@ -15,7 +15,7 @@ import com.example.thwissa.databinding.RegisterScreenBinding
 class RegistrationTypeFragment : Fragment() {
 
 
-    lateinit var binding : RegisterScreenBinding
+    lateinit var binding: RegisterScreenBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,5 +32,16 @@ class RegistrationTypeFragment : Fragment() {
             findNavController().navigate(R.id.action_registrationTypeFragment_to_agencySignupFragment)
         }
         return binding.root
+    }
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val navController = findNavController(view)
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navController.popBackStack()
+                }
+            })
     }
 }

@@ -16,12 +16,9 @@ class SPUserData(context: Context) {
 
     fun getSharedPreferences() = mySharedPrefenreces
 
-
     init {
         this.mySharedPrefenreces = context.getSharedPreferences(SHARED_PREFERENCES , 0)
     }
-
-
 
     /**
      * @param user the user logged in
@@ -34,7 +31,7 @@ class SPUserData(context: Context) {
             putString("email", user.email)
             putString("userid", user.id)
             putString("userLocation", user.location)
-//            putString("userPicture", user.picture)
+            putString("userPicture", user.picture)
             putString("userRole", user.role )
         }
         spEditor.commit()
@@ -56,7 +53,6 @@ class SPUserData(context: Context) {
     /**
      * @return user from the share preferences
      */
-
     fun getLoggedInUser() : UserRes{
         val name = mySharedPrefenreces.getString("name" , "")
         val email = mySharedPrefenreces.getString("email" , "")
@@ -64,7 +60,7 @@ class SPUserData(context: Context) {
         val userLocation = mySharedPrefenreces.getString("userLocation" , "")
         val userPicture = mySharedPrefenreces.getString("userPicture" , "")
         val userRole = mySharedPrefenreces.getString("userRole" , "")
-        return UserRes(userid!! , name!! , email!!, userLocation!!,"user")
+        return UserRes(userid!! , name!! , email!!, userLocation!!,"user" , userPicture!!)
     }
 
     /**
