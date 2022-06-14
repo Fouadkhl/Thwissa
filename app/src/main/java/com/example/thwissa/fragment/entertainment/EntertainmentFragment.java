@@ -46,6 +46,7 @@ public class EntertainmentFragment extends Fragment {
         score = view.findViewById(R.id.score);
         topPicsViewPager = view.findViewById(R.id.topPicsViewPager);
         quizViewPager = view.findViewById(R.id.quizViewPager);
+        quizViewPager.setUserInputEnabled(false);
         dotsIndicator = view.findViewById(R.id.dots_indicator);
         return view;
     }
@@ -81,7 +82,7 @@ public class EntertainmentFragment extends Fragment {
                     dotsIndicator.setViewPager(topPicsViewPager);
 
                     // quiz
-                    QuizPagerAdapter quizPagerAdapter = new QuizPagerAdapter();
+                    QuizPagerAdapter quizPagerAdapter = new QuizPagerAdapter(quizViewPager);
                     quizPagerAdapter.setQuizzes(response.body().toInnerQuizList());
                     quizViewPager.setAdapter(quizPagerAdapter);
                 }
