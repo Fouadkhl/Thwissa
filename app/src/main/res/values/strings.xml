@@ -284,7 +284,7 @@
     <string name="continu">Continue</string>
     <string name="accept_terms_fragment_text">If you want to continue your registration make sure you read all the terms and accept all of them if you can not accept these terms you can not finish your registration</string>
     <string name="post_agency_description">Post</string>
-    <string name="agency_description">add description<h2> + </h2></string>
+    <string name="agency_description">add description<font size = "16">+</font></string>
     <string name="plan_your_trip">there are some people can get overwhelmed by the idea of planning a trip by themselves. You feel like there’s so much to think about and so much to do!Planning a trip is easier than you may think
         <b>\n\n  1.Decide Where You Want to Go\n</b>
             - First , find the reason why you want to travel.\n

@@ -28,6 +28,7 @@ import com.example.thwissa.databinding.FragmentStoryBinding;
 import com.example.thwissa.dataclasses.StoryItem;
 import com.example.thwissa.utils.Constants;
 import com.example.thwissa.utils.UsefulFct;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -49,6 +50,13 @@ public class StoryFragment extends Fragment {
     StoryViewModel storyViewModel;
 
     public StoryFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav_view);
+        navBar.setVisibility(View.INVISIBLE);
     }
 
     // FOR PAUSE & RESUME BUTTON

@@ -12,7 +12,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.navigation.NavController;
@@ -78,6 +81,7 @@ public class NewsFragment extends Fragment {
     private ShimmerFrameLayout shimmerFrameLayout;
     private ShimmerFrameLayout shimmerFrameLayout1;
     private SwipeRefreshLayout refreshLayout;
+    private AppCompatButton filtersearchview;
 
     private ArrayList<Meteo> meteos;
 
@@ -209,7 +213,18 @@ public class NewsFragment extends Fragment {
             shimmerFrameLayout = view.findViewById(R.id.shimmer);
             shimmerFrameLayout1 = view.findViewById(R.id.shimmer_trips);
             FrameLayout root = view.findViewById(R.id.root);
+            filtersearchview = view.findViewById(R.id.filter_search_news) ;
         }
+
+
+        filtersearchview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawerLayout = requireActivity().findViewById(R.id.filter_drawer_layout) ;
+                drawerLayout.openDrawer(GravityCompat.START, true) ;
+            }
+        });
+
         return view;
     }
 

@@ -78,12 +78,10 @@
         <entry key="app/src/main/res/layout/fragment_story.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_trip_plan_agency_profile.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_discuss_recyclerview.xml" value="0.19322916666666667" />
-        <entry key="app/src/main/res/layout/item_news_reply.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/item_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/log_in_screen.xml" value="0.1" />
         <entry key="app/src/main/res/layout/profile_image_and_text.xml" value="0.15670289855072464" />
         <entry key="app/src/main/res/layout/profile_screen.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/quiz_view_pager_layout.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/register_screen.xml" value="0.15052083333333333" />
         <entry key="app/src/main/res/layout/reply_bottom_sheet.xml" value="0.1" />
         <entry key="app/src/main/res/layout/review.xml" value="0.19375" />

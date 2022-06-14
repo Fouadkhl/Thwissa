@@ -29,7 +29,6 @@ class SendSavedCookiesInterceptor(private val context: Context) : Interceptor {
 
 @Suppress("DEPRECATION")
 class SaveReceivedCookiesInterceptor(private val context: Context) : Interceptor {
-
     @JvmField
     val setCookieHeader = "Set-Cookie"
 

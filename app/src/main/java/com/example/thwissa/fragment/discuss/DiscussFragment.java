@@ -27,6 +27,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -77,11 +79,20 @@ public class DiscussFragment extends Fragment {
         binding.shimmer.startShimmer();
 
         spUserData = new SPUserData(requireContext());
-        
+
         binding.swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 getAllQuestions();
+            }
+        });
+
+        binding.searchBarDiscuss.btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DrawerLayout drawerLayout = requireActivity().findViewById(R.id.filter_drawer_layout) ;
+                drawerLayout.openDrawer(GravityCompat.START, true) ;
+
             }
         });
 
@@ -102,7 +113,7 @@ public class DiscussFragment extends Fragment {
         getAllQuestions();
     }
 
-    private  void composeDiscuss(){
+    private void composeDiscuss() {
         final Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.compose_discuss_dialog);
@@ -141,6 +152,7 @@ public class DiscussFragment extends Fragment {
             }
         });
 
+
         bt_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,16 +190,14 @@ public class DiscussFragment extends Fragment {
 
     private void initAddPicButton() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if(requireActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (requireActivity().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_GRANTED
             ) {
                 pickImagesIntent();
-            }
-            else {
+            } else {
                 requsetPermission(permissionCode);
             }
-        }
-        else {
+        } else {
             pickImagesIntent();
         }
     }
@@ -199,7 +209,7 @@ public class DiscussFragment extends Fragment {
         );
     }
 
-    private void pickImagesIntent(){
+    private void pickImagesIntent() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_PICK);
@@ -209,7 +219,7 @@ public class DiscussFragment extends Fragment {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(requestCode == permissionCode && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == permissionCode && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             pickImagesIntent();
         } else {
             Toast.makeText(getContext(), "permission denied", Toast.LENGTH_LONG).show();
@@ -221,15 +231,15 @@ public class DiscussFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == pickCode){
-            if(resultCode == Activity.RESULT_OK && data != null){
+        if (requestCode == pickCode) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
                 Uri uri = data.getData();
                 choosedImage.setImageURI(uri);
                 choosedImage.setVisibility(View.VISIBLE);
                 Cursor cursor = requireContext().getContentResolver().query(
-                        uri, null, null, null,null
+                        uri, null, null, null, null
                 );
-                if(cursor.moveToFirst()){
+                if (cursor.moveToFirst()) {
                     path = cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA));
                 }
                 cursor.close();
@@ -238,14 +248,14 @@ public class DiscussFragment extends Fragment {
     }
 
 
-    public void getAllQuestions(){
+    public void getAllQuestions() {
         Call<Discusses> call = DiscussUtil.getInstance()
                 .getJsonPlaceHolder()
                 .getAllQuestions();
         call.enqueue(new Callback<Discusses>() {
             @Override
             public void onResponse(Call<Discusses> call, Response<Discusses> response) {
-                if(response.isSuccessful() && response.body()!=null){
+                if (response.isSuccessful() && response.body() != null) {
                     //discussList.clear();
                     int oldSize = discussList.size();
                     discussList.removeAll(
@@ -262,30 +272,34 @@ public class DiscussFragment extends Fragment {
                     binding.shimmer.setVisibility(View.GONE);
                     binding.discussRecyclerView.setVisibility(View.VISIBLE);
                 }
-                binding.swipe.setRefreshing(false);;
+                binding.swipe.setRefreshing(false);
+                ;
             }
+
             @Override
             public void onFailure(Call<Discusses> call, Throwable t) {
                 binding.swipe.setRefreshing(false);
-                Toast.makeText(requireContext(), "failed : "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "failed : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void postQuestion(HashMap<String, RequestBody> body , MultipartBody.Part picture){
+    public void postQuestion(HashMap<String, RequestBody> body, MultipartBody.Part picture) {
         Call<ReceivedDiscuss> call = DiscussUtil.getInstance()
                 .getJsonPlaceHolder().postQuestion(body, picture);
         call.enqueue(new Callback<ReceivedDiscuss>() {
             @Override
             public void onResponse(Call<ReceivedDiscuss> call, Response<ReceivedDiscuss> response) {
-                if(response.isSuccessful() && response.body()!=null){
+                if (response.isSuccessful() && response.body() != null) {
                     discussList.add(response.body().newquestion);
-                    discussAdapter.notifyItemInserted(discussAdapter.getItemCount()-1);
-                } else Toast.makeText(requireContext(), "code : "+response.code()+" message :"+response.message()+" is null : "+(response.body()==null), Toast.LENGTH_SHORT).show();
+                    discussAdapter.notifyItemInserted(discussAdapter.getItemCount() - 1);
+                } else
+                    Toast.makeText(requireContext(), "code : " + response.code() + " message :" + response.message() + " is null : " + (response.body() == null), Toast.LENGTH_SHORT).show();
             }
+
             @Override
             public void onFailure(Call<ReceivedDiscuss> call, Throwable t) {
-                Toast.makeText(requireContext(), "failed : "+t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), "failed : " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

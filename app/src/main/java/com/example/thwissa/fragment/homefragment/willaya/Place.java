@@ -26,7 +26,7 @@ public class Place implements Serializable {
 
         public Tip(String text, String date) {
             this.text = text;
-            this.date = date;
+            this.date = date.substring(0, 10);
         }
     }
     /** 14 FIELDS */

@@ -5,6 +5,8 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,18 +14,18 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.android.volley.AuthFailureError
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.mybottomsheet.ModalBottomSheet
-import com.example.thwissa.Adapter.NearToYouRecyclerViewAdapter
 import com.example.thwissa.Adapter.PlacesAdapter2
 import com.example.thwissa.Adapter.StoriesAdapter
 import com.example.thwissa.R
@@ -42,6 +44,8 @@ import java.text.NumberFormat
 
 
 @Suppress("DEPRECATION")
+private const val TAG = "HomeFragment"
+
 class HomeFragment : Fragment() {
 
     lateinit var binding: FragmentHomeBinding
@@ -66,6 +70,12 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_agencyProfileFragment)
         }
 
+        binding.searchBar.btnFilter.setOnClickListener {
+            val drawerLayout =
+                requireActivity().findViewById<DrawerLayout>(R.id.filter_drawer_layout)
+            drawerLayout.openDrawer(GravityCompat.START, true)
+        }
+
         return binding.root
     }
 
@@ -85,9 +95,6 @@ class HomeFragment : Fragment() {
             }
         })
 
-        binding.searchBar.btnFilter.setOnClickListener {
-
-        }
 
         // TODO: change the button to story click
 //        binding.rlToBtnAddStory.setOnClickListener{
@@ -208,7 +215,7 @@ class HomeFragment : Fragment() {
     }
 
 
-    private fun initPlacesList(sort: String, limit:Int) {
+    private fun initPlacesList(sort: String, limit: Int) {
         // Fields: name,location,categories,rating,photos
         val fields =
             "fsq_id%2Cname%2Clocation%2Ccategories%2Cdistance%2Cdescription%2Ctel%2Cwebsite%2Crating%2Cstats%2Cpopularity%2Cprice%2Cphotos%2Ctips%2Cgeocodes"

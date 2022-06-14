@@ -72,9 +72,12 @@ interface RetrofitInterface {
     fun updadateDescription(@Body description: HashMap<String, String>): Call<Unit>
 
     @GET("/agency/{agencyId}/reviews")
-    fun getAllReviews(@Path("agencyId") agencyid: String): Call<List<AgencyReviews>>
+    fun getAllReviews(@Path("agencyId") agencyid: String , @Query("rate") rate : Float): Call<List<AgencyReviews>>
 
-    @GET("/agency/{agencyId}/reviews")
+    @GET("agency/{agencyId}/CurrentUserReviews")
+    fun getCurrentUserReview(@Path("agencyId")agencyid: String):Call<AgencyReviews>
+
+    @POST("/agency/{agencyId}/reviews")
     fun postReview(
         @Path("agencyId") agencyid: String,
         @Body review: HashMap<String, Any>

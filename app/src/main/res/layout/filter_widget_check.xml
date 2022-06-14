@@ -68,10 +68,10 @@
         android:id="@+id/checkbox_hills"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:checked="true"
         android:layout_below="@id/tv_Regions"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
+        android:checked="true"
         android:text="@string/hill"
         android:textSize="16dp" />
 

@@ -43,6 +43,7 @@
                     android:textSize="17sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/filter_search_news"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_toEndOf="@+id/search_bar"
