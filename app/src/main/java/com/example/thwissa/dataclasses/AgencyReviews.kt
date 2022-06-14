@@ -12,5 +12,7 @@ data class AgencyReviews(
     @SerializedName("")
     val rating : Float  ,
     @SerializedName("")
-    val ratingText : String
+    val ratingText : String ,
+    @SerializedName("")
+    val userphoto : String
 )

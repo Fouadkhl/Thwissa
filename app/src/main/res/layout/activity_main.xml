@@ -19,12 +19,13 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="60dp">
 
-            <fragment
-                android:id="@+id/nav_host_fragment_container"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:navGraph="@navigation/my_navigation" />
+        <fragment
+            android:id="@+id/nav_host_fragment_container"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:defaultNavHost="true"
+            app:navGraph="@navigation/my_navigation" />
         </LinearLayout>
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,18 +35,55 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:background="#E7ECF1"
+            android:visibility="visible"
             app:itemIconTint="@color/bottom_nav"
             app:itemTextColor="@color/bottom_nav"
             app:menu="@menu/bottom_navigation" />
-
     </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/filter_dawerlayout"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@android:color/white"
         app:headerLayout="@layout/fitler_nav_header_home"
-        app:menu="@menu/widgets"
-        />
+        >
+<!--        app:menu="@menu/widgets"-->
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <include
+                android:id="@+id/filter_attributes_and_regions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/filter_widget_check"/>
+            <include
+                android:id="@+id/filter_categories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/filter_widget_categorie"/>
+            <include
+                android:id="@+id/filter_price_duration_after"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/filter_price_duration_after"/>
+
+            <include
+                android:id="@+id/filterrate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/filter_widget_rate"/>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </com.google.android.material.navigation.NavigationView>
+
 </androidx.drawerlayout.widget.DrawerLayout>

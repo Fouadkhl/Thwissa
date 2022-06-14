@@ -1,25 +1,16 @@
 package com.example.thwissa
 
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import androidx.annotation.RequiresApi
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.thwissa.databinding.ActivityMainBinding
-import com.example.thwissa.fragment.ProfileFragment
-import com.example.thwissa.fragment.discuss.DiscussFragment
-import com.example.thwissa.fragment.entertainment.EntertainmentFragment
-import com.example.thwissa.fragment.homefragment.HomeFragment
-import com.example.thwissa.fragment.newsfragment.fragments.NewsFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.security.MessageDigest
 
 
 @Suppress("DEPRECATION")
@@ -34,47 +25,25 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        this.getWindow().setStatusBarColor(this.getColor(R.color.profile_color))
+//        this.getWindow().setStatusBarColor(this.getColor(R.color.profile_color))
+//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_FULLSCREEN
+        }
 
 
-        val bottomNavigationView= findViewById<BottomNavigationView>(R.id.bottom_nav_view)
-        val newsNavHost= findViewById<View>(R.id.nav_host_fragment_container)
-        bottomNavigationView.setupWithNavController(newsNavHost.findNavController())
 
+        val bottomNavigationView = binding.bottomNavView
+        val navhost = findViewById<View>(R.id.nav_host_fragment_container)
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
+            // In order to get the expected behavior, you have to call default Navigation method manually
+            NavigationUI.onNavDestinationSelected(item,navhost.findNavController() )
+            return@setOnItemSelectedListener true
+        }
         // TODO: authenticate the user when the onstart launched
 
-//        bottomNavigationView.setOnNavigationItemReselectedListener {
-//            when (it.itemId) {
-//                R.id.homeFragment -> {
-//                    loadFragment(HomeFragment())
-//                    return@setOnNavigationItemReselectedListener
-//                }
-//                R.id.newsFragment -> {
-//                    loadFragment(NewsFragment())
-//                    return@setOnNavigationItemReselectedListener
-//                }
-//                R.id.discussFragment -> {
-//                    loadFragment(DiscussFragment())
-//                    return@setOnNavigationItemReselectedListener
-//                }
-//                R.id.entertainmentFragment -> {
-//                    loadFragment(EntertainmentFragment())
-//                    return@setOnNavigationItemReselectedListener
-//                }
-//
-//                R.id.profileFragment -> {
-//                    loadFragment(ProfileFragment())
-//                    return@setOnNavigationItemReselectedListener
-//                }
-//            }
-//        }
 
-    }
 
-    private fun loadFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 }

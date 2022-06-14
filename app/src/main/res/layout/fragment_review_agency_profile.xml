@@ -41,7 +41,8 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="18dp"
             android:layout_marginEnd="18dp"
-            android:hint="review" />
+            android:hint="review"
+            />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_share_rating"
@@ -142,5 +143,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="18dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/review" />
 </LinearLayout>
