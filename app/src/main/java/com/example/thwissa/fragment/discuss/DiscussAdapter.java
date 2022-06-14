@@ -102,13 +102,13 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.MyViewHo
 
         // holder.profilePic.setImageBitmap();
         // holder.discussImage.setImageResource(currentDiscuss.getDiscussImageResource());
-        if(currentDiscuss.userpicture != null && !currentDiscuss.userpicture.equals("")){
+        /*if(currentDiscuss.userpicture != null && !currentDiscuss.userpicture.equals("")){
             String url = DiscussService.BASE_URL + "/" + currentDiscuss.userpicture.split("/")[1];
             Glide.with(context)
                     .asBitmap()
                     .load(url)
                     .into(holder.profilePic);
-        } else holder.profilePic.setImageResource(R.drawable.ic_baseline_person_24);
+        } else holder.profilePic.setImageResource(R.drawable.ic_baseline_person_24);*/
         if(currentDiscuss.picture!=null && !currentDiscuss.picture.equals("")){
             String url;
             url = DiscussService.BASE_URL + "/" + currentDiscuss.picture.split("/")[1];
@@ -116,7 +116,9 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.MyViewHo
                     .asBitmap()
                     .load(url)
                     .into(holder.discussImage);
-        } else holder.discussImage.setVisibility(View.GONE);
+        } else {
+            holder.discussImage.setVisibility(View.GONE);
+        }
         holder.userName.setText(currentDiscuss.username);
         holder.wilaya.setText(currentDiscuss.userlocation);
         holder.discussText.setText(currentDiscuss.text);
@@ -227,9 +229,9 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.MyViewHo
                             deleteReply(currentDiscuss._id, replyId, position, holder.getAdapterPosition(), repliesAdapter);
                         }
                     });
+                    repliesAdapter.setReplies(replies);
                     recyclerView.setAdapter(repliesAdapter);
                     getAllReplies(currentDiscuss._id, repliesAdapter);
-                    repliesAdapter.setReplies(replies);
                     bottomSheetDialog.show();
                 }
             }
@@ -288,10 +290,10 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.MyViewHo
             @Override
             public void onResponse(Call<Replies> call, Response<Replies> response) {
                 if(response.isSuccessful() && response.body()!=null){
-                    int oldSize = replies.size();
-                    replies.removeAll(replies);
+                    replies.clear();
+                    repliesAdapter.notifyDataSetChanged();
                     replies.addAll(response.body().replies);
-                    repliesAdapter.notifyItemRangeInserted(0, replies.size()-1);
+                    repliesAdapter.notifyItemRangeInserted(0, repliesAdapter.getItemCount()-1);
                     Log.e("replies num ", ""+repliesAdapter.getItemCount());
                 }
             }

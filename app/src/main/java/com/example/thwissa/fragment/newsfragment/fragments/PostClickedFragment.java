@@ -1,6 +1,7 @@
 package com.example.thwissa.fragment.newsfragment.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.function.Predicate;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -290,7 +292,7 @@ public class PostClickedFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putString("source", args.getString("source"));
+                bundle.putString("source", "postClicked");
                 bundle.putString("postId", args.getString("postId"));
                 bundle.putInt("pos", args.getInt("pos"));
                 navController.getPreviousBackStackEntry().getSavedStateHandle().set("liveData", bundle);
@@ -336,6 +338,12 @@ public class PostClickedFragment extends Fragment {
                                     .load(url)
                                     .into(profilePicture);
 
+                            ArrayList<String> arr = new ArrayList<>();
+                            for(String str : _post.pictures){
+                                if(str == null || str.equals("")) arr.add(str);
+                            }
+                            _post.pictures.removeAll(arr);
+                            Log.e("post pictures length : ", ""+_post.pictures.size());
                             arrayList.addAll(_post.pictures);
                             initPostPicsViewPager();
 

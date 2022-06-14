@@ -2,6 +2,7 @@ package com.example.thwissa.fragment.newsfragment.classes;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,8 +25,8 @@ public class mPost implements Comparable<mPost>{
     public String destination;
     @SerializedName(value = "agencyId", alternate = "userid")
     public String agencyId;
-    @SerializedName("picture")
-    public List<String> pictures;
+    @SerializedName("pictures")
+    public ArrayList<String> pictures;
     @SerializedName("text")
     public String text;
     @SerializedName("username")

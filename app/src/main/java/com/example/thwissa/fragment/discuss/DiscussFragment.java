@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,6 +75,8 @@ public class DiscussFragment extends Fragment {
 
         binding.composeButton.setOnClickListener(v -> composeDiscuss());
         binding.shimmer.startShimmer();
+
+        spUserData = new SPUserData(requireContext());
         
         binding.swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -128,6 +131,7 @@ public class DiscussFragment extends Fragment {
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.e("id : ", spUserData.getLoggedInUser().getName());
                 HashMap<String, RequestBody> body = new HashMap<>();
                 RequestBody req = NewsUtil.createRequestFromString(et_post.getText().toString());
                 body.put("text", req);
@@ -257,8 +261,8 @@ public class DiscussFragment extends Fragment {
                     binding.shimmer.stopShimmer();
                     binding.shimmer.setVisibility(View.GONE);
                     binding.discussRecyclerView.setVisibility(View.VISIBLE);
-                    binding.swipe.setRefreshing(false);
-                } else Toast.makeText(requireContext(), "code : "+response.code(), Toast.LENGTH_SHORT).show();
+                }
+                binding.swipe.setRefreshing(false);;
             }
             @Override
             public void onFailure(Call<Discusses> call, Throwable t) {

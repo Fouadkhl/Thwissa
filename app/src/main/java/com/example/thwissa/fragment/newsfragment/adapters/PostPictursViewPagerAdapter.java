@@ -39,7 +39,7 @@ public class PostPictursViewPagerAdapter extends RecyclerView.Adapter<PostPictur
     public void onBindViewHolder(@NonNull InnerViewHolder holder, int position) {
         String url;
         for(String name : names){
-            url = NewsService.BASE_URL + "/" + name.split("/")[0];
+            url = NewsService.BASE_URL + "/" + name.split("/")[1];
             Glide.with(context)
                     .asBitmap()
                     .load(url)
@@ -52,8 +52,8 @@ public class PostPictursViewPagerAdapter extends RecyclerView.Adapter<PostPictur
         return names.size();
     }
 
-    public void setImgIds(List<String> names) {
-        this.names.addAll(names);
+    public void setImgIds(ArrayList<String> names) {
+        this.names = names;
     }
 
     protected static class InnerViewHolder extends RecyclerView.ViewHolder{
