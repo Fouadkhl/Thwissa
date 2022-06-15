@@ -22,12 +22,22 @@
 
 
 <!--    colors for profile and setting background icons-->
+
     <color name="colorback1">#F2F2F2</color>
     <color name="colorback2">#1AA32CCD</color>
     <color name="colorback3">#F2F2F2</color>
     <color name="colorback4">#1A71EE8D</color>
     <color name="colorback5">#47EEAD71</color>
     <color name="colorback6">#28F84D4D</color>
+
+
+
+    <color name="one">#8B2CF5</color>
+    <color name="two">#43CE7B</color>
+    <color name="three">#F07300</color>
+    <color name="four">#4979D1</color>
+    <color name="five">#FF0000</color>
+
 
 
     <color name="blue_white">#EAF5F9</color>

@@ -21,7 +21,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/_4" />
+            android:src="@drawable/traveler_photo" />
 
         <TextView
             android:layout_marginStart="10dp"
@@ -42,7 +42,7 @@
         android:layout_below="@+id/relative_layout1"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/images_1"
+        android:src="@drawable/traveler_photo"
 
         app:shapeAppearanceOverlay="@style/circle2" />
 

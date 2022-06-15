@@ -88,6 +88,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 layout="@layout/filter_widget_rate"/>
+
+                <Button
+                    android:id="@+id/tbn_submit_searh"
+                    android:layout_width="match_parent"
+                    android:layout_marginEnd="16dp"
+                    android:layout_height="wrap_content"
+                    android:textAllCaps="false"
+                    android:backgroundTint="@color/blue_logo"
+                    android:text="Search"/>
             </LinearLayout>
 
         </ScrollView>

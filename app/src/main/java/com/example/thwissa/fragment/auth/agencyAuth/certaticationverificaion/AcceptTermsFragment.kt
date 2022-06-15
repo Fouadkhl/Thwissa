@@ -1,5 +1,7 @@
 package com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -19,6 +21,7 @@ import com.example.thwissa.dataclasses.AgencyRes
 import com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.AcceptTermsDialogFragment.Companion.REQUEST_CODE
 import com.example.thwissa.fragment.auth.agencyAuth.certaticationverificaion.AcceptTermsDialogFragment.Companion.TERACCEPTED_BUNDLE_KEY
 import com.example.thwissa.utils.Constants
+import com.example.thwissa.utils.MyApp
 import com.example.thwissa.utils.createPartFromString
 import com.example.thwissa.utils.getFilePart
 import okhttp3.MultipartBody
@@ -27,6 +30,7 @@ import retrofit2.Call
 import retrofit2.Response
 import java.io.File
 
+private const val TAG = "AcceptTermsFragment"
 
 @Suppress("DEPRECATION")
 class AcceptTermsFragment : Fragment() {
@@ -36,12 +40,18 @@ class AcceptTermsFragment : Fragment() {
     private val viewModelCertafication: CertaficationVerificationViewModel by activityViewModels()
     private var isAccpeted: Boolean = false
 
+    lateinit var sharedPreferences: SharedPreferences
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentAcceptTermsBinding.inflate(inflater, container, false)
 
+
+        sharedPreferences = MyApp.getContext()
+            .getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
         binding.btnAcceptTerms.setOnClickListener {
             acceptTerms()
@@ -68,7 +78,8 @@ class AcceptTermsFragment : Fragment() {
                     ?.let { it1 -> createPartFromString(it1) }
 
                 val photoPath = arguments?.getString(Constants.PHOTO_PATH)
-                val filepart = if (photoPath != null) getFilePart((File(photoPath)) , "photo") else null
+                val filepart =
+                    if (photoPath != null) getFilePart((File(photoPath)), "photo") else null
 
 
                 map.apply {
@@ -79,7 +90,7 @@ class AcceptTermsFragment : Fragment() {
                     put("location", location!!)
                     put("phonenumber", phone!!)
                 }
-                 primaryAgencySignUp(map, filepart)
+                primaryAgencySignUp(map, filepart)
 
             } else {
                 Toast.makeText(
@@ -115,7 +126,7 @@ class AcceptTermsFragment : Fragment() {
     fun primaryAgencySignUp(
         agencyInfo: HashMap<String, RequestBody>,
         image: MultipartBody.Part?
-    ){
+    ) {
 //        var id: String? = null
         LogService.retrofitService.executeSignUpAgency(agencyInfo, image)
             .enqueue(object : retrofit2.Callback<AgencyRes> {
@@ -130,9 +141,13 @@ class AcceptTermsFragment : Fragment() {
                         ).show()
                         Log.i("signupuser", "onFailure:${response.message()} ")
 
+                        //store user data
                         val res = response.body()
-                        val id = res?.id
-                        //handle the response
+                        storeAgencyToGetData(res!!)
+                        setUserLoggedIn(true)
+
+                        //safe args
+                        val id = res.id
                         val bundle = bundleOf(
                             Constants.USER_ID to id,
                             Constants.SIGNUP_EMAIL to arguments?.getString(Constants.SIGNUP_EMAIL)
@@ -169,11 +184,29 @@ class AcceptTermsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = Navigation.findNavController(view)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                navController.popBackStack()
-            }
-        })
+        requireActivity().onBackPressedDispatcher.addCallback(
+            viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navController.popBackStack()
+                }
+            })
+    }
+
+    fun storeAgencyToGetData(user: AgencyRes) {
+        val spEditor = sharedPreferences.edit()
+        spEditor.apply {
+            putString("agencyId", user.id)
+            putString("userRole", "Agency")
+//            putBoolean("isvalidate" , user.isvalidate)
+        }
+        spEditor.apply()
+    }
+
+    fun setUserLoggedIn(loggedin: Boolean) {
+        val spEditor = sharedPreferences.edit()
+        spEditor.putBoolean("loggedIn", loggedin)
+        spEditor.apply()
     }
 
 }

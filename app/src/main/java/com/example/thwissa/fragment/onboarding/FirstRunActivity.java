@@ -27,7 +27,7 @@ public class FirstRunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_run2);
 
-        SharedPreferences sharedPreferences =getSharedPreferences("first_run_check", MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences("first_run_check", MODE_PRIVATE);
 
         boolean isChecked = sharedPreferences.getBoolean(
                 key_isFinishClicked, false
@@ -68,6 +68,4 @@ public class FirstRunActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-
 }

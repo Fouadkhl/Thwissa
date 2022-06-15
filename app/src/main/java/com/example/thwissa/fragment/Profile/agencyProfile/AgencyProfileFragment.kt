@@ -1,5 +1,7 @@
 package com.example.thwissa.fragment.Profile.agencyProfile
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +15,8 @@ import com.example.thwissa.R
 import com.example.thwissa.databinding.AgencyProfileBinding
 import com.example.thwissa.dataclasses.AgencyRes
 import com.example.thwissa.dataclasses.FollowMessage
+import com.example.thwissa.utils.Constants
+import com.example.thwissa.utils.MyApp
 import com.example.thwissa.utils.UsefulFct
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +28,8 @@ class AgencyProfileFragment : Fragment() {
     lateinit var binding: AgencyProfileBinding
     var descripiton: String? = null
 
+    lateinit var  sharedPreferences : SharedPreferences
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +37,7 @@ class AgencyProfileFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = AgencyProfileBinding.inflate(inflater, container, false)
+        sharedPreferences= MyApp.getContext().getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE)
 
         setUpAgencyData()
         addFragment()
@@ -87,6 +94,10 @@ class AgencyProfileFragment : Fragment() {
                             res.nbofTrips ,
                             res.picture
                         )
+
+                        sharedPreferences.edit()
+                            .putString("agencyid"  , res.id)
+                            .apply()
 
                         Toast.makeText(requireContext(), res.id, Toast.LENGTH_SHORT).show()
                         binding.btnFollow.setOnClickListener {
