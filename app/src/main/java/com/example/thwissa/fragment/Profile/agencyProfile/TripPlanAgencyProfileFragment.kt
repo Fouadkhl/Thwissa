@@ -37,7 +37,7 @@ class TripPlanAgencyProfileFragment : Fragment() {
 
         val role = sharedPreferences.getString("userRole" , "")
         if (role.equals("Agency")){
-            val agencyid = sharedPreferences.getString("agencyId" , "")!!
+            val agencyid = sharedPreferences.getString("agencyid" , "")!!
             Log.d(TAG, "the agency existe : "  + role)
             Log.d(TAG, "agency id " +  agencyid)
             getLastAgencyTrip(agencyid)
