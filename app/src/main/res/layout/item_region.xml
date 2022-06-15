@@ -30,7 +30,9 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="8dp"
         android:text="@string/desert_area"
-        android:textColor="@color/gray_text_color"
-        android:textSize="12dp" />
+        android:gravity="center_horizontal"
+        android:fontFamily="@font/nunito_bold"
+        android:textColor="@color/secondary_color"
+        android:textSize="18dp" />
 
 </LinearLayout>

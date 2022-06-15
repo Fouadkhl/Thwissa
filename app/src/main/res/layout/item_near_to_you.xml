@@ -33,7 +33,7 @@
                     android:maxHeight="250dp"
                     app:shapeAppearanceOverlay="@style/round9"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/images_1" />
+                    android:src="@drawable/traveler_photo" />
 
                 <ImageButton
                     android:id="@+id/ib_bookmark"

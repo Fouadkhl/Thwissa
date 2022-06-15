@@ -22,7 +22,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
-import com.example.thwissa.LogService;
 import com.example.thwissa.R;
 import com.example.thwissa.databinding.FragmentStoryBinding;
 import com.example.thwissa.dataclasses.StoryItem;
@@ -35,18 +34,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 
 @SuppressWarnings("ALL")
 public class StoryFragment extends Fragment {
     private FragmentStoryBinding binding;
     private static final String TAG = "StoryFragment";
     private boolean isLoaded = false;
-//    StoryViewModel storyViewModel ;
-
+    //    StoryViewModel storyViewModel ;
+    BottomNavigationView navBar;
     StoryViewModel storyViewModel;
 
     public StoryFragment() {
@@ -55,8 +50,8 @@ public class StoryFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        BottomNavigationView navBar = getActivity().findViewById(R.id.bottom_nav_view);
-        navBar.setVisibility(View.INVISIBLE);
+        navBar = getActivity().findViewById(R.id.bottom_nav_view);
+        navBar.setVisibility(View.GONE);
     }
 
     // FOR PAUSE & RESUME BUTTON
@@ -132,7 +127,7 @@ public class StoryFragment extends Fragment {
         Log.d(TAG, "onCreateView: inside ");
 
         StoryViewModelFactory viewModelFactory = new StoryViewModelFactory(requireContext());
-         storyViewModel =  new ViewModelProvider(this, viewModelFactory).get(StoryViewModel.class);
+        storyViewModel = new ViewModelProvider(this, viewModelFactory).get(StoryViewModel.class);
         Log.d(TAG, "onCreateView: after ");
 
         /** observe status */
@@ -142,6 +137,7 @@ public class StoryFragment extends Fragment {
         storyViewModel.getStatus().observe(requireActivity(), status -> {
             if (status == StoryViewModel.StoryLoadingStatus.DONE) {
                 Log.d(TAG, "onCreateView: inside ");
+                binding.profilePic.setVisibility(View.VISIBLE);
 
                 ArrayList<StoryItem> storiesItemList = (ArrayList<StoryItem>) storyViewModel.getProperty().getValue();
                 for (int i = 0; i < storiesItemList.size(); i++) {
@@ -181,7 +177,8 @@ public class StoryFragment extends Fragment {
                 storyTimer.start();
 
             } else {
-                // TODO: 5/28/22 showing progress bar
+                binding.storyPic.setImageResource(R.drawable.network_error);
+                binding.profilePic.setVisibility(View.GONE);
             }
 
         });
@@ -263,7 +260,7 @@ public class StoryFragment extends Fragment {
                 binding.dislikes.setText(String.valueOf(story.dislikes));
             }
 //            if (storyViewModel != null) {
-            addLike("Adrar", "62a638c378af3fb061bb9969", story.likes) ;
+            addLike("Adrar", "62a638c378af3fb061bb9969", story.likes);
 
             binding.likes.setText(String.valueOf(story.likes));
 //            }
@@ -315,8 +312,8 @@ public class StoryFragment extends Fragment {
                         "62a6a272b062ab05e9ac50ba"
                 );
 
-                Toast.makeText(getContext(), "This story is reported " + story.numberReports+ "time", Toast.LENGTH_SHORT).show();
-            }else {
+                Toast.makeText(getContext(), "This story is reported " + story.numberReports + "time", Toast.LENGTH_SHORT).show();
+            } else {
                 Toast.makeText(requireContext(), "you are reported this story", Toast.LENGTH_SHORT).show();
             }
         } else {
@@ -423,9 +420,10 @@ public class StoryFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true ) {
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                navBar.setVisibility(View.VISIBLE);
                 navController.popBackStack();
             }
         });

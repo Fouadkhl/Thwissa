@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".fragment.Profile.agencyProfile.TripPlanAgencyProfileFragment">
 
@@ -17,58 +18,71 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/destination"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Next trip begin on friday 11 mars"
+            android:text="destination here "
             android:textColor="#117296"
             android:textSize="18dp" />
 
         <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date : 11/12/ 2002"
+            android:textColor="#117296"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/period"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="period : 15 jours"
+            android:textColor="#117296"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Price :  2000 DA"
             android:textColor="#117296"
             android:textSize="16dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Price :  2000 DA"
-            android:textColor="#117296"
-            android:textSize="16dp" />
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Price :  2000 DA"
-            android:textColor="#117296"
-            android:textSize="16dp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Price :  2000 DA"
-            android:textColor="#117296"
-            android:textSize="16dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginTop="18dp"
-        android:background="#80E0F5FF"
-        android:padding="16dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/disciption"
+            android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="dddddddfdqdddddd" />
 
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="355dp"
+            android:layout_height="180dp"
+            android:layout_centerHorizontal="true"
+            app:cardCornerRadius="10dp"
+            android:layout_marginTop="16dp"
+            android:id="@+id/meteoPagerContainer">
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/ViewPagerphotos"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            />
+            <com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator
+                android:id="@+id/dots_indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                app:dotsColor="@color/selected_dot"
+                app:dotsSize="7dp"
+                app:dotsSpacing="5dp"
+                app:progressMode="true"
+                app:selectedDotColor="@color/selected_dot" />
+
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
 </LinearLayout>

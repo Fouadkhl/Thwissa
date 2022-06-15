@@ -2,20 +2,23 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:layout_marginTop="16dp"
-            android:src="@drawable/logo" />
+            android:src="@drawable/logo"
+            android:scaleX="2"
+            android:scaleY="2"/>
 
         <RelativeLayout
             android:id="@+id/rl_signin_text"
@@ -28,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:text="sign in"
+                android:text="Sign In"
                 android:textColor="@color/text_color"
                 android:textSize="28sp"
                 android:textStyle="bold" />
@@ -103,9 +106,9 @@
             android:layout_below="@id/btn_sign_in"
             android:background="@drawable/background_gray"
             android:drawableStart="@drawable/icons8_google"
-            android:hint="sign in with google"
-            android:textColorHint="#007DA5"
+            android:hint="Sign In With Google"
             android:stateListAnimator="@null"
+            android:textColorHint="#007DA5"
             android:textSize="18sp" />
         <!--    android:stateListAnimator="@null"-->
 
@@ -117,7 +120,7 @@
             android:layout_below="@id/btn_signin_with_google"
             android:background="@drawable/background_gray"
             android:drawableStart="@drawable/icons8_facebook"
-            android:hint="sign in with facebook"
+            android:hint="Sign In With Facebook"
             android:stateListAnimator="@null"
             android:textColorHint="#007DA5"
             android:textSize="18sp" />

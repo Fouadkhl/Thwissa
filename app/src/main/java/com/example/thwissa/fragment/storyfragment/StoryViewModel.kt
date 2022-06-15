@@ -66,6 +66,7 @@ class StoryViewModel(val context: Context) : ViewModel() {
                             _status.value = StoryLoadingStatus.DONE
                         } else {
                             Log.d(TAG, "response error")
+                            _status.value = StoryLoadingStatus.ERROR
                         }
                     }
 

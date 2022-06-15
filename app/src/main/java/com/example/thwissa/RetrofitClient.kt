@@ -1,6 +1,7 @@
 package com.example.thwissa
 
 import com.example.thwissa.dataclasses.*
+import com.example.thwissa.fragment.newsfragment.classes.Post
 import com.example.thwissa.utils.MyApp
 import com.example.thwissa.utils.setCookieStore
 import okhttp3.MultipartBody
@@ -132,6 +133,12 @@ interface RetrofitInterface {
         @Path("idLocation") location: String,
         @Path("idPicture") pictureid: String
     )
+
+    @GET("/agencyScreen/{id}/lastTrip")
+    fun getLastAgencyTrip(@Path("id") agencyid: String) : Call<Post>
+
+//    @GET("/filter")
+//    fun excuteFilter(@QueryMap map  : HashMap<String , Any>) : Call<>
     //  to indicate that the image can be any size
 
 //    @POST

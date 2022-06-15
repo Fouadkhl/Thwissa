@@ -184,13 +184,13 @@ class HomeFragment : Fragment() {
 
         var data = ArrayList<WillayaStory>()
 
-        var item = WillayaStory(listofItmes[0], "medea")
+        var item = WillayaStory(listofItmes[0], "Desert")
         data.add(item)
 
-        item = WillayaStory(listofItmes[1], "medea")
+        item = WillayaStory(listofItmes[1], "Coastal")
         data.add(item)
 
-        item = WillayaStory(listofItmes[2], "medea")
+        item = WillayaStory(listofItmes[2], "Hills")
         data.add(item)
 
 

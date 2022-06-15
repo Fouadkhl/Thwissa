@@ -37,11 +37,11 @@ public class WilayasFragment extends Fragment {
 
         /** WILAYAS LIST INITIALISATION (Change it later)*/
         ArrayList<Wilaya> wilayasList = new ArrayList<>();
-        wilayasList.add(new Wilaya(R.drawable._3, "Algiers"));
+        wilayasList.add(new Wilaya(R.drawable.image, "Algiers"));
         wilayasList.add(new Wilaya(R.drawable.beach, "Constantine"));
         wilayasList.add(new Wilaya(R.drawable._3, "Setif"));
-        wilayasList.add(new Wilaya(R.drawable.beach, "Batna"));
-        wilayasList.add(new Wilaya(R.drawable.beach, "Touggourt"));
+        wilayasList.add(new Wilaya(R.drawable.tell, "Batna"));
+        wilayasList.add(new Wilaya(R.drawable.saharaa, "Touggourt"));
         wilayasList.add(new Wilaya(R.drawable._3, "Bejaia"));
         wilayasList.add(new Wilaya(R.drawable.beach, "Oran"));
         wilayasList.add(new Wilaya(R.drawable._4, "Batna"));

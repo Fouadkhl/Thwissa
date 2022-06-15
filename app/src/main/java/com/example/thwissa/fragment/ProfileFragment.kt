@@ -15,6 +15,7 @@ import com.example.thwissa.LogService
 import com.example.thwissa.R
 import com.example.thwissa.databinding.ProfileScreenBinding
 import com.example.thwissa.repository.userLocalStore.SPUserData
+import com.example.thwissa.utils.MyApp
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
 import com.facebook.login.LoginManager
@@ -131,9 +132,9 @@ class ProfileFragment : Fragment() {
             nagivateToHomeScreen()
         }
 
-        if (SPUserData(requireActivity()).getUserLoggedIn()){
+//        if (SPUserData(requireActivity()).getUserLoggedIn()){
             getlogout()
-        }
+//        }
         //if is loggedin in our server
     }
 
@@ -188,7 +189,7 @@ class ProfileFragment : Fragment() {
                     Toast.LENGTH_SHORT
                 ).show()
                 // delete data from shared preferences
-                SPUserData(requireActivity()).clearUserData()
+                SPUserData(MyApp.getContext()).clearUserData()
             }
 
             override fun onFailure(call: Call<Unit>, t: Throwable) {
@@ -197,5 +198,12 @@ class ProfileFragment : Fragment() {
             }
         })
     }
+
+//    override fun onCreate(savedInstanceState: Bundle?) {
+//        super.onCreate(savedInstanceState)
+//        if (true) { // if the user is agency
+//            findNavController().navigate(R.id.action_profileFragment_to_agencyProfileFragment)
+//        }
+//    }
 
 }

@@ -28,6 +28,7 @@ import com.example.thwissa.fragment.auth.validation.controlValidators.PasswordVa
 import com.example.thwissa.repository.userLocalStore.SPUserData
 import com.example.thwissa.utils.Constants
 import com.example.thwissa.utils.Constants.USER_ROLE
+import com.example.thwissa.utils.MyApp
 import com.example.thwissa.utils.createPartFromString
 import com.example.thwissa.utils.getFilePart
 import com.facebook.CallbackManager
@@ -44,6 +45,8 @@ import retrofit2.Call
 import retrofit2.Response
 import java.io.File
 
+
+private const val TAG = "SignupFragment"
 
 @Suppress("DEPRECATION")
 class SignupFragment : Fragment() {
@@ -211,7 +214,7 @@ class SignupFragment : Fragment() {
 
 
         val filepart = if (picturePath != null) getFilePart((File(picturePath)) , "photo") else null
-        val spUserData = SPUserData(requireContext())
+        val spUserData = SPUserData(MyApp.getContext())
         LogService.retrofitService.executeSignUp(userinfo, filepart)
             .enqueue(object : retrofit2.Callback<UserRes> {
                 override fun onResponse(call: Call<UserRes>, response: Response<UserRes>) {
@@ -226,14 +229,20 @@ class SignupFragment : Fragment() {
                         ).show()
 
                         val res = response.body()
-                        // TODO: save data in external storage and set the user loggedin
                         spUserData.setUserLoggedIn(true)
                         spUserData.StoreUserData(res!!)
+                        // TODO: save data in external storage and set the user loggedin
+
+
+                        Log.d(TAG, "sign up success :" + response.body()?.name +
+                                "is saved "+ spUserData.getUserLoggedIn() +
+                                "data preferences" +spUserData.getLoggedInUser().name)
                         //redirect the to his profile
                         val bundle = bundleOf(
                             USER_ROLE to 1,
                             Constants.USER_ID to res.id
                         )
+                        findNavController().popBackStack()
                         findNavController().navigate(
                             R.id.action_signupFragment_to_codeValidationFragment,
                             bundle
