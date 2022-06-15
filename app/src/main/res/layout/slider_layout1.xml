@@ -32,15 +32,14 @@
         android:id="@+id/text_view1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/planing_n_your_trip"
-        android:textSize="40sp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="250dp"
-        android:textStyle="bold"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="250dp"
+        android:text="@string/planing_n_your_trip"
         android:textAlignment="center"
-        android:textColor="@color/grey"
-        />
+        android:textColor="@color/blue_logo"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
 
     <com.google.android.material.button.MaterialButton

@@ -19,32 +19,20 @@
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/toprated_recycler_view_item.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/view_pager_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/wilaya_recycler_view_item.xml" value="0.20416666666666666" />
-        <entry key="app/src/main/res/drawable-v24/background_spinner.xml" value="0.1095" />
-        <entry key="app/src/main/res/drawable-v24/ic_baseline_person_24.xml" value="0.1095" />
-        <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/background_btn_rating.xml" value="0.1585" />
         <entry key="app/src/main/res/drawable/background_certificate.xml" value="0.132" />
         <entry key="app/src/main/res/drawable/background_follow.xml" value="0.132" />
         <entry key="app/src/main/res/drawable/background_post_description.xml" value="0.1585" />
         <entry key="app/src/main/res/drawable/background_sign_in.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable/ic_add_photo.xml" value="0.1385" />
-        <entry key="app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_baseline_check.xml" value="0.1385" />
-        <entry key="app/src/main/res/drawable/ic_baseline_feedback_24.xml" value="0.1095" />
-        <entry key="app/src/main/res/drawable/ic_baseline_logout_24.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_baseline_navigate_next_24.xml" value="0.132" />
-        <entry key="app/src/main/res/drawable/ic_baseline_phone_forwarded_24.xml" value="0.1095" />
-        <entry key="app/src/main/res/drawable/ic_baseline_settings_24.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/ic_broken_image.xml" value="0.166" />
-        <entry key="app/src/main/res/drawable/ic_launcher_forground.xml" value="0.1095" />
-        <entry key="app/src/main/res/drawable/ic_send.xml" value="0.1095" />
-        <entry key="app/src/main/res/drawable/icons8_facebook.xml" value="0.1095" />
         <entry key="app/src/main/res/drawable/loading_img.xml" value="0.166" />
         <entry key="app/src/main/res/font/nunito_bold.xml" value="0.22395833333333334" />
         <entry key="app/src/main/res/font/nunito_extralight.xml" value="0.22395833333333334" />
         <entry key="app/src/main/res/font/nunito_sans_extralight.xml" value="0.22395833333333334" />
         <entry key="app/src/main/res/layout-land/scrool_layout.xml" value="0.165625" />
-        <entry key="app/src/main/res/layout/activity_first_run2.xml" value="0.12236842105263158" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.13" />
         <entry key="app/src/main/res/layout/agency_profile.xml" value="0.18" />
         <entry key="app/src/main/res/layout/agency_sign_up.xml" value="0.19375" />
@@ -79,16 +67,14 @@
         <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_story.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_tips.xml" value="0.11875" />
-        <entry key="app/src/main/res/layout/fragment_trip_plan_agency_profile.xml" value="0.18" />
-        <entry key="app/src/main/res/layout/item_near_to_you.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_trip_plan_agency_profile.xml" value="0.22" />
         <entry key="app/src/main/res/layout/item_news_reply.xml" value="0.12236842105263158" />
         <entry key="app/src/main/res/layout/item_profile.xml" value="0.33" />
-        <entry key="app/src/main/res/layout/item_region.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/item_region.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_search_view.xml" value="0.15" />
         <entry key="app/src/main/res/layout/item_tip.xml" value="0.12236842105263158" />
-        <entry key="app/src/main/res/layout/log_in_screen.xml" value="0.12" />
+        <entry key="app/src/main/res/layout/log_in_screen.xml" value="0.22" />
         <entry key="app/src/main/res/layout/modal_bottom_sheet_content.xml" value="0.19375" />
-        <entry key="app/src/main/res/layout/post_layout.xml" value="0.12236842105263158" />
         <entry key="app/src/main/res/layout/profile_image_and_text.xml" value="0.15670289855072464" />
         <entry key="app/src/main/res/layout/profile_screen.xml" value="0.18" />
         <entry key="app/src/main/res/layout/register_screen.xml" value="0.25" />
@@ -102,7 +88,6 @@
         <entry key="app/src/main/res/menu/bottom_navigation.xml" value="0.19375" />
         <entry key="app/src/main/res/menu/widgets.xml" value="0.19375" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1" />
-        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher2.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1" />
         <entry key="app/src/main/res/xml/network.xml" value="0.19375" />
       </map>

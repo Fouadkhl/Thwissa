@@ -9,15 +9,26 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.thwissa.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.ViewPagerViewHolder>{
 
     private int checkedPos;
     private ArrayList<Quiz.innerQuiz> quizzes;
+    private final ViewPager2 vp;
+    private int trueAnswersCounter;
+    private Quiz.innerQuiz curr;
+    private RadioButton[] radioButtons;
+
+    public QuizPagerAdapter(ViewPager2 vp){
+        this.vp = vp;
+    }
 
     @NonNull
     @Override
@@ -31,7 +42,8 @@ public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewPagerViewHolder holder, int position) {
         if(position != quizzes.size()) {
-            RadioButton[] radioButtons = {holder.itemView.findViewById(R.id.radioButton1)
+            curr = quizzes.get(holder.getAdapterPosition());
+            radioButtons = new RadioButton[]{holder.itemView.findViewById(R.id.radioButton1)
                     , holder.itemView.findViewById(R.id.radioButton2), holder.itemView.findViewById(R.id.radioButton3)
             };
             TextView textView = holder.itemView.findViewById(R.id.question_text_view);
@@ -57,6 +69,41 @@ public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.View
             holder.itemView.findViewById(R.id.radioGroup).setVisibility(View.GONE);
             holder.itemView.findViewById(R.id.endView).setVisibility(View.VISIBLE);
         }
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(holder.getAdapterPosition() == quizzes.size()){
+                    Collections.shuffle(quizzes);
+                    for(Quiz.innerQuiz q : quizzes){
+                        q.shuffle();
+                    }
+                    vp.setCurrentItem(0);
+                    trueAnswersCounter = 0;
+                }
+            }
+        });
+        if(position == getItemCount()-1){
+            TextView tv = holder.itemView.findViewById(R.id.popoutText);
+            tv.setText("number of true answers : "+this.trueAnswersCounter+tv.getText()+"\n");
+
+        }
+    }
+
+    public void inc(boolean b){
+        if(b) this.trueAnswersCounter++;
+    }
+
+    public int getCorrectAnswerPos(){
+        return curr.trueAnswerPos;
+    }
+
+    public int selectedAnswerPos(){
+        int cmp = 0;
+        for(RadioButton rb : radioButtons) {
+            if(rb.isChecked()) return cmp;
+            cmp++;
+        }
+        return -1;
     }
 
     @Override

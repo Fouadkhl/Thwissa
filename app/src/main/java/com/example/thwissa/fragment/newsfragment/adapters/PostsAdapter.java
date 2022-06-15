@@ -47,23 +47,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
     @NonNull
     @Override
     public InnerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_layout, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.post_layout,
+                parent, false);
         return new InnerViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InnerViewHolder holder, int position) {
         mPost post = data.get(position);
-
-        if(post.isLiked){
-            holder.upButton.setImageResource(R.drawable.clicked_up_arrow);
-        }
-        else if(post.isDisliked){
-            holder.downButton.setImageResource(R.drawable.clicked_down_arrow);
-        }
-        if(!post.isBookmarked){
-            holder.bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
-        }
         // holder.profile_pic.setImageBitmap(NewsUtil.urlToBitmap(post.userpicture));
 
         if(post.userpicture != null && !post.userpicture.equals("")) {
@@ -85,19 +76,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
             bookmark(post._id);
             post.isBookmarked = !post.isBookmarked;
         });
-        /*if(post.picture != null) {
-            ArrayList<Bitmap> arrayList = new ArrayList<>();
-            arrayList.add(NewsUtil.urlToBitmap(post.picture));
-            PostPictursViewPagerAdapter postPictursViewPagerAdapter = new PostPictursViewPagerAdapter();
-            postPictursViewPagerAdapter.setImgIds(arrayList);
-            holder.viewPager2.setAdapter(postPictursViewPagerAdapter);
-            holder.wormDotsIndicator.setViewPager2(holder.viewPager2);
-        }
-        else{
-            holder.viewPager2.setVisibility(View.GONE);
-        }
-        holder.wormDotsIndicator.setVisibility(View.GONE);*/
-
         if(post.pictures != null && post.pictures.size() != 0){
             PostPictursViewPagerAdapter postPictursViewPagerAdapter = new PostPictursViewPagerAdapter(context);
             ArrayList<String> arr = new ArrayList<>();
@@ -122,6 +100,18 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
         post.isLiked = post.likes.contains(new ReactionRes(userData.getLoggedInUser().getId()));
         post.isLiked = post.dislikes.contains(new ReactionRes(userData.getLoggedInUser().getId()));
         holder.diff.setText(String.valueOf(post.diff()));
+        if(post.isLiked){
+            holder.upButton.setImageResource(R.drawable.clicked_up_arrow);
+        }
+        else if(post.isDisliked){
+            holder.downButton.setImageResource(R.drawable.clicked_down_arrow);
+        }
+        if(!post.isBookmarked){
+            holder.bookmark.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
+        }
+        holder.postTime.setText(
+                post.tripDate.substring(0, 10).replace("-", "/")
+        );
         holder.upButton.setOnClickListener(view -> {
             if(!post.isLiked) {
                 holder.upButton.setImageResource(R.drawable.clicked_up_arrow);
@@ -174,9 +164,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
         holder.content.setText(string);
         holder.itemView.setOnClickListener(view -> onItemClickedListener.ItemClicked(post._id, holder.getAdapterPosition()));
     }
-
-
-
     @Override
     public int getItemCount() {
         return data.size();
@@ -200,6 +187,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
         TextView user_name, location, diff, reply_num, content;
         ImageView bookmark, upButton, downButton, replyIcon;
         WormDotsIndicator wormDotsIndicator;
+        TextView postTime;
 
         public InnerViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -216,6 +204,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.InnerViewHol
             content = itemView.findViewById(R.id.content);
             linearLayout = itemView.findViewById(R.id.parent);
             wormDotsIndicator = itemView.findViewById(R.id.dots_indicator);
+            postTime = itemView.findViewById(R.id.postTime);
         }
     }
 

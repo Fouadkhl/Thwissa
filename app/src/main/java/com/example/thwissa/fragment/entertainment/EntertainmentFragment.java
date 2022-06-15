@@ -31,6 +31,8 @@ public class EntertainmentFragment extends Fragment {
     private ViewPager topPicsViewPager;
     private ViewPager2 quizViewPager;
     private WormDotsIndicator dotsIndicator;
+    private TopPicsAdapter adapter;
+    private QuizPagerAdapter quizPagerAdapter;
 
     public EntertainmentFragment() {
         // Required empty public constructor
@@ -46,6 +48,7 @@ public class EntertainmentFragment extends Fragment {
         score = view.findViewById(R.id.score);
         topPicsViewPager = view.findViewById(R.id.topPicsViewPager);
         quizViewPager = view.findViewById(R.id.quizViewPager);
+        quizViewPager.setUserInputEnabled(false);
         dotsIndicator = view.findViewById(R.id.dots_indicator);
         return view;
     }
@@ -64,6 +67,10 @@ public class EntertainmentFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 quizViewPager.setCurrentItem(quizViewPager.getCurrentItem()+1, true);
+                if(quizPagerAdapter != null) {
+                    quizPagerAdapter.inc(quizPagerAdapter.getCorrectAnswerPos() ==
+                            quizPagerAdapter.selectedAnswerPos());
+                }
             }
         });
     }
@@ -75,13 +82,13 @@ public class EntertainmentFragment extends Fragment {
             public void onResponse(Call<TopPicsRes> call, Response<TopPicsRes> response) {
                 if(response.isSuccessful() && response.body()!=null){
                     // Top Pictures
-                    TopPicsAdapter adapter = new TopPicsAdapter(requireContext());
+                    adapter = new TopPicsAdapter(requireContext());
                     adapter.setData(response.body().pictures);
                     topPicsViewPager.setAdapter(adapter);
                     dotsIndicator.setViewPager(topPicsViewPager);
 
                     // quiz
-                    QuizPagerAdapter quizPagerAdapter = new QuizPagerAdapter();
+                    quizPagerAdapter = new QuizPagerAdapter(quizViewPager);
                     quizPagerAdapter.setQuizzes(response.body().toInnerQuizList());
                     quizViewPager.setAdapter(quizPagerAdapter);
                 }

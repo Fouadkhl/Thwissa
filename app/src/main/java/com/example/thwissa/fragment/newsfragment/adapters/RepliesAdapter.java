@@ -1,6 +1,7 @@
 package com.example.thwissa.fragment.newsfragment.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,21 +78,29 @@ public class RepliesAdapter extends RecyclerView.Adapter<RepliesAdapter.InnerVie
 
         // holder.replyPic.setImageBitmap(Util.urlToBitmap(reply.picture));
         if(reply.picture != null && !reply.picture.equals("")) {
-            String url = NewsService.BASE_URL + "/" + reply.picture.split("/")[1];
-            Glide.with(context)
-                    .asBitmap()
-                    .load(url)
-                    .into(holder.replyPic);
+            try{
+                String url = NewsService.BASE_URL + "/" + reply.picture.split("/")[1];
+                Glide.with(context)
+                        .asBitmap()
+                        .load(url)
+                        .into(holder.replyPic);
+            }catch(Exception e){
+                e.printStackTrace();
+            }
         }  else {
             holder.replyPic.setVisibility(View.GONE);
         }
 
         if(reply.userpicture != null && !reply.userpicture.equals("")) {
-            String url = NewsService.BASE_URL + "/" + reply.userpicture.split("/")[1];
-            Glide.with(context)
-                    .asBitmap()
-                    .load(url)
-                    .into(holder.profilePic);
+            try{
+                String url = NewsService.BASE_URL + "/" + reply.userpicture.split("/")[1];
+                Glide.with(context)
+                        .asBitmap()
+                        .load(url)
+                        .into(holder.profilePic);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         } else {
             holder.profilePic.setImageResource(R.drawable.ic_baseline_person_24);
         }

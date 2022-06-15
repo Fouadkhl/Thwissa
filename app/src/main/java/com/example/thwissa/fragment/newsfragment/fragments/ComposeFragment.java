@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import com.example.thwissa.fragment.newsfragment.classes.mPost;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -67,12 +69,12 @@ public class ComposeFragment extends Fragment {
     private static final int pickCode = 1;
     private static final int permissionCode = 2;
     private EditText editPeriod;
-    private ArrayList<Uri> imagesUris = new ArrayList<>();
+    private final ArrayList<Bitmap> imagesUris = new ArrayList<>();
     private Spinner spinner;
     private EditText editPrice;
     private EditText description;
     private Bundle args;
-    private ArrayList<String> paths;
+    private final ArrayList<String> paths = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,10 +92,11 @@ public class ComposeFragment extends Fragment {
         editPrice = view.findViewById(R.id.EditPrice);
         description = view.findViewById(R.id.descriptionEditText);
         args = requireArguments();
-        if(args.getString("source").equals("postClickedFragment")){
+        /*
+        * if(args.getString("source").equals("postClickedFragment")){
             shareButton.setText(R.string.save);
             getPostById(); //maybe needs to be moved to initChoosedImagesRecycleView
-        }
+        }*/
         return view;
     }
 
@@ -121,6 +124,10 @@ public class ComposeFragment extends Fragment {
         choosedImagesAdapter = new ChoosedImagesAdapter();
         choosedImagesAdapter.setImagesIds(imagesUris);
         imagesRecycleView.setAdapter(choosedImagesAdapter);
+        if(args.getString("source").equals("postClickedFragment")){
+            shareButton.setText(R.string.save);
+            getPostById(); //maybe needs to be moved to initChoosedImagesRecycleView
+        }
     }
 
     private void initDateFeild() {
@@ -139,7 +146,7 @@ public class ComposeFragment extends Fragment {
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                String _date = datePicker.getDayOfMonth()+"/"+datePicker.getMonth()
+                String _date = datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+1
                         +"/"+datePicker.getYear();
                 date.setText(_date);
             }
@@ -206,11 +213,12 @@ public class ComposeFragment extends Fragment {
                     }else{
                         HashMap<String, RequestBody> body = new HashMap<>();
                         body.put("destination", NewsUtil.createRequestFromString(editDestination.getText().toString()));
-                        body.put("tripDate", NewsUtil.createRequestFromString(date.getText().toString().replace("/", "-")+"T00:00:00.000Z"));
+                        body.put("date", NewsUtil.createRequestFromString(date.getText().toString().replace("/", "-")+"T00:00:00.000Z"));
                         body.put("duration", NewsUtil.createRequestFromString(editPeriod.getText().toString()));
                         body.put("price", NewsUtil.createRequestFromString(editPrice.getText().toString()));
+                        body.put("text", NewsUtil.createRequestFromString(editDestination.getText().toString()));
                         // TODO image & userid
-                        //postTrip(p);
+                        postTrip(body, NewsUtil.getFilesParts("pictures", paths));
                     }
                 }
                 else if(source.equals("postClickedFragment")){
@@ -307,16 +315,25 @@ public class ComposeFragment extends Fragment {
             if(resultCode == Activity.RESULT_OK&&data!=null){
                 if(data.getClipData() != null){
                     int size = data.getClipData().getItemCount();
+
+                    Bitmap bitmap;
                     for(int i = 0;i < size;i++){
                         Uri imageUri = data.getClipData().getItemAt(i).getUri();
-                        imagesUris.add(
-                                imageUri
-                        );
                         Cursor cursor = requireContext().getContentResolver().query(
                                 imageUri, null, null, null,null
                         );
+
                         if(cursor.moveToFirst()){
                             paths.add(cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)));
+                        }
+                        cursor.close();
+                        try{
+                            bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+                            imagesUris.add(
+                                    bitmap
+                            );
+                        }catch (IOException e){
+                            e.printStackTrace();
                         }
                     }
                     choosedImagesAdapter.notifyItemRangeInserted(
@@ -324,16 +341,24 @@ public class ComposeFragment extends Fragment {
                             ,size);
                 } else {
                     Uri imageUri = data.getData();
-                    imagesUris.add(
+                    try{
+                        Bitmap bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
+                        imagesUris.add(
+                                bitmap
+                        );
+                        choosedImagesAdapter.notifyItemInserted(choosedImagesAdapter.getItemCount()-1);
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
+                    /*imagesUris.add(
                             imageUri
-                    );
+                    );*/
                     Cursor cursor = requireContext().getContentResolver().query(
                             imageUri, null, null, null,null
                     );
                     if(cursor.moveToFirst()){
-                        paths.add(cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)));
+                        paths.add(cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)));
                     }
-                    choosedImagesAdapter.notifyItemInserted(choosedImagesAdapter.getItemCount()-1);
                 }
             }
         }
@@ -354,7 +379,8 @@ public class ComposeFragment extends Fragment {
                         editPeriod.setText(String.valueOf(p.maxduration));
                         editPrice.setText(String.valueOf(p.maxduration));
                         description.setText(p.text);
-                        // set pictures
+                        imagesUris.addAll(NewsUtil.urlsToBitmaps(p.pictures, requireContext()));
+                        choosedImagesAdapter.notifyItemRangeInserted(0, imagesUris.size()-1);
                     }
                 }
             }
@@ -369,10 +395,11 @@ public class ComposeFragment extends Fragment {
         HashMap<String, RequestBody> body = new HashMap<>();
         body.put("duration", NewsUtil.createRequestFromString(editPeriod.getText().toString()));
         body.put("price", NewsUtil.createRequestFromString(editPrice.getText().toString()));
-        body.put("description", NewsUtil.createRequestFromString(description.getText().toString()));
-        body.put("tripDate", NewsUtil.createRequestFromString(
+        body.put("text", NewsUtil.createRequestFromString(description.getText().toString()));
+        body.put("date", NewsUtil.createRequestFromString(
                 date.getText().toString().replace("/", "-")+"T00:00:00.000Z"
         ));
+        body.put("destination", NewsUtil.createRequestFromString(editDestination.getText().toString()));
         //picture
 
         Call<Post> call = NewsUtil.getInstance().getNewsService().updateTrip(
@@ -388,7 +415,6 @@ public class ComposeFragment extends Fragment {
                 navController.getPreviousBackStackEntry().getSavedStateHandle().set("postLiveData", bundle);
                 navController.popBackStack();
             }
-
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 Bundle bundle = new Bundle();

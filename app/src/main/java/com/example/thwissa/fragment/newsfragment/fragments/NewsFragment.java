@@ -323,15 +323,14 @@ public class NewsFragment extends Fragment {
         composeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                navController.navigate(R.id.action_newsFragment_to_registrationTypeFragment);
-//                if(spuserdata.getUserLoggedIn()){
-//                    if(spuserdata.getLoggedInUser().getRole().equals("user")) return; //TODO show a messgae
-                    Bundle bundle = new Bundle();
-                    bundle.putString("source", "compose");
-                    navController.navigate(R.id.action_newsFragment_to_composeFragment, bundle);
-//                }
-//                else{
-//                }
+                if(spuserdata.getUserLoggedIn()){
+                    if(spuserdata.getLoggedInUser().getRole().equals("user")) return; //TODO show a messgae
+                        Bundle bundle = new Bundle();
+                        bundle.putString("source", "compose");
+                        navController.navigate(R.id.action_newsFragment_to_composeFragment, bundle);
+                }else{
+                    navController.navigate(R.id.action_newsFragment_to_registrationTypeFragment);
+                }
             }
         });
     }

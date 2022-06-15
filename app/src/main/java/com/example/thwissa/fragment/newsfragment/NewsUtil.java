@@ -3,12 +3,23 @@ package com.example.thwissa.fragment.newsfragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.util.Base64;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -29,9 +40,28 @@ public class NewsUtil {
                 .build();
         this.jsonPlaceHolder = retrofit.create(NewsService.class);
     }
-
-    public void getUrl(){
-
+    public static ArrayList<Bitmap> urlsToBitmaps(ArrayList<String> pictures, Context context) {
+        ArrayList<Bitmap> bitmaps = new ArrayList<>();
+        String url;
+        for(String str : pictures){
+            if(str != null && !str.equals("")){
+                url = NewsService.BASE_URL+ "/" +str.split("/")[1];
+                bitmaps.add(getBitmapFromURL(url, context));
+            }
+        }
+        return bitmaps;
+    }
+    public static Bitmap getBitmapFromURL(String src, Context context) {
+        try {
+            return Glide.with(context)
+                    .asBitmap()
+                    .load(src)
+                    .submit()
+                    .get();
+        } catch (Exception e) {
+            // Log exception
+            return null;
+        }
     }
 
     public static NewsUtil getInstance() {
