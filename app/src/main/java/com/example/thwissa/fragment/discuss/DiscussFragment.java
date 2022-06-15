@@ -150,8 +150,6 @@ public class DiscussFragment extends Fragment {
                 dialog.dismiss();
             }
         });
-
-
         bt_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

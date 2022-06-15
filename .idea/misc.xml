@@ -48,6 +48,7 @@
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/view_pager_layout.xml" value="0.20416666666666666" />
         <entry key="..\:/Android Projects/thwissa/app/src/main/res/layout/wilaya_recycler_view_item.xml" value="0.20416666666666666" />
         <entry key="app/src/main/res/drawable-v24/ic_baseline_person_24.xml" value="0.1015" />
+        <entry key="app/src/main/res/layout/activity_first_run2.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.17864583333333334" />
         <entry key="app/src/main/res/layout/agency_profile.xml" value="0.1" />
         <entry key="app/src/main/res/layout/agency_sign_up.xml" value="0.19375" />
@@ -88,6 +89,7 @@
         <entry key="app/src/main/res/layout/review.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/shimmer_posts_effect_item.xml" value="0.11666666666666667" />
         <entry key="app/src/main/res/layout/shimmer_trip_effect.xml" value="0.11666666666666667" />
+        <entry key="app/src/main/res/layout/slider_layout1.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/top_pictures_viewer_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/tourist_sign_up.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/verification_screen.xml" value="0.19375" />
