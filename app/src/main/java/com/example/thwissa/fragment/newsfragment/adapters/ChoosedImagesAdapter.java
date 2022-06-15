@@ -1,5 +1,6 @@
 package com.example.thwissa.fragment.newsfragment.adapters;
 
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ import java.util.ArrayList;
 public class ChoosedImagesAdapter extends RecyclerView.Adapter<ChoosedImagesAdapter.InnerViewHolder>{
 
 
-    private ArrayList<Uri> ImagesIds = new ArrayList<>();
+    private ArrayList<Bitmap> ImagesIds = new ArrayList<>();
 
     @NonNull
     @Override
@@ -30,7 +31,7 @@ public class ChoosedImagesAdapter extends RecyclerView.Adapter<ChoosedImagesAdap
 
     @Override
     public void onBindViewHolder(@NonNull InnerViewHolder holder, int position) {
-        holder.imageView.setImageURI(
+        holder.imageView.setImageBitmap(
                 ImagesIds.get(position)
         );
         holder.floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -47,7 +48,7 @@ public class ChoosedImagesAdapter extends RecyclerView.Adapter<ChoosedImagesAdap
         return ImagesIds.size();
     }
 
-    public void setImagesIds(ArrayList<Uri> imagesIds) {
+    public void setImagesIds(ArrayList<Bitmap> imagesIds) {
         ImagesIds = imagesIds;
     }
 

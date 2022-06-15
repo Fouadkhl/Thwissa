@@ -3,11 +3,15 @@ package com.example.thwissa.fragment.newsfragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.util.Base64;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,5 +104,28 @@ public class NewsUtil {
                 file
         );
         return MultipartBody.Part.createFormData(partName, file.getName(), requestFile);
+    }
+
+    public static ArrayList<Bitmap> urlsToBitmaps(ArrayList<String> strings){
+        ArrayList<Bitmap> bitmaps = new ArrayList<>();
+        String url;
+        Bitmap bt;
+        for(String str : strings){
+            if(str != null && !str.equals("")) {
+                url = NewsService.BASE_URL + "/" + str.split("/")[1];
+                try {
+                    URL u = new URL(url);
+                    try {
+                        bt = BitmapFactory.decodeStream(u.openConnection().getInputStream());
+                        bitmaps.add(bt);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return bitmaps;
     }
 }

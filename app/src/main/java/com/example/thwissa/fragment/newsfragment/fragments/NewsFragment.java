@@ -323,14 +323,17 @@ public class NewsFragment extends Fragment {
         composeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(spuserdata.getUserLoggedIn()){
+                /*if(spuserdata.getUserLoggedIn()){
                     if(spuserdata.getLoggedInUser().getRole().equals("user")) return; //TODO show a messgae
                         Bundle bundle = new Bundle();
                         bundle.putString("source", "compose");
                         navController.navigate(R.id.action_newsFragment_to_composeFragment, bundle);
                 }else{
                     navController.navigate(R.id.action_newsFragment_to_registrationTypeFragment);
-                }
+                }*/
+                Bundle bundle = new Bundle();
+                bundle.putString("source", "compose");
+                navController.navigate(R.id.action_newsFragment_to_composeFragment, bundle);
             }
         });
     }
@@ -434,6 +437,7 @@ public class NewsFragment extends Fragment {
                     if(posts != null && posts.trips != null){
                         Collections.sort(posts.trips);
                         data.clear();
+                        trips_adapter.notifyDataSetChanged();
                         for(int i = 0;i < Math.min(10, posts.trips.size());i++){
                             data.add(new Trip(posts.trips.get(i)));
                         }
