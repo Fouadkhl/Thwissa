@@ -138,7 +138,6 @@ public class DiscussFragment extends Fragment {
         // ImageButton bt_location = dialog.findViewById(R.id.bt_location);
         ImageButton bt_setting = dialog.findViewById(R.id.bt_setting);
         choosedImage = dialog.findViewById(R.id.choosedImage);
-
         bt_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

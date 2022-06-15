@@ -82,8 +82,11 @@ public class QuizPagerAdapter extends RecyclerView.Adapter<QuizPagerAdapter.View
                 }
             }
         });
-        TextView tv = holder.itemView.findViewById(R.id.popoutText);
-        tv.setText("number of true answers : "+this.trueAnswersCounter+tv.getText());
+        if(position == getItemCount()-1){
+            TextView tv = holder.itemView.findViewById(R.id.popoutText);
+            tv.setText("number of true answers : "+this.trueAnswersCounter+tv.getText()+"\n");
+
+        }
     }
 
     public void inc(boolean b){

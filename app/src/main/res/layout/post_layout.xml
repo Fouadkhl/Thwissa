@@ -56,13 +56,12 @@
                 android:id="@+id/postTime"
                 android:layout_width="wrap_content"
                 android:layout_height="25dp"
-                android:layout_toEndOf="@id/user_name"
                 android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/user_name"
                 android:text="5h ago"
                 android:textSize="13sp"
                 android:textStyle="bold" />
         </RelativeLayout>
-
         <ImageView
             android:id="@+id/bookMark"
             android:layout_width="40dp"

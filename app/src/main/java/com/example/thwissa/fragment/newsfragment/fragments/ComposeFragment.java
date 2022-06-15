@@ -316,10 +316,17 @@ public class ComposeFragment extends Fragment {
                 if(data.getClipData() != null){
                     int size = data.getClipData().getItemCount();
 
-                    Cursor cursor;
                     Bitmap bitmap;
                     for(int i = 0;i < size;i++){
                         Uri imageUri = data.getClipData().getItemAt(i).getUri();
+                        Cursor cursor = requireContext().getContentResolver().query(
+                                imageUri, null, null, null,null
+                        );
+
+                        if(cursor.moveToFirst()){
+                            paths.add(cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA)));
+                        }
+                        cursor.close();
                         try{
                             bitmap = MediaStore.Images.Media.getBitmap(requireActivity().getContentResolver(), imageUri);
                             imagesUris.add(
@@ -328,14 +335,6 @@ public class ComposeFragment extends Fragment {
                         }catch (IOException e){
                             e.printStackTrace();
                         }
-                        cursor = requireContext().getContentResolver().query(
-                                imageUri, null, null, null,null
-                        );
-
-                        if(cursor.moveToFirst()){
-                            paths.add(cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA)));
-                        }
-                        cursor.close();
                     }
                     choosedImagesAdapter.notifyItemRangeInserted(
                             choosedImagesAdapter.getItemCount() - size
@@ -380,7 +379,7 @@ public class ComposeFragment extends Fragment {
                         editPeriod.setText(String.valueOf(p.maxduration));
                         editPrice.setText(String.valueOf(p.maxduration));
                         description.setText(p.text);
-                        imagesUris.addAll(NewsUtil.urlsToBitmaps(p.pictures));
+                        imagesUris.addAll(NewsUtil.urlsToBitmaps(p.pictures, requireContext()));
                         choosedImagesAdapter.notifyItemRangeInserted(0, imagesUris.size()-1);
                     }
                 }
@@ -416,7 +415,6 @@ public class ComposeFragment extends Fragment {
                 navController.getPreviousBackStackEntry().getSavedStateHandle().set("postLiveData", bundle);
                 navController.popBackStack();
             }
-
             @Override
             public void onFailure(Call<Post> call, Throwable t) {
                 Bundle bundle = new Bundle();

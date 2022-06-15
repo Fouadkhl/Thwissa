@@ -150,7 +150,7 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.MyViewHo
                     currentDiscuss.liked = false;
                 }
                 if(currentDiscuss.disliked){
-                    currentDiscuss.dislikeNum++;
+                    currentDiscuss.dislikeNum--;
                     holder.dislikes.setText(String.valueOf(currentDiscuss.dislikeNum));
                     currentDiscuss.disliked = false;
                     dislike(currentDiscuss._id);
@@ -172,7 +172,7 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.MyViewHo
                     currentDiscuss.disliked = false;
                 }
                 if (currentDiscuss.liked) {
-                    currentDiscuss.likeNum++;
+                    currentDiscuss.likeNum--;
                     holder.likes.setText(String.valueOf(currentDiscuss.likeNum));
                     currentDiscuss.liked = false;
                     like(currentDiscuss._id);

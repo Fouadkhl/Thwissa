@@ -80,6 +80,7 @@
         <entry key="app/src/main/res/layout/item_discuss_recyclerview.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/item_profile.xml" value="0.33" />
         <entry key="app/src/main/res/layout/log_in_screen.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/post_layout.xml" value="0.19322916666666667" />
         <entry key="app/src/main/res/layout/profile_image_and_text.xml" value="0.15670289855072464" />
         <entry key="app/src/main/res/layout/profile_screen.xml" value="0.18" />
         <entry key="app/src/main/res/layout/register_screen.xml" value="0.15052083333333333" />
