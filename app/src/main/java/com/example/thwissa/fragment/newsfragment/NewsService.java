@@ -24,7 +24,7 @@ public interface NewsService {
 
      // String BASE_URL = "http://192.168.43.220:5000"; // MY PHONE
     // String BASE_URL = "http://192.168.1.17:5000"; // HOME
-    String BASE_URL = "http://192.168.43.248:5000"; //FOUAD
+    String BASE_URL = "http://192.168.43.248:5000"; // FOUAD
      // String BASE_URL = "http://192.168.43.157:5000";
 
     // trips
