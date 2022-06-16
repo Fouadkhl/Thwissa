@@ -25,15 +25,12 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.thwissa.fragment.ProfileFragment"
+        android:name="com.example.thwissa.fragment.ProfileFragment2"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_editProfile"
-            app:destination="@id/editProfile" />
         <action
             android:id="@+id/action_profileFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -43,6 +40,12 @@
         <action
             android:id="@+id/action_profileFragment_to_agencyProfileFragment"
             app:destination="@id/agencyProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileFragment22"
+            app:destination="@id/profileFragment2" />
+        <action
+            android:id="@+id/action_profileFragment_to_profileFragment2"
+            app:destination="@id/profileFragment2" />
     </fragment>
     <fragment
         android:id="@+id/newsFragment"
@@ -59,8 +62,8 @@
             android:id="@+id/action_newsFragment_to_postClickedFragment"
             app:destination="@id/postClickedFragment" />
         <action
-            android:id="@+id/action_newsFragment_to_registrationTypeFragment"
-            app:destination="@id/registrationTypeFragment" />
+            android:id="@+id/action_newsFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/entertainmentFragment"
@@ -224,22 +227,22 @@
         android:name="com.example.thwissa.fragment.auth.RegistrationTypeFragment"
         android:label="RegistrationTypeFragment" >
         <action
-            android:id="@+id/action_registrationTypeFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
             android:id="@+id/action_registrationTypeFragment_to_agencySignupFragment"
             app:destination="@id/agencySignupFragment" />
+        <action
+            android:id="@+id/action_registrationTypeFragment_to_signupFragment"
+            app:destination="@id/signupFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.thwissa.fragment.auth.LoginFragment"
         android:label="LoginFragment" >
         <action
-            android:id="@+id/action_loginFragment_to_signupFragment"
-            app:destination="@id/signupFragment" />
-        <action
             android:id="@+id/action_loginFragment_to_enterEmailResetPassword"
             app:destination="@id/enterEmailResetPassword" />
+        <action
+            android:id="@+id/action_loginFragment_to_registrationTypeFragment"
+            app:destination="@id/registrationTypeFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeValidationFragment"
@@ -319,5 +322,14 @@
         <action
             android:id="@+id/action_editAgencyProfile_to_agencyProfileFragment"
             app:destination="@id/agencyProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.example.thwissa.fragment.ProfileFragment"
+        android:label="ProfileFragment2"
+        tools:layout="@layout/profile_screen">
+        <action
+            android:id="@+id/action_profileFragment2_to_editProfile"
+            app:destination="@id/editProfile" />
     </fragment>
 </navigation>

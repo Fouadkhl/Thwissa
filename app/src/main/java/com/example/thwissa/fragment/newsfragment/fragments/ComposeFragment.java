@@ -146,8 +146,8 @@ public class ComposeFragment extends Fragment {
         setListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
-                String _date = datePicker.getDayOfMonth()+"/"+datePicker.getMonth()+1
-                        +"/"+datePicker.getYear();
+                String _date = datePicker.getYear()+"/"+(datePicker.getMonth()+1)
+                        +"/"+datePicker.getDayOfMonth();
                 date.setText(_date);
             }
         };
@@ -261,7 +261,8 @@ public class ComposeFragment extends Fragment {
 
     private boolean beforeCurrentDate(String toString) {
         try {
-            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(toString);
+            String[] arr = toString.split("/");
+            Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(arr[2]+"/"+arr[1]+"/"+arr[0]);
             Date date2 = new Date();
             if (date1 != null) {
                 return date1.before(date2);

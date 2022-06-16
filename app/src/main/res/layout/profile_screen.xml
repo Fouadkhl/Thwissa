@@ -169,5 +169,8 @@
                 android:layout_marginEnd="24dp"
                 app:text="@{@string/logout}" />
         </LinearLayout>
+
+
     </ScrollView>
+
 </layout>

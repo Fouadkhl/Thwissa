@@ -2,11 +2,13 @@ package com.example.thwissa.Adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.thwissa.R
 import com.example.thwissa.databinding.ItemRegionBinding
 import com.example.thwissa.dataclasses.WillayaStory
+import com.example.thwissa.utils.Constants
 
 class PlacesAdapter2(private val listofregions : ArrayList<WillayaStory>)
     : RecyclerView.Adapter<PlacesAdapter2.PlaceViewAdapter>()  {
@@ -26,10 +28,26 @@ class PlacesAdapter2(private val listofregions : ArrayList<WillayaStory>)
     override fun onBindViewHolder(holder: PlaceViewAdapter, position: Int) {
         val item = listofregions[position]
         holder.photo.setImageResource(item.image)
-        holder.photo.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_wilayasFragment)
-        }
         holder.willaya.text = item.text
+
+        if (item.text.equals("Coastal")) {
+            holder.photo.setOnClickListener {
+                val bundle  = bundleOf("one" to  1)
+                Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_wilayasFragment , bundle)
+            }
+
+        }else if (item.text.equals("Hills")) {
+            holder.photo.setOnClickListener {
+                val bundle  = bundleOf("one" to 2)
+                Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_wilayasFragment , bundle)
+            }
+        }else {
+            holder.photo.setOnClickListener {
+                val bundle  = bundleOf("one" to 3)
+                Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_wilayasFragment , bundle)
+            }
+        }
+
 
     }
 

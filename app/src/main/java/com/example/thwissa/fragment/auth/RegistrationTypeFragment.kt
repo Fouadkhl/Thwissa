@@ -25,7 +25,7 @@ class RegistrationTypeFragment : Fragment() {
         binding = RegisterScreenBinding.inflate(inflater, container, false)
 
         binding.btnTravelerRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_registrationTypeFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_registrationTypeFragment_to_signupFragment)
         }
 
         binding.btnAgencyRegister.setOnClickListener {

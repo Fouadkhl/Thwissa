@@ -2,7 +2,9 @@ package com.example.thwissa.fragment.auth.userAuth
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -19,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.thwissa.LogService
 import com.example.thwissa.R
 import com.example.thwissa.databinding.TouristSignUpBinding
+import com.example.thwissa.dataclasses.AgencyRes
 import com.example.thwissa.dataclasses.UserRes
 import com.example.thwissa.fragment.auth.validation.BaseValidator
 import com.example.thwissa.fragment.auth.validation.controlValidators.ConfirmPasswordValidator
@@ -55,6 +58,8 @@ class SignupFragment : Fragment() {
     lateinit var gsc: GoogleSignInClient
     lateinit var callbackManager: CallbackManager
 
+    lateinit var sharedPreferences: SharedPreferences
+
     private lateinit var binding: TouristSignUpBinding
     var picturePath: String? = null
 
@@ -64,6 +69,8 @@ class SignupFragment : Fragment() {
     ): View {
         binding = TouristSignUpBinding.inflate(inflater, container, false)
 
+        sharedPreferences = MyApp.getContext()
+            .getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE)
         return binding.root
     }
 
@@ -205,10 +212,7 @@ class SignupFragment : Fragment() {
         userinfo.put("email", createPartFromString(binding.etEmail.text.toString()))
         userinfo.put("password", createPartFromString(binding.etPassword.text.toString()))
         userinfo.put("location", createPartFromString(binding.etLocation.text.toString()))
-        userinfo.put(
-            "confirmepassword",
-            createPartFromString(binding.etConfirmPassword.text.toString())
-        )
+        userinfo.put("confirmepassword", createPartFromString(binding.etConfirmPassword.text.toString())        )
 //            var gender = binding.radioGroup.checkedRadioButtonId // 0 for male and 1 for female
 //            userinfo.put("gender", gender.toString())
 
@@ -229,8 +233,8 @@ class SignupFragment : Fragment() {
                         ).show()
 
                         val res = response.body()
-                        spUserData.setUserLoggedIn(true)
-                        spUserData.StoreUserData(res!!)
+                        storeUsertoSharedPreferences(res!!)
+                        setUserLoggedIn(true)
                         // TODO: save data in external storage and set the user loggedin
 
 
@@ -242,11 +246,12 @@ class SignupFragment : Fragment() {
                             USER_ROLE to 1,
                             Constants.USER_ID to res.id
                         )
-                        findNavController().popBackStack()
                         findNavController().navigate(
                             R.id.action_signupFragment_to_codeValidationFragment,
                             bundle
                         )
+//                        findNavController().popBackStack()
+
 
                     } else {
                         Toast.makeText(
@@ -258,11 +263,11 @@ class SignupFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<UserRes>, t: Throwable) {
-                    Toast.makeText(
-                        this@SignupFragment.context,
-                        "sign up fail ${t.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+//                    Toast.makeText(
+//                        this@SignupFragment.context,
+//                        "sign up fail ${t.message}",
+//                        Toast.LENGTH_SHORT
+//                    ).show()
                     Log.i("signupuser", "onFailure:${t.message} ")
                 }
             }
@@ -296,52 +301,28 @@ class SignupFragment : Fragment() {
         findNavController().navigate(R.id.action_signupFragment_to_profileFragment)
     }
 
+    fun storeUsertoSharedPreferences(user: UserRes) {
+        val spEditor = sharedPreferences.edit()
+        spEditor.apply {
+            putString("name", user.name)
+            putString("email", user.email)
+            putString("userid", user.id)
+            putString("userLocation", user.location)
+            putString("userPicture", user.picture)
+            putString("userRole", "User")
+//            putBoolean("isvalidate" , user.isvalidate)
+        }
+        spEditor.apply()
+    }
+
+    fun setUserLoggedIn(loggedin: Boolean) {
+        val spEditor = sharedPreferences.edit()
+        spEditor.putBoolean("loggedIn", loggedin)
+        spEditor.apply()
+    }
+
+
+
+
 
 }
-
-
-//
-//        val EMAIL = "public_profile"
-//
-//        binding.signupFacebook.setReadPermissions(listOf(EMAIL))
-//        // If you are using in a fragment, call loginButton.setFragment(this);
-//
-//        // Callback registration
-//        binding.signupFacebook.registerCallback(callbackManager, object : FacebookCallback<LoginResult?> {
-//
-//            override fun onSuccess(result: LoginResult?) {
-//                navigateToProfileFragment()
-//            }
-//
-//            override fun onCancel() {
-//                // App code
-//            }
-//
-//            override fun onError(exception: FacebookException) {
-//                Toast.makeText(
-//                    requireContext(),
-//                    "an error occurred please check your facebook again",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        })
-
-
-
-//private fun uploadImageToDatabase() = CoroutineScope(Dispatchers.IO).launch {
-//    try {
-//        curFile?.let {
-////                imageRef.child("images/$fileName").putFile(it).await()
-//            withContext(Dispatchers.Main) {
-//                Toast.makeText(
-//                    requireContext(), "the image is uploaded to the storage ",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//            }
-//        }
-//    } catch (e: Exception) {
-//        withContext(Dispatchers.Main) {
-//            Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-//        }
-//    }
-//}

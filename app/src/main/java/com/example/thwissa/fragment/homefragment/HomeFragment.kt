@@ -28,8 +28,10 @@ import com.android.volley.toolbox.Volley
 import com.example.mybottomsheet.ModalBottomSheet
 import com.example.thwissa.Adapter.PlacesAdapter2
 import com.example.thwissa.Adapter.StoriesAdapter
+import com.example.thwissa.LogService
 import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentHomeBinding
+import com.example.thwissa.dataclasses.Willaya
 import com.example.thwissa.dataclasses.WillayaStory
 import com.example.thwissa.fragment.homefragment.willaya.Place
 import com.example.thwissa.fragment.homefragment.willaya.Place.Tip
@@ -39,6 +41,8 @@ import com.example.thwissa.utils.Constants
 import kotlinx.coroutines.flow.collectLatest
 import org.json.JSONException
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
 import java.text.DecimalFormat
 import java.text.NumberFormat
 
@@ -400,5 +404,8 @@ class HomeFragment : Fragment() {
         }
         binding.rvRecommendedPlaces.setAdapter(mTopRatedAdapter)
     }
+
+
+
 
 }

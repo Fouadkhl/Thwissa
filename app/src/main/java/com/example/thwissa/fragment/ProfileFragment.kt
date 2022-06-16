@@ -1,6 +1,8 @@
 package com.example.thwissa.fragment
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +17,7 @@ import com.example.thwissa.LogService
 import com.example.thwissa.R
 import com.example.thwissa.databinding.ProfileScreenBinding
 import com.example.thwissa.repository.userLocalStore.SPUserData
+import com.example.thwissa.utils.Constants
 import com.example.thwissa.utils.MyApp
 import com.facebook.AccessToken
 import com.facebook.GraphRequest
@@ -32,6 +35,7 @@ class ProfileFragment : Fragment() {
 
     lateinit var gso: GoogleSignInOptions
     lateinit var gsc: GoogleSignInClient
+    lateinit var sharedPreferences: SharedPreferences
 
     lateinit var binding: ProfileScreenBinding
     override fun onCreateView(
@@ -49,7 +53,7 @@ class ProfileFragment : Fragment() {
 
             myTrip.ivNextMyTrip.setOnClickListener {
                 Navigation.findNavController(binding.root)
-                    .navigate(R.id.action_profileFragment_to_editProfile)
+                    .navigate(R.id.action_profileFragment2_to_editProfile)
             }
             /** FAVORITE NAVIGATION */
             favorite.ivNextMyTrip.setOnClickListener {
@@ -201,8 +205,9 @@ class ProfileFragment : Fragment() {
 
 //    override fun onCreate(savedInstanceState: Bundle?) {
 //        super.onCreate(savedInstanceState)
-//        if (true) { // if the user is agency
-//            findNavController().navigate(R.id.action_profileFragment_to_agencyProfileFragment)
+//        sharedPreferences =MyApp.getContext().getSharedPreferences(Constants.SHARED_PREFERENCES, Context.MODE_PRIVATE)
+//        if (sharedPreferences.getBoolean("loggedIn" , false)) { // if the user is agency
+//            binding.agencyProfile.visibility = View.VISIBLE
 //        }
 //    }
 

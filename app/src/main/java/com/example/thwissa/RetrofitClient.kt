@@ -135,7 +135,21 @@ interface RetrofitInterface {
     )
 
     @GET("/agencyScreen/{id}/lastTrip")
-    fun getLastAgencyTrip(@Path("id") agencyid: String) : Call<Post>
+    fun getLastAgencyTrip(  @Path("id") agencyid: String) : Call<LastTrip>
+
+    @GET("/wilaya")
+    fun getWillaya() : Call<List<Willaya>>
+
+    @GET("/Coastal")
+    fun getWillayaHills() : Call<List<Willaya>>
+
+    @GET("/Hills")
+    fun getWillayaCoastal() : Call<List<Willaya>>
+
+    @GET("/Desert")
+    fun getWillayaDesert() : Call<List<Willaya>>
+
+
 
 //    @GET("/filter")
 //    fun excuteFilter(@QueryMap map  : HashMap<String , Any>) : Call<>

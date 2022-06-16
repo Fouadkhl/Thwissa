@@ -1,25 +1,30 @@
 package com.example.thwissa.fragment.homefragment.willaya;
 
+import android.provider.ContactsContract;
+
 /**
  * RECYCLER VIEW ITEM: image + name
  */
 public class Wilaya {
-    private int mImageResource;
+
+
+
+    private String mImageResource;
     private String mWilayaName;
 
     // CONSTRUCTOR
-    public Wilaya(int imageResource, String wilayaName) {
+    public Wilaya(String imageResource, String wilayaName) {
         this.mImageResource = imageResource;
         this.mWilayaName = wilayaName;
     }
 
 
     // GETTERS & SETTERS
-    public int getmImageResource() {
+    public String getmImageResource() {
         return mImageResource;
     }
 
-    public void setmImageResource(int mImageResource) {
+    public void setmImageResource(String mImageResource) {
         this.mImageResource = mImageResource;
     }
 

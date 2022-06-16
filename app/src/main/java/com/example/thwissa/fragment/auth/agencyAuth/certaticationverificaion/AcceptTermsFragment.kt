@@ -196,7 +196,11 @@ class AcceptTermsFragment : Fragment() {
     fun storeAgencyToGetData(user: AgencyRes) {
         val spEditor = sharedPreferences.edit()
         spEditor.apply {
-            putString("agencyId", user.id)
+            putString("name", user.name)
+            putString("email", user.email)
+            putString("userid", user.id)
+            putString("userLocation", user.location)
+            putString("userPicture", user.picture)
             putString("userRole", "Agency")
 //            putBoolean("isvalidate" , user.isvalidate)
         }

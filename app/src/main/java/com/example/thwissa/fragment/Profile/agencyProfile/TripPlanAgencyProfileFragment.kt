@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.example.thwissa.LogService
 import com.example.thwissa.R
 import com.example.thwissa.databinding.FragmentTripPlanAgencyProfileBinding
+import com.example.thwissa.dataclasses.LastTrip
 import com.example.thwissa.fragment.newsfragment.adapters.ChoosedImagesAdapter
 import com.example.thwissa.fragment.newsfragment.classes.Post
 import com.example.thwissa.repository.userLocalStore.SPUserData
@@ -38,7 +39,7 @@ class TripPlanAgencyProfileFragment : Fragment() {
         val role = sharedPreferences.getString("userRole" , "")
         if (role.equals("Agency")){
             val agencyid = sharedPreferences.getString("agencyid" , "")!!
-            Log.d(TAG, "the agency existe : "  + role)
+            Log.d(TAG, "the agency existe :"+ role)
             Log.d(TAG, "agency id " +  agencyid)
             getLastAgencyTrip(agencyid)
         }else{
@@ -48,8 +49,8 @@ class TripPlanAgencyProfileFragment : Fragment() {
     }
 
     private fun getLastAgencyTrip(agencyid: String) {
-        LogService.retrofitService.getLastAgencyTrip(agencyid).enqueue(object  : Callback<Post>{
-            override fun onResponse(call: Call<Post>, response: Response<Post>) {
+        LogService.retrofitService.getLastAgencyTrip(agencyid).enqueue(object  : Callback<LastTrip>{
+            override fun onResponse(call: Call<LastTrip>, response: Response<LastTrip>) {
                 if (response.isSuccessful) {
                     upDateLastTrip(response.body()!!)
                 }else {
@@ -57,13 +58,13 @@ class TripPlanAgencyProfileFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<Post>, t: Throwable) {
+            override fun onFailure(call: Call<LastTrip>, t: Throwable) {
                 Log.d(TAG, "onfailure" + t.message)
             }
         })
     }
 
-    private fun upDateLastTrip(body: Post) {
+    private fun upDateLastTrip(body: LastTrip) {
         binding.date.text = body.data.date
         binding.destination.text = body.data.destination
         binding.description.text = body.data.text
