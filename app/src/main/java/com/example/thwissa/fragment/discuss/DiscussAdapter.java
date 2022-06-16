@@ -102,20 +102,31 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.MyViewHo
 
         // holder.profilePic.setImageBitmap();
         // holder.discussImage.setImageResource(currentDiscuss.getDiscussImageResource());
-        /*if(currentDiscuss.userpicture != null && !currentDiscuss.userpicture.equals("")){
-            String url = DiscussService.BASE_URL + "/" + currentDiscuss.userpicture.split("/")[1];
-            Glide.with(context)
-                    .asBitmap()
-                    .load(url)
-                    .into(holder.profilePic);
-        } else holder.profilePic.setImageResource(R.drawable.ic_baseline_person_24);*/
+        if(!userData.getUserLoggedIn() || !userData.getLoggedInUser().getId().equals(currentDiscuss._id)){
+            holder.delete.setVisibility(View.GONE);
+        }
+        if(currentDiscuss.userpicture != null && !currentDiscuss.userpicture.equals("")){
+            try{
+                String url = DiscussService.BASE_URL + "/" + currentDiscuss.userpicture.split("/")[1];
+                Glide.with(context)
+                        .asBitmap()
+                        .load(url)
+                        .into(holder.profilePic);
+            }catch (Exception e){
+                holder.profilePic.setImageResource(R.drawable.ic_baseline_person_24);
+            }
+        } else holder.profilePic.setImageResource(R.drawable.ic_baseline_person_24);
         if(currentDiscuss.picture!=null && !currentDiscuss.picture.equals("")){
-            String url;
-            url = DiscussService.BASE_URL + "/" + currentDiscuss.picture.split("/")[1];
-            Glide.with(context)
-                    .asBitmap()
-                    .load(url)
-                    .into(holder.discussImage);
+            try{
+                String url;
+                url = DiscussService.BASE_URL + "/" + currentDiscuss.picture.split("/")[1];
+                Glide.with(context)
+                        .asBitmap()
+                        .load(url)
+                        .into(holder.discussImage);
+            }catch (Exception e){
+                holder.discussImage.setVisibility(View.GONE);
+            }
         } else {
             holder.discussImage.setVisibility(View.GONE);
         }
@@ -131,7 +142,13 @@ public class DiscussAdapter extends RecyclerView.Adapter<DiscussAdapter.MyViewHo
         currentDiscuss.disliked = currentDiscuss.dislikes.contains(
                 new ReactionRes(userData.getLoggedInUser().getId())
         );
-
+        /*if(!userData.getUserLoggedIn()){
+            holder.likes.setVisibility(View.GONE);
+            holder.dislikes.setVisibility(View.GONE);
+            // holder.replyButton.setVisibility(View.GONE);
+            holder.replyInput.setVisibility(View.GONE);
+            holder.sendReplyButton.setVisibility(View.GONE);
+        }*/
         currentDiscuss.likeNum = currentDiscuss.likes.size();
         currentDiscuss.dislikeNum = currentDiscuss.dislikes.size();
         holder.likes.setText(String.valueOf(currentDiscuss.likeNum));

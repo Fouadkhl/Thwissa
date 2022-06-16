@@ -166,6 +166,14 @@ public class RepliesAdapter extends RecyclerView.Adapter<RepliesAdapter.InnerVie
                 onMoreButtonClicked.Click(reply._id, holder.getAdapterPosition());
             }
         });
+        /*if(!userData.getUserLoggedIn() || !userData.getLoggedInUser().getId().equals(reply._id)){
+            holder.moreButton.setVisibility(View.GONE);
+        }
+        if(!userData.getUserLoggedIn()){
+            holder.upButton.setVisibility(View.GONE);
+            holder.downButton.setVisibility(View.GONE);
+            holder.replyPic.setVisibility(View.GONE);
+        }*/
     }
 
     public void likeReply(String tripId, String replyId){
