@@ -197,8 +197,7 @@ public class PostClickedFragment extends Fragment {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
         bottomSheetDialog.setContentView(R.layout.bottom_sheet_dialog_layout);
         //init our layout elements
-        RelativeLayout report = bottomSheetDialog.findViewById(R.id.report);
-        RelativeLayout follow = bottomSheetDialog.findViewById(R.id.btn_follow);
+        //RelativeLayout report = bottomSheetDialog.findViewById(R.id.report);
         RelativeLayout bookmark = bottomSheetDialog.findViewById(R.id.bookMark);
         RelativeLayout edit = bottomSheetDialog.findViewById(R.id.edit);
         RelativeLayout delete = bottomSheetDialog.findViewById(R.id.delete);
@@ -207,12 +206,6 @@ public class PostClickedFragment extends Fragment {
         // compare post.getAgencyId() and choose what to show
         // compare post.isBookMarkClicked() and change imageView
 
-        if (report != null) {
-            report.setOnClickListener(view -> clickedEffect(report));
-        }
-        if (follow != null) {
-            follow.setOnClickListener(view -> clickedEffect(follow));
-        }
         if (bookmark != null) {
             bookmark.setOnClickListener(new View.OnClickListener() {
                 @Override

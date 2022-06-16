@@ -39,11 +39,13 @@ public class PostPictursViewPagerAdapter extends RecyclerView.Adapter<PostPictur
     public void onBindViewHolder(@NonNull InnerViewHolder holder, int position) {
         String url;
         for(String name : names){
-            url = NewsService.BASE_URL + "/" + name.split("/")[1];
-            Glide.with(context)
-                    .asBitmap()
-                    .load(url)
-                    .into(holder.shapeableImageView);
+            try{
+                url = NewsService.BASE_URL + "/" + name.split("/")[1];
+                Glide.with(context)
+                        .asBitmap()
+                        .load(url)
+                        .into(holder.shapeableImageView);
+            }catch (Exception ignored){}
         }
     }
 

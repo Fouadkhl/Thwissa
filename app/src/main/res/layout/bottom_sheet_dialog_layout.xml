@@ -63,58 +63,6 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/report"
-        android:paddingStart="30dp"
-        android:clickable="true"
-        android:paddingVertical="15dp"
-        >
-
-        <ImageView
-            android:id="@+id/reportIcon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginStart="10dp"
-            android:src="@drawable/ic_baseline_report_problem_24" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"
-            android:layout_toEndOf="@id/reportIcon"
-            android:text="@string/report"
-            android:textColor="@color/black"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_follow"
-        android:paddingStart="30dp"
-        android:clickable="true"
-        android:paddingVertical="15dp"
-        >
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:src="@drawable/ic_person_icon"
-            android:id="@+id/followIcon"
-            android:layout_marginStart="10dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/follow"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_toEndOf="@id/followIcon"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="20dp"/>
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:id="@+id/bookMark"
         android:paddingStart="30dp"
         android:clickable="true"
