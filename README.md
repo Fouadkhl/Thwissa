@@ -1,14 +1,14 @@
-# tourisme_app
-thwissa app is for local and foreign visitors want to discover Algeria, also for tourist agencies.
+# Tourisme_app
+Thwissa is and Android application that encourage tourism In algeria and bringing tourism agencies closer to tourists
 ## Features
-- Tourist Guide (Regions, States, Places)
-- Recommendation of tourist places
-- Overview of Articles, Photos, Reviews, Nearby Services, Location in gps
-- Stories (sharing photos )
-- NEWS (travel, advertising and agency promotions)
-- Post trips like an agency
-- Discussions & Answers
-## architecture 
+- Give a tourist Guide (Regions, States, Places)
+- Recommendation for tourist places
+- Preview  of Articles, Photos, Reviews, Nearby Services, Location .
+- Share and preview Stories (sharing photos )
+- Post trips  (agency)
+- Post a question and start a new Discussions 
+....
+## Architecture 
 This project follows the famous MVVM architecture 
 ![mvvm archi photo](https://user-images.githubusercontent.com/87452175/161861860-2b8d2829-89f6-49d9-83e1-5e46d4d34c45.png)
 ## tech stack
@@ -17,7 +17,7 @@ This project follows the famous MVVM architecture
 - Moshi for parsing JSON
 - tbuonomo for dots indicators
 
-## project structure
+## Project Structure
 
 ```
 ├── App.kt
