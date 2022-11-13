@@ -11,7 +11,7 @@ Thwissa is and Android application that encourage tourism In algeria and bringin
 ## Architecture 
 This project follows the famous MVVM architecture 
 ![mvvm archi photo](https://user-images.githubusercontent.com/87452175/161861860-2b8d2829-89f6-49d9-83e1-5e46d4d34c45.png)
-## tech stack
+## Tech Stack
 - kotlin and java as programming languages
 - Retrofit for data request and response 
 - Moshi for parsing JSON
