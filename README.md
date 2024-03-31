@@ -47,7 +47,8 @@ This project follows the famous MVVM architecture
 │   └── adapters
 └── utils
     ├──  useful function 
-    ├──  constants    
+    ├──  constants
+   
 ```
 10 directories, 40 files
 
