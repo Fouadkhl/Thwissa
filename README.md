@@ -40,24 +40,11 @@ This project follows the famous MVVM architecture
 ├── ui
 │   ├── fragments
 │   │   ├── home
-│   │   │   ├──  view model 
-│   │   │   └──  fragment
 │   │   ├── news
-│   │   │   ├── 
-│   │   │   └── 
 │   │   ├── discuss
-│   │   │   ├── 
-│   │   │   └── 
 │   │   ├── entertainment
-│   │   │   ├── 
-│   │   │   └── 
 │   │   ├── profile
-│   │   │   ├── 
-│   │   │   └──
-│   │   │  
 │   └── adapters
-│       ├── 
-│       └── 
 └── utils
     ├──  useful function 
     ├──  constants    
